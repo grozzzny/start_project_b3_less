@@ -53,6 +53,14 @@ $config = [
             'rules' => $routes,
         ],
     ],
+    'modules' => [
+        'admin' => [
+            'class' => 'grozzzny\admin\AdminModule',
+            'as access' => [
+                'class' => 'grozzzny\admin\behaviors\AccessControl',
+            ],
+        ],
+    ],
     'params' => $params,
 ];
 
