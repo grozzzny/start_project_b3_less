@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\web\View;
 
 /**
@@ -14,7 +15,7 @@ use yii\web\View;
         <div class="row align-items-center">
 
             <div class="col-6 col-md-3 col-xl-4  d-block">
-                <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">imagine<span class="text-primary">.</span> </a></h1>
+                <h1 class="mb-0 site-logo"><a href="<?=Url::to(['/'])?>" class="text-black h2 mb-0"><?= Yii::t('rus', 'Журнал судебных дел')?><span class="text-primary">.</span> </a></h1>
             </div>
 
             <div class="col-12 col-md-9 col-xl-8 main-menu">

@@ -52,12 +52,26 @@ $config = [
             'showScriptName' => false,
             'rules' => $routes,
         ],
+        'i18n' => [
+            'translations' => [
+                'rus' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'ru-RU',
+                    'basePath' => '@app/messages',
+                ],
+            ],
+        ],
     ],
     'modules' => [
         'admin' => [
             'class' => 'grozzzny\admin\AdminModule',
             'as access' => [
                 'class' => 'grozzzny\admin\behaviors\AccessControl',
+            ],
+            'modules' => [
+                'text' => [
+                    'class' => 'grozzzny\admin\modules\text\TextModule',
+                ],
             ],
         ],
     ],
@@ -78,6 +92,14 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
+        'generators' => [
+            'crud'   => [
+                'class'     => 'yii\gii\generators\crud\Generator',
+                'templates' => [
+                    'admin' => '@grozzzny/admin/templates/crud'
+                ]
+            ]
+        ]
     ];
 }
 
