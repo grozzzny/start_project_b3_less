@@ -96,7 +96,7 @@ if (YII_ENV_DEV) {
             'crud'   => [
                 'class'     => 'yii\gii\generators\crud\Generator',
                 'templates' => [
-                    'admin' => '@grozzzny/admin/templates/crud'
+                    'admin' => '@grozzzny/admin/templates/crud/default'
                 ]
             ]
         ]
