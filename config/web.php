@@ -68,6 +68,20 @@ $config = [
             'as access' => [
                 'class' => 'grozzzny\admin\behaviors\AccessControl',
             ],
+            'nav_items' => [
+                [
+                    'label' => 'Начальная',
+                    'url' => ['/admin/default']
+                ],
+                [
+                    'label' => 'Текстовые блоки',
+                    'url' => ['/admin/text/default']
+                ],
+                [
+                    'label' => 'Dashboard demo',
+                    'url' => 'https://www.bootstrapdash.com/demo/star-admin-free/jquery/src/demo_1/index.html',
+                ]
+            ],
             'modules' => [
                 'text' => [
                     'class' => 'grozzzny\admin\modules\text\TextModule',
