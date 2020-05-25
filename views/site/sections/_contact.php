@@ -1,5 +1,6 @@
 <?php
 
+use grozzzny\admin\modules\text\LiveEditText;
 use yii\web\View;
 
 /**
@@ -13,7 +14,7 @@ use yii\web\View;
     <div class="container">
         <div class="row mb-5">
             <div class="col-12 text-center">
-                <h2 class="section-title mb-3 text-white">Contact Us</h2>
+                <h2 class="section-title mb-3 text-white"><?=LiveEditText::widget(['slug' => 'section-contact-heading', 'label' => Yii::t('app', 'Contact Us')])?></h2>
             </div>
         </div>
         <div class="row justify-content-center">
