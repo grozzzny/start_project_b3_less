@@ -10,7 +10,7 @@ use yii\web\View;
 ?>
 
 
-<div class="site-section bg-image2 overlay" id="contact-section" style="background-image: url('images/hero_1.jpg');">
+<div class="site-section bg-image2 overlay" id="contact-section" style="background-image: url('/images/hero_1.jpg');">
     <div class="container">
         <div class="row mb-5">
             <div class="col-12 text-center">

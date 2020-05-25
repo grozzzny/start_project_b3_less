@@ -6,4 +6,6 @@ return [
     'Disabled live edit' => 'Отключить режим редактирования',
     'Enabled live edit' => 'Включить режим редактирования',
     'Create text' => 'Создать текст',
+    'Get Started' => 'Начать',
+    'Sign in' => 'Войти',
 ];
