@@ -9,4 +9,5 @@ return [
     'Create text' => 'Создать текст',
     'Get Started' => 'Начать',
     'Sign in' => 'Войти',
+    'Administration' => 'Управление делами',
 ];

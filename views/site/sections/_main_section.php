@@ -24,8 +24,13 @@ use yii\web\View;
                         <h1><?=LiveEditText::widget(['slug' => 'section-main-heading', 'label' => Yii::t('app', 'Make Your Business More Profitable')])?></h1>
                         <p class="mb-5"><?=LiveEditText::widget(['slug' => 'section-main-descriprion', 'label' => Yii::t('app', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam assumenda ea quo cupiditate facere deleniti fuga officia.')])?></p>
                         <div>
-                            <a href="#" class="btn btn-primary mr-2 mb-2"><?=Yii::t('app', 'Get Started')?></a>
-                            <a href="<?=Url::to(['/site/login'])?>" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign in')?></a>
+                            <? if(Yii::$app->user->isGuest):?>
+                                <a href="#" class="btn btn-primary mr-2 mb-2"><?=Yii::t('app', 'Get Started')?></a>
+                                <a href="<?=Url::to(['/site/login'])?>" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign in')?></a>
+                            <? else: ?>
+                                <a href="<?=Url::to(['/office'])?>" class="btn btn-primary mr-2 mb-2"><?=Yii::t('app', 'Administration')?></a>
+                                <a href="<?=Url::to(['/site/logout'])?>" data-method="post" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign Out')?></a>
+                            <? endif;?>
                         </div>
                     </div>
 
