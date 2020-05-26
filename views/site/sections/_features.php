@@ -1,5 +1,6 @@
 <?php
 
+use grozzzny\admin\modules\text\LiveEditText;
 use yii\web\View;
 
 /**
@@ -13,8 +14,8 @@ use yii\web\View;
     <div class="container">
         <div class="row mb-5 justify-content-center text-center"  data-aos="fade-up">
             <div class="col-7 text-center  mb-5">
-                <h2 class="section-title">Imagine Features</h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quos quaerat sapiente nam, id vero.</p>
+                <h2 class="section-title"><?=LiveEditText::widget(['slug' => 'section-features-heading', 'label' => Yii::t('app', 'Imagine Features')])?></h2>
+                <p class="lead"><?=LiveEditText::widget(['slug' => 'section-features-description', 'label' => Yii::t('app', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga quos quaerat sapiente nam, id vero.')])?></p>
             </div>
         </div>
         <div class="row align-items-stretch">
