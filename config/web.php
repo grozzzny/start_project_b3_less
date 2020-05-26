@@ -78,6 +78,22 @@ $config = [
                     'url' => ['/admin/text/default']
                 ],
                 [
+                    'label' => 'Преимущества',
+                    'url' => ['/admin/features/default']
+                ],
+                [
+                    'label' => 'Отзывы',
+                    'url' => ['/admin/testimonials/default']
+                ],
+                [
+                    'label' => 'Обратный звонок',
+                    'url' => ['/admin/feedback/default']
+                ],
+                [
+                    'label' => 'Ссылки соц. сетей',
+                    'url' => ['/admin/social_links/default']
+                ],
+                [
                     'label' => 'Dashboard demo',
                     'url' => 'https://www.bootstrapdash.com/demo/star-admin-free/jquery/src/demo_1/index.html',
                 ]
@@ -85,6 +101,18 @@ $config = [
             'modules' => [
                 'text' => [
                     'class' => 'grozzzny\admin\modules\text\TextModule',
+                ],
+                'features' => [
+                    'class' => 'grozzzny\admin\modules\features\FeaturesModule',
+                ],
+                'testimonials' => [
+                    'class' => 'grozzzny\admin\modules\testimonials\TestimonialsModule',
+                ],
+                'feedback' => [
+                    'class' => 'grozzzny\admin\modules\feedback\FeedbackModule',
+                ],
+                'social_links' => [
+                    'class' => 'grozzzny\admin\modules\social_links\SocialLinksModule',
                 ],
             ],
         ],
