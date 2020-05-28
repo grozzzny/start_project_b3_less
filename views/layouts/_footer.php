@@ -1,6 +1,6 @@
 <?php
 
-use yii\web\View;
+use grozzzny\admin\modules\social_links\models\AdminSocialLinks;use yii\web\View;
 
 /**
  * @var View $this
@@ -13,11 +13,9 @@ use yii\web\View;
         <div class="row mb-5">
             <div class="col-12">
                 <p class="mb-0">
-                    <a href="#" class="p-3"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-3"><span class="icon-twitter"></span></a>
-                    <a href="#" class="p-3"><span class="icon-instagram"></span></a>
-                    <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
-                    <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                    <? foreach (AdminSocialLinks::find()->andWhere(['active' => true])->orderBy(['position' => SORT_ASC])->all() as $model): ?>
+                        <a title="<?=$model->title?>" href="<?=$model->link?>" class="p-3"><span class="<?=$model->icon?>"></span></a>
+                    <? endforeach;?>
                 </p>
             </div>
         </div>

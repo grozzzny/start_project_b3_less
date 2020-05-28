@@ -29,7 +29,7 @@ AppAsset::register($this);
 <div id="overlayer"></div>
 <div class="loader">
     <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
+        <span class="sr-only"><?= Yii::t('rus', 'Загрузка')?>...</span>
     </div>
 </div>
 
