@@ -2,6 +2,7 @@
 
 use grozzzny\admin\modules\feedback\widgets\form\FeedbackFormWidget;
 use grozzzny\admin\modules\text\LiveEditText;
+use yii\bootstrap4\Alert;
 use yii\bootstrap4\Html;
 use yii\web\View;
 use yii\widgets\MaskedInput;
@@ -49,6 +50,19 @@ use yii\widgets\MaskedInput;
                 'cols' => 30,
                 'rows' => 7,
                 'placeholder' => Yii::t('rus', 'Оставьте свое сообщение')
+            ])?>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-md-12">
+            <?= Alert::widget([
+                'options' => [
+                    'class' => 'alert-success rounded-0 mb-0 js-alert',
+                    'style' => 'display: none;',
+                ],
+                'closeButton' => false,
+                'body' => Yii::t('rus', 'Ваша заявка принята')
             ])?>
         </div>
     </div>
