@@ -15,7 +15,10 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'controllerMap' => [
-        'feedback' => 'grozzzny\admin\modules\feedback\widgets\form\controllers\DefaultController'
+        'feedback' => [
+            'class' => 'grozzzny\admin\modules\feedback\widgets\form\controllers\DefaultController',
+            'on submit' => ['grozzzny\admin\modules\feedback\widgets\form\components\SubmitHandler', 'submit']
+        ]
     ],
     'components' => [
         'request' => [

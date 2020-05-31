@@ -13,4 +13,5 @@ return [
     'Email' => 'Электронный адрес',
     'Message' => 'Сообщение',
     'Phone' => 'Номер телефона',
+    'Message from the site using the feedback form' => 'Сообщение с сайта из формы обратной связи',
 ];
