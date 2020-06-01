@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use grozzzny\admin\modules\pages\models\AdminPages;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,7 +62,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $page = AdminPages::get('page-index');
+
+        return $this->render('index', ['page' => $page]);
     }
 
     /**

@@ -1,11 +1,12 @@
 <?php
 
-use grozzzny\admin\modules\text\LiveEditText;
+use grozzzny\admin\modules\pages\models\AdminPages;
 use yii\helpers\Url;
 use yii\web\View;
 
 /**
  * @var View $this
+ * @var AdminPages $page
  */
 
 ?>
@@ -21,8 +22,8 @@ use yii\web\View;
 
                 <div class="row mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="col-lg-6 mr-auto">
-                        <h1><?=LiveEditText::widget(['slug' => 'section-main-heading', 'label' => Yii::t('app', 'Make Your Business More Profitable')])?></h1>
-                        <p class="mb-5"><?=LiveEditText::widget(['slug' => 'section-main-descriprion', 'label' => Yii::t('app', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam assumenda ea quo cupiditate facere deleniti fuga officia.')])?></p>
+                        <h1><?=$page->seo->get('h1', $page->liveEditName)?></h1>
+                        <div class="mb-5"><?=$page->liveEditText?></div>
                         <div>
                             <? if(Yii::$app->user->isGuest):?>
                                 <a href="#" class="btn btn-primary mr-2 mb-2"><?=Yii::t('app', 'Get Started')?></a>
@@ -33,7 +34,6 @@ use yii\web\View;
                             <? endif;?>
                         </div>
                     </div>
-
 
                 </div>
 
