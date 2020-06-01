@@ -80,6 +80,10 @@ $config = [
                     'url' => ['/admin/default']
                 ],
                 [
+                    'label' => 'Страницы',
+                    'url' => ['/admin/pages/default']
+                ],
+                [
                     'label' => 'Текстовые блоки',
                     'url' => ['/admin/text/default']
                 ],
@@ -105,6 +109,9 @@ $config = [
                 ]
             ],
             'modules' => [
+                'pages' => [
+                    'class' => 'grozzzny\admin\modules\pages\PagesModule',
+                ],
                 'text' => [
                     'class' => 'grozzzny\admin\modules\text\TextModule',
                 ],
