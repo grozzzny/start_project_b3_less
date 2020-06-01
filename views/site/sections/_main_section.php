@@ -22,7 +22,7 @@ use yii\web\View;
 
                 <div class="row mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="col-lg-6 mr-auto">
-                        <h1><?=$page->seo->get('h1', $page->liveEditName)?></h1>
+                        <h1><?=$page->liveEditH1?></h1>
                         <div class="mb-5"><?=$page->liveEditText?></div>
                         <div>
                             <? if(Yii::$app->user->isGuest):?>
