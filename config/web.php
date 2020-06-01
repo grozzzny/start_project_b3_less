@@ -69,6 +69,15 @@ $config = [
         ],
     ],
     'modules' => [
+        'redactor' => [
+            'class' => 'yii\redactor\RedactorModule',
+            'as access' => [
+                'class' => 'grozzzny\admin\behaviors\AccessControl',
+            ],
+            'uploadDir' => '@webroot/uploads/redactor',
+            'uploadUrl' => '@web/uploads/redactor',
+            'imageAllowExtensions'=>['jpg','png','gif']
+        ],
         'admin' => [
             'class' => 'grozzzny\admin\AdminModule',
             'as access' => [
