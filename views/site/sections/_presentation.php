@@ -19,7 +19,7 @@ use yii\web\View;
             </div>
             <div class="col-lg-5 pr-lg-5 mr-auto mt-5 order-2 order-lg-1">
                 <h2 class="text-black"><?=LiveEditText::widget(['slug' => 'section-presentation-heading', 'label' => Yii::t('app', 'Communicate and gather feedback')])?></h2>
-                <p class="mb-4"><?=LiveEditText::widget(['slug' => 'section-presentation-heading', 'label' => Yii::t('app', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem neque nisi architecto autem molestias corrupti officia veniam')])?></p>
+                <p class="mb-4"><?=LiveEditText::widget(['slug' => 'section-presentation-description', 'label' => Yii::t('app', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem neque nisi architecto autem molestias corrupti officia veniam')])?></p>
 
 
 
