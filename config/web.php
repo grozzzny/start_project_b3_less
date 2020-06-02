@@ -2,11 +2,11 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
-$smtp = require __DIR__ . '/smtp.php';
 $routes = require __DIR__ . '/routes.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'court-case.ru',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
@@ -59,7 +59,7 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'transport' => $smtp
+            'transport' => require __DIR__ . '/smtp.php'
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
