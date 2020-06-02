@@ -42,8 +42,8 @@ $config = [
                 ],
                 'yandex' => [
                     'class' => 'Da\User\AuthClient\Yandex',
-                    'clientId' => 'facebook_client_id',
-                    'clientSecret' => 'facebook_client_secret'
+                    'clientId' => '50ad017a1cd442fb9972772d2f68d564',
+                    'clientSecret' => '52db19e497684756b731308c9fa9f6e4'
                 ],
             ]
         ],
