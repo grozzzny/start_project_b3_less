@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$smtp = require __DIR__ . '/smtp.php';
 $routes = require __DIR__ . '/routes.php';
 
 $config = [
@@ -28,20 +29,12 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-//        'user' => [
-//            'identityClass' => 'app\models\User',
-//            'enableAutoLogin' => true,
-//        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
-            //'transport' => require __DIR__ . '/smtp.php'
+            'transport' => $smtp
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -92,6 +85,27 @@ $config = [
                     'class' => 'Da\User\Controller\RuleController',
                     'layout' => '@grozzzny/admin/views/layouts/main'
                 ],
+
+                'profile' => [
+                    'class' => 'Da\User\Controller\ProfileController',
+                    'layout' => '@app/views/layouts/main_with_container'
+                ],
+                'recovery' => [
+                    'class' => 'Da\User\Controller\RecoveryController',
+                    'layout' => '@app/views/layouts/main_with_container'
+                ],
+                'registration' => [
+                    'class' => 'Da\User\Controller\RegistrationController',
+                    'layout' => '@app/views/layouts/main_with_container'
+                ],
+                'security' => [
+                    'class' => 'Da\User\Controller\SecurityController',
+                    'layout' => '@app/views/layouts/main_with_container'
+                ],
+                'settings' => [
+                    'class' => 'Da\User\Controller\SettingsController',
+                    'layout' => '@app/views/layouts/main_with_container'
+                ],
             ],
             'administrators' => ['grozzzny'], // this is required for accessing administrative actions
             'mailParams' => [
@@ -130,40 +144,47 @@ $config = [
                     ]
                 ]
             ],
-            'nav_items' => [
-                [
-                    'label' => 'Начальная',
-                    'url' => ['/admin/default']
-                ],
-                [
-                    'label' => 'Страницы',
-                    'url' => ['/admin/pages/default']
-                ],
-                [
-                    'label' => 'Текстовые блоки',
-                    'url' => ['/admin/text/default']
-                ],
-                [
-                    'label' => 'Преимущества',
-                    'url' => ['/admin/features/default']
-                ],
-                [
-                    'label' => 'Отзывы',
-                    'url' => ['/admin/testimonials/default']
-                ],
-                [
-                    'label' => 'Обратный звонок',
-                    'url' => ['/admin/feedback/default']
-                ],
-                [
-                    'label' => 'Ссылки соц. сетей',
-                    'url' => ['/admin/social_links/default']
-                ],
-                [
-                    'label' => 'Dashboard demo',
-                    'url' => 'https://www.bootstrapdash.com/demo/star-admin-free/jquery/src/demo_1/index.html',
-                ]
-            ],
+            'nav_items' => function() {
+                return [
+                    [
+                        'label' => 'Начальная',
+                        'url' => ['/admin/default']
+                    ],
+                    [
+                        'label' => 'Пользователи',
+                        'url' => ['/user/admin'],
+                        'visible' => Yii::$app->user->can('administrator')
+                    ],
+                    [
+                        'label' => 'Страницы',
+                        'url' => ['/admin/pages/default']
+                    ],
+                    [
+                        'label' => 'Текстовые блоки',
+                        'url' => ['/admin/text/default']
+                    ],
+                    [
+                        'label' => 'Преимущества',
+                        'url' => ['/admin/features/default']
+                    ],
+                    [
+                        'label' => 'Отзывы',
+                        'url' => ['/admin/testimonials/default']
+                    ],
+                    [
+                        'label' => 'Обратный звонок',
+                        'url' => ['/admin/feedback/default']
+                    ],
+                    [
+                        'label' => 'Ссылки соц. сетей',
+                        'url' => ['/admin/social_links/default']
+                    ],
+                    [
+                        'label' => 'Dashboard demo',
+                        'url' => 'https://www.bootstrapdash.com/demo/star-admin-free/jquery/src/demo_1/index.html',
+                    ]
+                ];
+            },
             'modules' => [
                 'pages' => [
                     'class' => 'grozzzny\admin\modules\pages\PagesModule',

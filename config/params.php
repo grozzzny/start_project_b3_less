@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
+    'adminEmail' => 'admin@court-case.ru',
+    'senderEmail' => 'noreply@court-case.ru',
+    'senderName' => 'Журнал судебных дел',
     'noimage' => '/images/noimage.jpg',
     'nophoto' => '/images/nophoto.png',
 ];
