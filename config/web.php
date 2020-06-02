@@ -22,6 +22,31 @@ $config = [
         ]
     ],
     'components' => [
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'facebook' => [
+                    'class' => 'Da\User\AuthClient\Facebook',
+                    'clientId' => '734484907365597',
+                    'clientSecret' => '835ce954c0705eceb3d790ee56189f59'
+                ],
+                'google' => [
+                    'class' => 'Da\User\AuthClient\Google',
+                    'clientId' => 'google_client_id',
+                    'clientSecret' => 'google_client_secret',
+                ],
+                'vkontakte' => [
+                    'class' => 'Da\User\AuthClient\VKontakte',
+                    'clientId' => '7496030',
+                    'clientSecret' => 'GDGsOUakcjvfeEUsqSyg'
+                ],
+                'yandex' => [
+                    'class' => 'Da\User\AuthClient\Yandex',
+                    'clientId' => 'facebook_client_id',
+                    'clientSecret' => 'facebook_client_secret'
+                ],
+            ]
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'L3KpFOPujkAyXhxXX7L71iqk7b-8nxol',

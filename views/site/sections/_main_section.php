@@ -1,6 +1,7 @@
 <?php
 
 use grozzzny\admin\modules\pages\models\AdminPages;
+use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Url;
 use yii\web\View;
 
@@ -33,6 +34,14 @@ use yii\web\View;
                                 <a href="<?=Url::to(['/user/logout'])?>" data-method="post" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign Out')?></a>
                             <? endif;?>
                         </div>
+                        <? if(Yii::$app->user->isGuest):?>
+                        <div class="mt-3">
+                            <?= yii\authclient\widgets\AuthChoice::widget([
+                                'baseAuthUrl' => ['/user/security/auth'],
+                                'popupMode' => false,
+                            ]) ?>
+                        </div>
+                        <? endif;?>
                     </div>
 
                 </div>
