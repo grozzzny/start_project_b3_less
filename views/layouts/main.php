@@ -33,7 +33,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<div class="site-wrap"  id="home-section">
+<div class="site-wrap">
 
     <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
@@ -46,7 +46,11 @@ AppAsset::register($this);
 
     <?= $this->render('_header')?>
 
-    <?= $content ?>
+    <div class="site-content">
+
+        <?= $content ?>
+
+    </div>
 
     <?= $this->render('_footer')?>
 

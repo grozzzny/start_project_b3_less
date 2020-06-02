@@ -27,10 +27,10 @@ use yii\web\View;
                         <div>
                             <? if(Yii::$app->user->isGuest):?>
                                 <a href="#" class="btn btn-primary mr-2 mb-2"><?=Yii::t('app', 'Get Started')?></a>
-                                <a href="<?=Url::to(['/site/login'])?>" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign in')?></a>
+                                <a href="<?=Url::to(['/user/login'])?>" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign in')?></a>
                             <? else: ?>
                                 <a href="<?=Url::to(['/office'])?>" class="btn btn-primary mr-2 mb-2"><?=Yii::t('app', 'Administration')?></a>
-                                <a href="<?=Url::to(['/site/logout'])?>" data-method="post" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign Out')?></a>
+                                <a href="<?=Url::to(['/user/logout'])?>" data-method="post" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign Out')?></a>
                             <? endif;?>
                         </div>
                     </div>

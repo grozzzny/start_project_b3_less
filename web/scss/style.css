@@ -80,6 +80,10 @@ h1, h2, h3, h4, h5,
   visibility: visible;
 }
 
+.site-content {
+  padding-top: 70px;
+}
+
 .offcanvas-menu {
   position: relative;
 }

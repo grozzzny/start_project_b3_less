@@ -26,7 +26,6 @@ use yii\web\View;
                 </nav>
             </div>
 
-
             <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0" ><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
 
         </div>

@@ -21,7 +21,8 @@
         "grozzzny/admin": "dev-master",
         "yiisoft/yii2-bootstrap4": "^2.0",
         "grozzzny/depends": "dev-master",
-        "yiidoc/yii2-redactor": "*"
+        "yiidoc/yii2-redactor": "*",
+        "2amigos/yii2-usuario": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

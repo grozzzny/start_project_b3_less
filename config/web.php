@@ -7,7 +7,7 @@ $routes = require __DIR__ . '/routes.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'admin'],
+    'bootstrap' => ['log'],
     'language' => 'ru-RU',
     'timeZone' => 'Europe/Kaliningrad',
     'aliases' => [
@@ -28,10 +28,10 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-        ],
+//        'user' => [
+//            'identityClass' => 'app\models\User',
+//            'enableAutoLogin' => true,
+//        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -69,10 +69,49 @@ $config = [
         ],
     ],
     'modules' => [
+        // https://yii2-usuario.readthedocs.io/en/latest/
+        'user' => [
+            'class' => Da\User\Module::class,
+            'classMap' => [
+                'RegistrationForm' => 'app\forms\RegistrationForm'
+            ],
+            'controllerMap' => [
+                'admin' => [
+                    'class' => 'Da\User\Controller\AdminController',
+                    'layout' => '@grozzzny/admin/views/layouts/main'
+                ],
+                'permission' => [
+                    'class' => 'Da\User\Controller\PermissionController',
+                    'layout' => '@grozzzny/admin/views/layouts/main'
+                ],
+                'role' => [
+                    'class' => 'Da\User\Controller\RoleController',
+                    'layout' => '@grozzzny/admin/views/layouts/main'
+                ],
+                'rule' => [
+                    'class' => 'Da\User\Controller\RuleController',
+                    'layout' => '@grozzzny/admin/views/layouts/main'
+                ],
+            ],
+            'administrators' => ['grozzzny'], // this is required for accessing administrative actions
+            'mailParams' => [
+                'fromEmail' => function() {
+                    return [Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']];
+                }
+            ]
+            // 'generatePasswords' => true,
+            // 'switchIdentitySessionKey' => 'myown_usuario_admin_user_key',
+        ],
         'redactor' => [
             'class' => 'yii\redactor\RedactorModule',
             'as access' => [
                 'class' => 'grozzzny\admin\behaviors\AccessControl',
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['user-management'],
+                    ]
+                ]
             ],
             'uploadDir' => '@webroot/uploads/redactor',
             'uploadUrl' => '@web/uploads/redactor',
@@ -80,8 +119,16 @@ $config = [
         ],
         'admin' => [
             'class' => 'grozzzny\admin\AdminModule',
+            'render_toolbar_role' => 'user-management',
+            'live_edit_role' => 'user-management',
             'as access' => [
                 'class' => 'grozzzny\admin\behaviors\AccessControl',
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['user-management'],
+                    ]
+                ]
             ],
             'nav_items' => [
                 [

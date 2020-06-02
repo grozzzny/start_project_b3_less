@@ -14,6 +14,10 @@ $config = [
             'migrationPath' => [
                 '@app/migrations',
                 '@grozzzny/admin/migrations',
+                '@yii/rbac/migrations',
+            ],
+            'migrationNamespaces' => [
+                'Da\User\Migration',
             ],
         ],
     ],
@@ -23,6 +27,17 @@ $config = [
         '@tests' => '@app/tests',
     ],
     'components' => [
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
+            'useFileTransport' => true,
+            //'transport' => require __DIR__ . '/smtp.php'
+        ],
+        'authManager' => [
+            'class' => 'Da\User\Component\AuthDbManagerComponent',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -30,11 +45,15 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['error'],
                 ],
             ],
         ],
         'db' => $db,
+    ],
+    'modules' => [
+        // yii user/create <email> <username> [password] [role]
+        'user' =>  Da\User\Module::class,
     ],
     'params' => $params,
     /*

@@ -22,7 +22,6 @@ class AppAsset extends AssetBundle
     public $css = [
         'https://fonts.googleapis.com/css?family=Nunito:300,400,700',
         'fonts/flaticon/font/flaticon.css',
-        //'css/bootstrap.min.css',
         'scss/style.css',
     ];
     public $js = [
