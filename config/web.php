@@ -32,8 +32,8 @@ $config = [
                 ],
                 'google' => [
                     'class' => 'Da\User\AuthClient\Google',
-                    'clientId' => 'google_client_id',
-                    'clientSecret' => 'google_client_secret',
+                    'clientId' => '44327651252-c8n5asj21kkk697n7nh9i5j4sbep90ub.apps.googleusercontent.com',
+                    'clientSecret' => 'IN2Nl_3oKhyCUXOvkF8rd_nN',
                 ],
                 'vkontakte' => [
                     'class' => 'Da\User\AuthClient\VKontakte',
