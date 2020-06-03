@@ -227,7 +227,7 @@ jQuery(document).ready(function($) {
       var $elem = $(hash);
 
       if($elem.length == 0) {
-      		window.open($(this).attr('href'));
+      		window.open($(this).attr('href'), '_self');
 	  }
 
       $('html, body').animate({
