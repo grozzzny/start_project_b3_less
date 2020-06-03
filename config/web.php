@@ -87,6 +87,10 @@ $config = [
         ],
     ],
     'modules' => [
+        'office' => [
+            'class' => 'app\modules\office\OfficeModule',
+        ],
+
         // https://yii2-usuario.readthedocs.io/en/latest/
         'user' => [
             'class' => Da\User\Module::class,
