@@ -226,7 +226,9 @@ jQuery(document).ready(function($) {
 
       var $elem = $(hash);
 
-      if($elem.length == 0) return;
+      if($elem.length == 0) {
+      		window.open($(this).attr('href'));
+	  }
 
       $('html, body').animate({
         'scrollTop': $elem.offset().top - 0
