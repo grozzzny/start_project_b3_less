@@ -228,6 +228,7 @@ jQuery(document).ready(function($) {
 
       if($elem.length == 0) {
       		window.open($(this).attr('href'), '_self');
+      		return;
 	  }
 
       $('html, body').animate({
