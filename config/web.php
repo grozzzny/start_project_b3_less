@@ -180,6 +180,10 @@ $config = [
                         'url' => ['/admin/default']
                     ],
                     [
+                        'label' => 'Журнал судебных дел',
+                        'url' => ['/admin/admin_office']
+                    ],
+                    [
                         'label' => 'Пользователи',
                         'url' => ['/user/admin'],
                         'visible' => Yii::$app->user->can('administrator')
@@ -215,6 +219,9 @@ $config = [
                 ];
             },
             'modules' => [
+                'admin_office' => [
+                    'class' => 'app\modules\office\modules\admin_office\AdminOfficeModule',
+                ],
                 'pages' => [
                     'class' => 'grozzzny\admin\modules\pages\PagesModule',
                 ],
