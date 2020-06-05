@@ -125,11 +125,16 @@ $config = [
                 ],
                 'registration' => [
                     'class' => 'Da\User\Controller\RegistrationController',
-                    'layout' => '@app/views/layouts/main_with_container'
+                    'layout' => '@app/views/layouts/main_with_container',
                 ],
                 'security' => [
                     'class' => 'Da\User\Controller\SecurityController',
-                    'layout' => '@app/views/layouts/main_with_container'
+                    'layout' => '@app/views/layouts/main_with_container',
+//                    'on beforeAuthenticate' => function($event){
+//                        /** @var Da\User\Event\SocialNetworkAuthEvent $event */
+//
+//                        Yii::$app->user
+//                    }
                 ],
                 'settings' => [
                     'class' => 'Da\User\Controller\SettingsController',
@@ -141,9 +146,9 @@ $config = [
                 'fromEmail' => function() {
                     return [Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']];
                 }
-            ]
-            // 'generatePasswords' => true,
-            // 'switchIdentitySessionKey' => 'myown_usuario_admin_user_key',
+            ],
+            'generatePasswords' => true,
+            'switchIdentitySessionKey' => '651ds5d1Sdfrgdfg334',
         ],
         'redactor' => [
             'class' => 'yii\redactor\RedactorModule',
