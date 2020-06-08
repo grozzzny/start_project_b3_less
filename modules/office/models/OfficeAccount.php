@@ -45,8 +45,9 @@ class OfficeAccount extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['owner_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'active_at'], 'integer'],
+            [['owner_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['active'], 'boolean'],
+            [['active_at'], 'date', 'format' => 'dd.MM.yyyy'],
             [['active'], 'default', 'value' => true],
         ];
     }

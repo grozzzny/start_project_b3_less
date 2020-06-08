@@ -25,7 +25,8 @@
         "grozzzny/admin": "dev-master",
         "yiisoft/yii2-authclient": "^2.2",
         "kartik-v/yii2-widget-select2": "@dev",
-        "kartik-v/yii2-widget-datepicker": "@dev"
+        "kartik-v/yii2-widget-datepicker": "@dev",
+        "kartik-v/yii2-widget-datetimepicker": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

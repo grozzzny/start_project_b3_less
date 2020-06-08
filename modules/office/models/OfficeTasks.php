@@ -3,8 +3,10 @@
 namespace app\modules\office\models;
 
 use Yii;
+use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -41,6 +43,11 @@ class OfficeTasks extends \yii\db\ActiveRecord
         return ArrayHelper::merge(parent::behaviors(), [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'datetimeConvert' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'time_to'],
+                'value' => function ($event) {return empty($this->time_to) ? null : date('d.m.Y H:i', $this->time_to);},
+            ],
         ]);
     }
 
@@ -53,6 +60,8 @@ class OfficeTasks extends \yii\db\ActiveRecord
             [['account_id', 'curator_id', 'case_id', 'client_id', 'time_to', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['description'], 'string'],
             [['type_priority'], 'string', 'max' => 255],
+            [['time_to'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'datetime'],
+            [['time_to'], 'default', 'value' => null],
         ];
     }
 

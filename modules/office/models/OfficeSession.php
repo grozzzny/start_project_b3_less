@@ -3,8 +3,10 @@
 namespace app\modules\office\models;
 
 use Yii;
+use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -35,6 +37,11 @@ class OfficeSession extends \yii\db\ActiveRecord
         return ArrayHelper::merge(parent::behaviors(), [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'datetimeConvert' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'datetime_act'],
+                'value' => function ($event) {return empty($this->datetime_act) ? null : date('d.m.Y H:i', $this->datetime_act);},
+            ],
         ]);
     }
 
@@ -45,6 +52,9 @@ class OfficeSession extends \yii\db\ActiveRecord
     {
         return [
             [['account_id', 'case_id', 'client_id', 'datetime_act', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['datetime_act'], 'date', 'format' => 'dd.MM.yyyy'],
+            [['datetime_act'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'datetime_act'],
+            [['datetime_act'], 'default', 'value' => null],
         ];
     }
 

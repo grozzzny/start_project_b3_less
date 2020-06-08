@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\office\widgets\date_time_picker\DateTimePicker;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -18,7 +19,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'client_id')->textInput() ?>
 
-    <?= $form->field($model, 'datetime_act')->textInput() ?>
+    <?= $form->field($model, 'datetime_act')->widget(DateTimePicker::class)?>
 
     <?= $this->render('../_detail_view_created', ['model' => $model])?>
 

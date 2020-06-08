@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\office\widgets\date_time_picker\DateTimePicker;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -22,7 +23,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'time_to')->textInput() ?>
+    <?= $form->field($model, 'time_to')->widget(DateTimePicker::class)?>
 
     <?= $form->field($model, 'type_priority')->textInput(['maxlength' => true]) ?>
 
