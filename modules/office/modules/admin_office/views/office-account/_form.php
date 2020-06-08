@@ -1,8 +1,8 @@
 <?php
 
+use app\modules\office\modules\admin_office\AdminOfficeModule;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
-use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeAccount */
@@ -15,7 +15,7 @@ use yii\widgets\DetailView;
 
     <?= $form->field($model, 'owner_id')->textInput() ?>
 
-    <?= $form->field($model, 'active')->textInput() ?>
+    <?= $form->field($model, 'active')->checkbox(AdminOfficeModule::checkboxSettings()) ?>
 
     <?= $form->field($model, 'active_at')->textInput() ?>
 
