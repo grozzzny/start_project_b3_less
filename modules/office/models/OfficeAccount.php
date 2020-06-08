@@ -3,6 +3,11 @@
 namespace app\modules\office\models;
 
 use Yii;
+use yii\behaviors\AttributeBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "office_account".
@@ -24,6 +29,14 @@ class OfficeAccount extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'office_account';
+    }
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            BlameableBehavior::className(),
+            TimestampBehavior::className(),
+        ]);
     }
 
     /**

@@ -3,6 +3,9 @@
 namespace app\modules\office\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "office_comments".
@@ -27,6 +30,14 @@ class OfficeComments extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'office_comments';
+    }
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            BlameableBehavior::className(),
+            TimestampBehavior::className(),
+        ]);
     }
 
     /**

@@ -3,6 +3,9 @@
 namespace app\modules\office\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "office_documents".
@@ -33,6 +36,14 @@ class OfficeDocuments extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'office_documents';
+    }
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            BlameableBehavior::className(),
+            TimestampBehavior::className(),
+        ]);
     }
 
     /**
