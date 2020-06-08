@@ -1,6 +1,8 @@
 <?php
 
+use app\models\User;
 use app\modules\office\modules\admin_office\AdminOfficeModule;
+use app\modules\office\widgets\date_picker\DatePicker;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -13,11 +15,11 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'owner_id')->textInput() ?>
+    <?= $form->field($model, 'owner_id')->dropDownList(User::map()) ?>
 
     <?= $form->field($model, 'active')->checkbox(AdminOfficeModule::checkboxSettings()) ?>
 
-    <?= $form->field($model, 'active_at')->textInput() ?>
+    <?= $form->field($model, 'active_at')->widget(DatePicker::class) ?>
 
     <?= $this->render('../_detail_view_created', ['model' => $model])?>
 

@@ -1,5 +1,6 @@
 <?php
 
+use app\models\User;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -12,9 +13,9 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
     <?= $form->field($model, 'account_id')->textInput() ?>
+
+    <?= $form->field($model, 'user_id')->dropDownList(User::map()) ?>
 
     <?= $form->field($model, 'role')->textInput(['maxlength' => true]) ?>
 

@@ -23,7 +23,9 @@
         "yiidoc/yii2-redactor": "*",
         "2amigos/yii2-usuario": "~1.0",
         "grozzzny/admin": "dev-master",
-        "yiisoft/yii2-authclient": "^2.2"
+        "yiisoft/yii2-authclient": "^2.2",
+        "kartik-v/yii2-widget-select2": "@dev",
+        "kartik-v/yii2-widget-datepicker": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

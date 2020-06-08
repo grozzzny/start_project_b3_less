@@ -12,6 +12,8 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'account_id')->textInput() ?>
+
     <?= $form->field($model, 'cost')->textInput() ?>
 
     <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
@@ -21,8 +23,6 @@ use yii\bootstrap4\ActiveForm;
     <?= $form->field($model, 'target')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'transaction_id')->textInput() ?>
-
-    <?= $form->field($model, 'account_id')->textInput() ?>
 
     <?= $this->render('../_detail_view_created', ['model' => $model])?>
 
