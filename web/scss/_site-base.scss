@@ -81,6 +81,11 @@ h1, h2, h3, h4, h5,
 .site-content{
 	padding-top: 100px;
 }
+
+.site-section{
+	overflow: hidden;
+}
+
 .offcanvas-menu {
 	position: relative;
 	&:after {

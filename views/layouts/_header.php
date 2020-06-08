@@ -14,7 +14,7 @@ use yii\web\View;
     <div class="container">
         <div class="row align-items-center">
 
-            <div class="col-6 col-md-3 col-xl-4  d-block">
+            <div class="col-10 col-md-3 col-xl-4  d-block">
                 <h1 class="mb-0 site-logo"><a href="<?=Url::to(['/'])?>" class="text-black h2 mb-0"><?= Yii::t('rus', 'Журнал судебных дел')?><span class="text-primary">.</span> </a></h1>
             </div>
 
@@ -26,7 +26,7 @@ use yii\web\View;
                 </nav>
             </div>
 
-            <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0" ><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+            <div class="col-2 col-md-9 d-inline-block d-lg-none ml-md-0" ><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
 
         </div>
     </div>

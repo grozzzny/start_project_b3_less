@@ -41,13 +41,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4286f4', end
 		width: 100%;
 	}
 	&, & > .container > .row {
-		min-height: 600px;
-		height: calc(100vh);
+		//min-height: 600px;
+		min-height: calc(100vh);
 	}
 	&.inner-page-cover {
 		&, & > .container > .row {
 			min-height: 400px;
-			height: calc(20vh);		
+			height: calc(20vh);
 		}
 	}
 	
@@ -1489,6 +1489,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4286f4', end
 .site-logo {
 	@include media-breakpoint-down(md) {
 		top: 0;
+		a{
+			font-size: 22px;
+		}
 	}
 }
 .main-menu {
