@@ -14,6 +14,10 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'owner_id')->textInput() ?>
 
+    <?= $form->field($model, 'active')->textInput() ?>
+
+    <?= $form->field($model, 'active_at')->textInput() ?>
+
     <?= $form->field($model, 'created_at')->textInput() ?>
 
     <?= $form->field($model, 'updated_at')->textInput() ?>

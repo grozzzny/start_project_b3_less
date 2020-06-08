@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property int|null $owner_id
+ * @property int|boolean $active
+ * @property int|null $active_at
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property int|null $created_by
@@ -30,7 +32,9 @@ class OfficeAccount extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['owner_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['owner_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'active_at'], 'integer'],
+            [['active'], 'boolean'],
+            [['active'], 'default', 'value' => true],
         ];
     }
 
@@ -41,11 +45,13 @@ class OfficeAccount extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'owner_id' => Yii::t('rus', 'Owner ID'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
+            'owner_id' => Yii::t('rus', 'Владелец'),
+            'active' => Yii::t('rus', 'Активно'),
+            'active_at' => Yii::t('rus', 'Активно до'),
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
     }
 

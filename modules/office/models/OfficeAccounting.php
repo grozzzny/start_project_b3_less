@@ -47,16 +47,16 @@ class OfficeAccounting extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'cost' => Yii::t('rus', 'Cost'),
-            'type' => Yii::t('rus', 'Type'),
-            'note' => Yii::t('rus', 'Note'),
-            'target' => Yii::t('rus', 'Target'),
-            'transaction_id' => Yii::t('rus', 'Transaction ID'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
-            'account_id' => Yii::t('rus', 'Account ID'),
+            'cost' => Yii::t('rus', 'Сумма'),
+            'type' => Yii::t('rus', 'Тип транзакции'), // Пополнение, списание
+            'note' => Yii::t('rus', 'Примечание'),
+            'target' => Yii::t('rus', 'Назначение платежа'),
+            'transaction_id' => Yii::t('rus', 'Транзакция'),
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
         ];
     }
 

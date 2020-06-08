@@ -53,14 +53,14 @@ class OfficeEmployee extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'user_id' => Yii::t('rus', 'User ID'),
-            'account_id' => Yii::t('rus', 'Account ID'),
-            'role' => Yii::t('rus', 'Role'),
-            'priority' => Yii::t('rus', 'Priority'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
+            'user_id' => Yii::t('rus', 'Пользователь'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
+            'role' => Yii::t('rus', 'Роль'), // guest assistant lawyer partner administrator
+            'priority' => Yii::t('rus', 'Приоритет'),
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
     }
 

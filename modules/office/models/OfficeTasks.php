@@ -52,17 +52,17 @@ class OfficeTasks extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'account_id' => Yii::t('rus', 'Account ID'),
-            'curator_id' => Yii::t('rus', 'Curator ID'),
-            'case_id' => Yii::t('rus', 'Case ID'),
-            'client_id' => Yii::t('rus', 'Client ID'),
-            'description' => Yii::t('rus', 'Description'),
-            'time_to' => Yii::t('rus', 'Time To'),
-            'type_priority' => Yii::t('rus', 'Type Priority'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
+            'curator_id' => Yii::t('rus', 'Куратор'),
+            'case_id' => Yii::t('rus', 'Дело'),
+            'client_id' => Yii::t('rus', 'Клиент'),
+            'description' => Yii::t('rus', 'Описание'),
+            'time_to' => Yii::t('rus', 'Срок задачи'),
+            'type_priority' => Yii::t('rus', 'Приоритет задачи'), // current important urgent
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
     }
 

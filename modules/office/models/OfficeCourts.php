@@ -41,10 +41,10 @@ class OfficeCourts extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'account_id' => Yii::t('rus', 'Account ID'),
-            'name' => Yii::t('rus', 'Name'),
-            'address' => Yii::t('rus', 'Address'),
-            'phone' => Yii::t('rus', 'Phone'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
+            'name' => Yii::t('rus', 'Наименование'),
+            'address' => Yii::t('rus', 'Адрес'),
+            'phone' => Yii::t('rus', 'Телефон'),
         ];
     }
 

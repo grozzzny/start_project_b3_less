@@ -50,16 +50,16 @@ class OfficeCase extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'account_id' => Yii::t('rus', 'Account ID'),
-            'number' => Yii::t('rus', 'Number'),
-            'client_id' => Yii::t('rus', 'Client ID'),
-            'category' => Yii::t('rus', 'Category'),
-            'object_category' => Yii::t('rus', 'Object Category'),
-            'curator_id' => Yii::t('rus', 'Curator ID'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
+            'number' => Yii::t('rus', 'Номер дела'),
+            'client_id' => Yii::t('rus', 'Клиент'),
+            'category' => Yii::t('rus', 'Категория'),
+            'object_category' => Yii::t('rus', 'Объект категории'),
+            'curator_id' => Yii::t('rus', 'Куратор'),
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
     }
 

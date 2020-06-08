@@ -47,16 +47,16 @@ class OfficeComments extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'task_id' => Yii::t('rus', 'Task ID'),
-            'case_id' => Yii::t('rus', 'Case ID'),
-            'client_id' => Yii::t('rus', 'Client ID'),
-            'document_id' => Yii::t('rus', 'Document ID'),
-            'text' => Yii::t('rus', 'Text'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
-            'account_id' => Yii::t('rus', 'Account ID'),
+            'task_id' => Yii::t('rus', 'Задача'),
+            'case_id' => Yii::t('rus', 'Дело'),
+            'client_id' => Yii::t('rus', 'Клиент'),
+            'document_id' => Yii::t('rus', 'Документ'),
+            'text' => Yii::t('rus', 'Описание'),
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
         ];
     }
 

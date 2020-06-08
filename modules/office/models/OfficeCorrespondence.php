@@ -50,19 +50,19 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'account_id' => Yii::t('rus', 'Account ID'),
-            'case_id' => Yii::t('rus', 'Case ID'),
-            'client_id' => Yii::t('rus', 'Client ID'),
-            'employee_id' => Yii::t('rus', 'Employee ID'),
-            'sender' => Yii::t('rus', 'Sender'),
-            'recipient' => Yii::t('rus', 'Recipient'),
-            'description' => Yii::t('rus', 'Description'),
-            'mail_number' => Yii::t('rus', 'Mail Number'),
-            'cost' => Yii::t('rus', 'Cost'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
+            'case_id' => Yii::t('rus', 'Дело'),
+            'client_id' => Yii::t('rus', 'Клиент'),
+            'employee_id' => Yii::t('rus', 'Сотрудник'),
+            'sender' => Yii::t('rus', 'Отправитель'),
+            'recipient' => Yii::t('rus', 'Получатель'),
+            'description' => Yii::t('rus', 'Краткое содержание'),
+            'mail_number' => Yii::t('rus', 'Почтовый идентификатор'),
+            'cost' => Yii::t('rus', 'Сумма'),
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
     }
 

@@ -50,19 +50,19 @@ class OfficeTransaction extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'cost' => Yii::t('rus', 'Cost'),
-            'type' => Yii::t('rus', 'Type'),
-            'note' => Yii::t('rus', 'Note'),
-            'consultation_id' => Yii::t('rus', 'Consultation ID'),
-            'case_id' => Yii::t('rus', 'Case ID'),
-            'client_id' => Yii::t('rus', 'Client ID'),
-            'is_account' => Yii::t('rus', 'Is Account'),
-            'employee_id' => Yii::t('rus', 'Employee ID'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
-            'account_id' => Yii::t('rus', 'Account ID'),
+            'cost' => Yii::t('rus', 'Сумма'),
+            'type' => Yii::t('rus', 'Тип транзакции'), // Пополнение, списание
+            'note' => Yii::t('rus', 'Примечание'),
+            'consultation_id' => Yii::t('rus', 'Консультация'),
+            'case_id' => Yii::t('rus', 'Дело'),
+            'client_id' => Yii::t('rus', 'Клиент'),
+            'is_account' => Yii::t('rus', 'Списание в пользу общего счета'),
+            'employee_id' => Yii::t('rus', 'Сотрудник'),
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
         ];
     }
 

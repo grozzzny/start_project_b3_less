@@ -53,22 +53,22 @@ class OfficeDocuments extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'account_id' => Yii::t('rus', 'Account ID'),
-            'case_id' => Yii::t('rus', 'Case ID'),
-            'client_id' => Yii::t('rus', 'Client ID'),
-            'category' => Yii::t('rus', 'Category'),
-            'datetime_act' => Yii::t('rus', 'Datetime Act'),
-            'category_act' => Yii::t('rus', 'Category Act'),
-            'name' => Yii::t('rus', 'Name'),
-            'file' => Yii::t('rus', 'File'),
-            'note' => Yii::t('rus', 'Note'),
-            'court_id' => Yii::t('rus', 'Court ID'),
-            'term_appeal' => Yii::t('rus', 'Term Appeal'),
-            'result' => Yii::t('rus', 'Result'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
+            'case_id' => Yii::t('rus', 'Дело'),
+            'client_id' => Yii::t('rus', 'Клиент'),
+            'category' => Yii::t('rus', 'Категория'), // Текущие, Судебный акт, Документы
+            'datetime_act' => Yii::t('rus', 'Дата судебного акта'),
+            'category_act' => Yii::t('rus', 'Категория акта'), // Решение, приговор, постановление и т.д.
+            'name' => Yii::t('rus', 'Наименование'),
+            'file' => Yii::t('rus', 'Файл pdf'),
+            'note' => Yii::t('rus', 'Примечание'),
+            'court_id' => Yii::t('rus', 'Суд'),
+            'term_appeal' => Yii::t('rus', 'Срок обжалования'),
+            'result' => Yii::t('rus', 'Результат'),
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
     }
 

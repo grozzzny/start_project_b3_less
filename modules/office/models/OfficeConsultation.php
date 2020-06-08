@@ -49,15 +49,15 @@ class OfficeConsultation extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
-            'account_id' => Yii::t('rus', 'Account ID'),
-            'client_id' => Yii::t('rus', 'Client ID'),
-            'cost' => Yii::t('rus', 'Cost'),
-            'type' => Yii::t('rus', 'Type'),
-            'curator_id' => Yii::t('rus', 'Curator ID'),
-            'created_at' => Yii::t('rus', 'Created At'),
-            'updated_at' => Yii::t('rus', 'Updated At'),
-            'created_by' => Yii::t('rus', 'Created By'),
-            'updated_by' => Yii::t('rus', 'Updated By'),
+            'account_id' => Yii::t('rus', 'Аккаунт'),
+            'client_id' => Yii::t('rus', 'Клиент'),
+            'cost' => Yii::t('rus', 'Сумма'),
+            'type' => Yii::t('rus', 'Тип'), // Тип консультации: oral written
+            'curator_id' => Yii::t('rus', 'Куратор'),
+            'created_at' => Yii::t('rus', 'Дата создания'),
+            'updated_at' => Yii::t('rus', 'Дата обновления'),
+            'created_by' => Yii::t('rus', 'Создан'),
+            'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
     }
 
