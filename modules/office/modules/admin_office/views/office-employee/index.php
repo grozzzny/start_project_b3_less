@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Office Employees');
+$this->title = Yii::t('rus', 'Сотрудники');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header-toolbar">
             <div class="sort-wrapper">
                 <div class="btn-group toolbar-item" role="group" aria-label="">
-                    <?= Html::a(Yii::t('app', 'Create Office Employee'), ['create'], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a(Yii::t('rus', 'Добавить сотрудника'), ['create'], ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
         </div>

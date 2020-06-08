@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeDocuments */
 
-$this->title = Yii::t('app', 'Create Office Documents');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Office Documents'), 'url' => ['index']];
+$this->title = Yii::t('rus', 'Добавить документ');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('rus', 'Документы'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

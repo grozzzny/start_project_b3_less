@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeEmployee */
 
-$this->title = Yii::t('app', 'Create Office Employee');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Office Employees'), 'url' => ['index']];
+$this->title = Yii::t('rus', 'Добавить сотрудника');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('rus', 'Сотрудники'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

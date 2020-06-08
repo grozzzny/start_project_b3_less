@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeComments */
 
-$this->title = Yii::t('app', 'Create Office Comments');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Office Comments'), 'url' => ['index']];
+$this->title = Yii::t('rus', 'Добавить комментарий');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('rus', 'Комментарии'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

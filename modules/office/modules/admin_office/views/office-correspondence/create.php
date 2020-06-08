@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeCorrespondence */
 
-$this->title = Yii::t('app', 'Create Office Correspondence');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Office Correspondences'), 'url' => ['index']];
+$this->title = Yii::t('rus', 'Добавить корреспонденцию');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('rus', 'Корреспонденция'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

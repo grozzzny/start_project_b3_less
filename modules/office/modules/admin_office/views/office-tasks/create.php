@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeTasks */
 
-$this->title = Yii::t('app', 'Create Office Tasks');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Office Tasks'), 'url' => ['index']];
+$this->title = Yii::t('rus', 'Добавить задачу');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('rus', 'Задачи'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

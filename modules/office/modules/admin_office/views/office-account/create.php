@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeAccount */
 
-$this->title = Yii::t('app', 'Create Office Account');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Office Accounts'), 'url' => ['index']];
+$this->title = Yii::t('rus', 'Добавить аккаунт');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('rus', 'Аккаунты'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

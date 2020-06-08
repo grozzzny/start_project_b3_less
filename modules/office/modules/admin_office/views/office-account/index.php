@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Office Accounts');
+$this->title = Yii::t('rus', 'Аккаунты');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header-toolbar">
             <div class="sort-wrapper">
                 <div class="btn-group toolbar-item" role="group" aria-label="">
-                    <?= Html::a(Yii::t('app', 'Create Office Account'), ['create'], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a(Yii::t('rus', 'Добавить аккаунт'), ['create'], ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
         </div>
@@ -42,11 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'id',
-            'owner_id',
-            'created_at',
-            'updated_at',
-            'created_by',
-            //'updated_by',
+                            'owner_id',
+                            'created_at',
+                //            'updated_at',
+                //            'created_by',
+                            //'updated_by',
 
                             [
                                 'class' => 'yii\grid\ActionColumn',

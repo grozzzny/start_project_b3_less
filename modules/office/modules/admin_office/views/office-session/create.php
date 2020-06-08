@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeSession */
 
-$this->title = Yii::t('app', 'Create Office Session');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Office Sessions'), 'url' => ['index']];
+$this->title = Yii::t('rus', 'Добавить заседание');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('rus', 'Заседания'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

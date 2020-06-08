@@ -5,12 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeCase */
 
-$this->title = Yii::t('app', 'Update Office Case: {name}', [
+$this->title = Yii::t('rus', 'Обновить дело: {name}', [
     'name' => $model->id,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Office Cases'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('rus', 'Дела'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('rus', 'Обновить');
 ?>
 
 
