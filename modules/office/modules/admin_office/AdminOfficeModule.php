@@ -7,6 +7,8 @@ namespace app\modules\office\modules\admin_office;
  */
 class AdminOfficeModule extends \yii\base\Module
 {
+    public $defaultRoute = 'office-account';
+
     /**
      * {@inheritdoc}
      */
