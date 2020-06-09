@@ -22,7 +22,7 @@ use yii\widgets\DetailView;
             [
                 'attribute' => 'created_by',
                 'value' => function($model){
-                    /** @var BlameableTrait $model - 123 */
+                    /** @var BlameableTrait $model */
                     return $model->createdByEmail;
                 }
             ],
