@@ -8,6 +8,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\validators\DateValidator;
 
 /**
  * This is the model class for table "office_account".
@@ -36,6 +37,11 @@ class OfficeAccount extends \yii\db\ActiveRecord
         return ArrayHelper::merge(parent::behaviors(), [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'dateConvert' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'active_at'],
+                'value' => function ($event) {return empty($this->active_at) ? null : date('d.m.Y', $this->active_at);},
+            ],
         ]);
     }
 
@@ -43,15 +49,15 @@ class OfficeAccount extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     public function rules()
+
     {
         return [
             [['owner_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['active'], 'boolean'],
-            [['active_at'], 'date', 'format' => 'dd.MM.yyyy'],
+            [['active_at'], 'date', 'type' => DateValidator::TYPE_DATE, 'format' => 'dd.MM.yyyy', 'timestampAttribute' => 'active_at'],
             [['active'], 'default', 'value' => true],
         ];
     }
-
     /**
      * {@inheritdoc}
      */
