@@ -90,9 +90,9 @@ class OfficeClients extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function map()
+    public static function map($account_id)
     {
-        return ArrayHelper::map(self::find()->all(), 'id', 'full_name');
+        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'full_name');
     }
 
     /**

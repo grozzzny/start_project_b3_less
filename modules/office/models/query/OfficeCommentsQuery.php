@@ -7,7 +7,7 @@ namespace app\modules\office\models\query;
  *
  * @see \app\modules\office\models\OfficeComments
  */
-class OfficeCommentsQuery extends \yii\db\ActiveQuery
+class OfficeCommentsQuery extends AccountBaseQuery
 {
     /*public function active()
     {

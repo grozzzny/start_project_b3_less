@@ -7,7 +7,7 @@ namespace app\modules\office\models\query;
  *
  * @see \app\modules\office\models\OfficeCase
  */
-class OfficeCaseQuery extends \yii\db\ActiveQuery
+class OfficeCaseQuery extends AccountBaseQuery
 {
     /*public function active()
     {

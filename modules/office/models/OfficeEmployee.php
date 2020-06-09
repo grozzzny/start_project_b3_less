@@ -169,9 +169,9 @@ class OfficeEmployee extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function map()
+    public static function map($account_id)
     {
-        return ArrayHelper::map(self::find()->all(), 'id', 'user.email');
+        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'user.email');
     }
 
     /**

@@ -7,7 +7,7 @@ namespace app\modules\office\models\query;
  *
  * @see \app\modules\office\models\OfficeTasks
  */
-class OfficeTasksQuery extends \yii\db\ActiveQuery
+class OfficeTasksQuery extends AccountBaseQuery
 {
     /*public function active()
     {

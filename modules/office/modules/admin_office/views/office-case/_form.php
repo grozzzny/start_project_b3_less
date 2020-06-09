@@ -21,13 +21,13 @@ use yii\bootstrap4\ActiveForm;
         <div class="col-md-6">
             <?= $form->field($model, 'number')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'client_id')->widget(Select2::className(), ['data' => OfficeClients::map()]) ?>
+            <?= $form->field($model, 'client_id')->widget(Select2::className(), ['data' => OfficeClients::map($model->account_id)]) ?>
 
             <?= $form->field($model, 'category')->widget(Select2::className(), ['data' => OfficeCase::categories()]) ?>
 
             <?= $form->field($model, 'object_category')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'curator_id')->widget(Select2::className(), ['data' => OfficeEmployee::map()]) ?>
+            <?= $form->field($model, 'curator_id')->widget(Select2::className(), ['data' => OfficeEmployee::map($model->account_id)]) ?>
         </div>
         <div class="col-md-6">
             <?= $this->render('../_detail_view_account', ['model' => $model])?>

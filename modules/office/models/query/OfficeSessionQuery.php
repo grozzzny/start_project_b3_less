@@ -7,7 +7,7 @@ namespace app\modules\office\models\query;
  *
  * @see \app\modules\office\models\OfficeSession
  */
-class OfficeSessionQuery extends \yii\db\ActiveQuery
+class OfficeSessionQuery extends AccountBaseQuery
 {
     /*public function active()
     {

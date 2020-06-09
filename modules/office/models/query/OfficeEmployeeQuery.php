@@ -7,7 +7,7 @@ namespace app\modules\office\models\query;
  *
  * @see \app\modules\office\models\OfficeEmployee
  */
-class OfficeEmployeeQuery extends \yii\db\ActiveQuery
+class OfficeEmployeeQuery extends AccountBaseQuery
 {
     /*public function active()
     {

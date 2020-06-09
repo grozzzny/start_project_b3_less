@@ -7,7 +7,7 @@ namespace app\modules\office\models\query;
  *
  * @see \app\modules\office\models\OfficeDocuments
  */
-class OfficeDocumentsQuery extends \yii\db\ActiveQuery
+class OfficeDocumentsQuery extends AccountBaseQuery
 {
     /*public function active()
     {
