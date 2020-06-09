@@ -5,6 +5,7 @@ use app\modules\office\models\OfficeCase;
 use app\modules\office\models\OfficeClients;
 use app\modules\office\models\OfficeEmployee;
 use app\modules\office\widgets\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\web\View;
@@ -30,7 +31,7 @@ use yii\web\View;
             ]) ?>
 
             <?= $form->field($model, 'object_category')->widget(Select2::className(), [
-                'data' => current(OfficeCase::objectsCategory())
+                'data' => !empty($model->category) ? ArrayHelper::getValue(OfficeCase::objectsCategory(), $model->category): current(OfficeCase::objectsCategory())
             ]) ?>
 
             <?= $form->field($model, 'curator_id')->widget(Select2::className(), [

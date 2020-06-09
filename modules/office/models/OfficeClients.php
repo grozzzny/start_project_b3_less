@@ -4,6 +4,7 @@ namespace app\modules\office\models;
 
 use app\components\AccountTrait;
 use app\components\BlameableTrait;
+use grozzzny\admin\widgets\file_input\components\FileBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -28,6 +29,7 @@ use yii\helpers\ArrayHelper;
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
+ * @property string $passport_code [varchar(255)]
  */
 class OfficeClients extends \yii\db\ActiveRecord
 {
@@ -47,6 +49,11 @@ class OfficeClients extends \yii\db\ActiveRecord
         return ArrayHelper::merge(parent::behaviors(), [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'image' => [
+                'class' => FileBehavior::className(),
+                'fileAttribute' => 'passport_photo',
+                'uploadPath' => '/uploads/passport_photo',
+            ],
         ]);
     }
 
@@ -57,10 +64,13 @@ class OfficeClients extends \yii\db\ActiveRecord
     {
         return [
             [['account_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['passport_code'], 'string'],
+            [['passport_photo'], 'image'],
             [['date_of_birth', 'passport_date'], 'date', 'format' => 'dd.MM.yyyy'],
-            [['full_name', 'phone', 'place_of_birth', 'place_registration', 'place_residence', 'passport_number', 'passport_institution', 'passport_photo'], 'string', 'max' => 255],
+            [['full_name', 'phone', 'place_of_birth', 'place_registration', 'place_residence', 'passport_number', 'passport_institution'], 'string', 'max' => 255],
             [[
                 'account_id',
+                'full_name',
             ], 'required'],
         ];
     }
@@ -81,6 +91,7 @@ class OfficeClients extends \yii\db\ActiveRecord
             'place_residence' => Yii::t('rus', 'Место жительства'),
             'passport_number' => Yii::t('rus', 'Серия и номер паспорта'),
             'passport_date' => Yii::t('rus', 'Дата выдачи паспорта'),
+            'passport_code' => Yii::t('rus', 'Код подразделения'),
             'passport_institution' => Yii::t('rus', 'Орган выдачи паспорта'),
             'passport_photo' => Yii::t('rus', 'Фото паспорта'),
             'created_at' => Yii::t('rus', 'Дата создания'),
