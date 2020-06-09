@@ -3,6 +3,7 @@
 namespace app\modules\office\models;
 
 use app\components\BlameableTrait;
+use app\models\User;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -22,6 +23,9 @@ use yii\validators\DateValidator;
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
+ * @property string $name [varchar(255)]
+ *
+ * @property-read User $owner
  */
 class OfficeAccount extends \yii\db\ActiveRecord
 {
@@ -45,6 +49,15 @@ class OfficeAccount extends \yii\db\ActiveRecord
                 'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'active_at'],
                 'value' => function ($event) {return empty($this->active_at) ? null : date('d.m.Y', $this->active_at);},
             ],
+            'set_name' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_AFTER_INSERT => 'name'],
+                'value' => function ($event) {
+                    $name = implode(' / ', ['ID'.$this->id, $this->owner->email]);
+                    self::updateAll(['name' => $name], ['id' => $this->id]);
+                    return $this->name = $name;
+                },
+            ],
         ]);
     }
 
@@ -59,6 +72,11 @@ class OfficeAccount extends \yii\db\ActiveRecord
             [['active'], 'boolean'],
             [['active_at'], 'date', 'type' => DateValidator::TYPE_DATE, 'format' => 'dd.MM.yyyy', 'timestampAttribute' => 'active_at'],
             [['active'], 'default', 'value' => true],
+            [['name'], 'string'],
+            [[
+                'owner_id',
+                'active_at',
+            ], 'required'],
         ];
     }
     /**
@@ -68,6 +86,7 @@ class OfficeAccount extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('rus', 'ID'),
+            'name' => Yii::t('rus', 'Наименование'),
             'owner_id' => Yii::t('rus', 'Владелец'),
             'active' => Yii::t('rus', 'Активно'),
             'active_at' => Yii::t('rus', 'Активно до'),
@@ -76,6 +95,16 @@ class OfficeAccount extends \yii\db\ActiveRecord
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
+    }
+
+    public function getOwner()
+    {
+        return $this->hasOne(User::class, ['id' => 'owner_id']);
+    }
+
+    public static function map()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 
     /**

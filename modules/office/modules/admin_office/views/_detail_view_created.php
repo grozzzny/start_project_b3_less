@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
  * @var \yii\db\ActiveRecord $model
  */
 
+if($model->isNewRecord) return;
 ?>
 
 <hr>

@@ -51,6 +51,9 @@ class OfficeComments extends \yii\db\ActiveRecord
         return [
             [['task_id', 'case_id', 'client_id', 'document_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'account_id'], 'integer'],
             [['text'], 'string', 'max' => 255],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

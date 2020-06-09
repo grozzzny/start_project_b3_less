@@ -16,6 +16,8 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'name')->textInput(['disabled' => 'disabled']) ?>
+
     <?= $form->field($model, 'owner_id')->widget(Select2::className(), ['data' => User::map()]) ?>
 
     <?= $form->field($model, 'active')->checkbox(AdminOfficeModule::checkboxSettings()) ?>

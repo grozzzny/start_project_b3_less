@@ -57,6 +57,9 @@ class OfficeEmployee extends \yii\db\ActiveRecord
             [['user_id', 'account_id', 'priority', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['role'], 'string', 'max' => 255],
             [['user_id', 'account_id'], 'unique', 'targetAttribute' => ['user_id', 'account_id']],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

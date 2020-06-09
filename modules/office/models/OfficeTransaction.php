@@ -54,6 +54,9 @@ class OfficeTransaction extends \yii\db\ActiveRecord
         return [
             [['cost', 'consultation_id', 'case_id', 'client_id', 'is_account', 'created_at', 'updated_at', 'created_by', 'updated_by', 'account_id'], 'integer'],
             [['type', 'note', 'employee_id'], 'string', 'max' => 255],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

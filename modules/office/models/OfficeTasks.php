@@ -65,6 +65,9 @@ class OfficeTasks extends \yii\db\ActiveRecord
             [['type_priority'], 'string', 'max' => 255],
             [['time_to'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'datetime'],
             [['time_to'], 'default', 'value' => null],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

@@ -57,6 +57,9 @@ class OfficeClients extends \yii\db\ActiveRecord
             [['account_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['date_of_birth', 'passport_date'], 'date', 'format' => 'dd.MM.yyyy'],
             [['full_name', 'phone', 'place_of_birth', 'place_registration', 'place_residence', 'passport_number', 'passport_institution', 'passport_photo'], 'string', 'max' => 255],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

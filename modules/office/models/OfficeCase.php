@@ -54,6 +54,9 @@ class OfficeCase extends \yii\db\ActiveRecord
         return [
             [['account_id', 'client_id', 'curator_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['number', 'category', 'object_category'], 'string', 'max' => 255],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

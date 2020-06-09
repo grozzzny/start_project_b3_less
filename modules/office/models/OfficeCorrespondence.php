@@ -54,6 +54,9 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord
         return [
             [['account_id', 'case_id', 'client_id', 'employee_id', 'cost', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['sender', 'recipient', 'description', 'mail_number'], 'string', 'max' => 255],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

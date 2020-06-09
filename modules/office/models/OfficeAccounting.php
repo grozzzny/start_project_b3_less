@@ -51,6 +51,9 @@ class OfficeAccounting extends \yii\db\ActiveRecord
         return [
             [['cost', 'transaction_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'account_id'], 'integer'],
             [['type', 'note', 'target'], 'string', 'max' => 255],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

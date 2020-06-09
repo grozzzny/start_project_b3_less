@@ -53,6 +53,9 @@ class OfficeConsultation extends \yii\db\ActiveRecord
         return [
             [['account_id', 'client_id', 'cost', 'curator_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['type'], 'string', 'max' => 255],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

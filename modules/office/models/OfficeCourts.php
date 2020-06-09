@@ -31,6 +31,9 @@ class OfficeCourts extends \yii\db\ActiveRecord
         return [
             [['account_id'], 'integer'],
             [['name', 'address', 'phone'], 'string', 'max' => 255],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

@@ -58,6 +58,9 @@ class OfficeDocuments extends \yii\db\ActiveRecord
             [['account_id', 'case_id', 'client_id', 'datetime_act', 'court_id', 'term_appeal', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['datetime_act'], 'date', 'format' => 'dd.MM.yyyy'],
             [['category', 'category_act', 'name', 'file', 'note', 'result'], 'string', 'max' => 255],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 

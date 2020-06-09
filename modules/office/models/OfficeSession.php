@@ -58,6 +58,9 @@ class OfficeSession extends \yii\db\ActiveRecord
             [['datetime_act'], 'date', 'format' => 'dd.MM.yyyy'],
             [['datetime_act'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'datetime_act'],
             [['datetime_act'], 'default', 'value' => null],
+            [[
+                'account_id',
+            ], 'required'],
         ];
     }
 
