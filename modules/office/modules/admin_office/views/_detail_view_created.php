@@ -12,8 +12,6 @@ use yii\widgets\DetailView;
 if($model->isNewRecord) return;
 ?>
 
-<hr>
-
 <div class="mb-3">
     <?= DetailView::widget([
         'model' => $model,

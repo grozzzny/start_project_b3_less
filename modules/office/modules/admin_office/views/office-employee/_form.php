@@ -16,15 +16,20 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'account_id')->widget(Select2::className(), ['data' => OfficeAccount::map()]) ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'user_id')->widget(Select2::className(), ['data' => User::map()]) ?>
 
-    <?= $form->field($model, 'user_id')->widget(Select2::className(), ['data' => User::map()]) ?>
+            <?= $form->field($model, 'role')->widget(Select2::className(), ['data' => OfficeEmployee::roles()]) ?>
 
-    <?= $form->field($model, 'role')->widget(Select2::className(), ['data' => OfficeEmployee::roles()]) ?>
+            <?= $form->field($model, 'priority')->input('number') ?>
+        </div>
+        <div class="col-md-6">
+            <?= $this->render('../_detail_view_account', ['model' => $model])?>
 
-    <?= $form->field($model, 'priority')->input('number') ?>
-
-    <?= $this->render('../_detail_view_created', ['model' => $model])?>
+            <?= $this->render('../_detail_view_created', ['model' => $model])?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('rus', 'Сохранить'), ['class' => 'btn btn-success']) ?>

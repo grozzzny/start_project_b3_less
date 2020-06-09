@@ -2,6 +2,7 @@
 
 namespace app\modules\office\models;
 
+use app\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\models\User;
 use Yii;
@@ -31,6 +32,7 @@ use yii\helpers\ArrayHelper;
  */
 class OfficeEmployee extends \yii\db\ActiveRecord
 {
+    use AccountTrait;
     use BlameableTrait;
 
     const ROLE_GUEST = 'guest';

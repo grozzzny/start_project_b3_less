@@ -2,6 +2,7 @@
 
 namespace app\modules\office\models;
 
+use app\components\AccountTrait;
 use app\components\BlameableTrait;
 use Yii;
 use yii\behaviors\AttributeBehavior;
@@ -31,6 +32,7 @@ use yii\helpers\ArrayHelper;
  */
 class OfficeTasks extends \yii\db\ActiveRecord
 {
+    use AccountTrait;
     use BlameableTrait;
 
     /**

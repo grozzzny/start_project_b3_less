@@ -16,15 +16,20 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['disabled' => 'disabled']) ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'name')->textInput(['disabled' => 'disabled']) ?>
 
-    <?= $form->field($model, 'owner_id')->widget(Select2::className(), ['data' => User::map()]) ?>
+            <?= $form->field($model, 'owner_id')->widget(Select2::className(), ['data' => User::map()]) ?>
 
-    <?= $form->field($model, 'active')->checkbox(AdminOfficeModule::checkboxSettings()) ?>
+            <?= $form->field($model, 'active')->checkbox(AdminOfficeModule::checkboxSettings()) ?>
 
-    <?= $form->field($model, 'active_at')->widget(DatePicker::class) ?>
-
-    <?= $this->render('../_detail_view_created', ['model' => $model])?>
+            <?= $form->field($model, 'active_at')->widget(DatePicker::class) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $this->render('../_detail_view_created', ['model' => $model])?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('rus', 'Сохранить'), ['class' => 'btn btn-success']) ?>

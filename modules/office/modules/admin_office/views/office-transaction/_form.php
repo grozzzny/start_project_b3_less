@@ -14,25 +14,30 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'account_id')->widget(Select2::className(), ['data' => OfficeAccount::map()]) ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'cost')->textInput() ?>
 
-    <?= $form->field($model, 'cost')->textInput() ?>
+            <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'consultation_id')->textInput() ?>
 
-    <?= $form->field($model, 'consultation_id')->textInput() ?>
+            <?= $form->field($model, 'case_id')->textInput() ?>
 
-    <?= $form->field($model, 'case_id')->textInput() ?>
+            <?= $form->field($model, 'client_id')->textInput() ?>
 
-    <?= $form->field($model, 'client_id')->textInput() ?>
+            <?= $form->field($model, 'is_account')->textInput() ?>
 
-    <?= $form->field($model, 'is_account')->textInput() ?>
+            <?= $form->field($model, 'employee_id')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $this->render('../_detail_view_account', ['model' => $model])?>
 
-    <?= $form->field($model, 'employee_id')->textInput(['maxlength' => true]) ?>
-
-    <?= $this->render('../_detail_view_created', ['model' => $model])?>
+            <?= $this->render('../_detail_view_created', ['model' => $model])?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('rus', 'Сохранить'), ['class' => 'btn btn-success']) ?>

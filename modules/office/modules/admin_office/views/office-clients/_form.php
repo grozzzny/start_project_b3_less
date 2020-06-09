@@ -14,29 +14,34 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'account_id')->widget(Select2::className(), ['data' => OfficeAccount::map()]) ?>
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'full_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'full_name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'date_of_birth')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'date_of_birth')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'place_of_birth')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'place_of_birth')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'place_registration')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'place_registration')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'place_residence')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'place_residence')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'passport_number')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'passport_number')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'passport_date')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'passport_date')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'passport_institution')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'passport_institution')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'passport_photo')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $this->render('../_detail_view_account', ['model' => $model])?>
 
-    <?= $form->field($model, 'passport_photo')->textInput(['maxlength' => true]) ?>
-
-    <?= $this->render('../_detail_view_created', ['model' => $model])?>
+            <?= $this->render('../_detail_view_created', ['model' => $model])?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('rus', 'Сохранить'), ['class' => 'btn btn-success']) ?>

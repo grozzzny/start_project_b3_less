@@ -2,6 +2,7 @@
 
 namespace app\modules\office\models;
 
+use app\components\AccountTrait;
 use Yii;
 
 /**
@@ -15,6 +16,8 @@ use Yii;
  */
 class OfficeCourts extends \yii\db\ActiveRecord
 {
+    use AccountTrait;
+
     /**
      * {@inheritdoc}
      */
