@@ -33,10 +33,41 @@ class OfficeCase extends \yii\db\ActiveRecord
     use BlameableTrait;
 
     const CATEGORY_CIVIL = 'civil';
+
+    const CIVIL_PLAINTIFF = 'civil_plaintiff';
+    const CIVIL_RESPONDENT = 'civil_respondent';
+    const CIVIL_SUBJECT_DISPUTE = 'civil_subject_dispute';
+    const CIVIL_COURT = 'civil_court';
+
     const CATEGORY_CRIMINAL = 'criminal';
+
+    const CRIMINAL_SUSPECT = 'criminal_suspect';
+    const CRIMINAL_VICTIM = 'criminal_victim';
+    const CRIMINAL_ESSENCE_CHARGE = 'criminal_essence_charge';
+    const CRIMINAL_STAGE_PRE_INVESTIGATION = 'criminal_stage_pre_investigation';
+    const CRIMINAL_STAGE_CONSEQUENCE = 'criminal_stage_consequence';
+    const CRIMINAL_STAGE_JUDICIAL = 'criminal_stage_judicial';
+    const CRIMINAL_COURT = 'criminal_court';
+
     const CATEGORY_EXECUTION = 'execution';
+
+    const EXECUTION_RECOVERER = 'execution_recoverer';
+    const EXECUTION_DEBTOR = 'execution_debtor';
+    const EXECUTION_BAILIFF_SERVICE = 'execution_bailiff_service';
+    const EXECUTION_SUBJECT_EXECUTION = 'execution_subject_execution';
+
     const CATEGORY_ADMINISTRATIVE = 'administrative';
+
+    const ADMINISTRATIVE_PLAINTIFF = 'administrative_plaintiff';
+    const ADMINISTRATIVE_RESPONDENT = 'administrative_respondent';
+    const ADMINISTRATIVE_OFFENDER = 'administrative_offender';
+    const ADMINISTRATIVE_COURT = 'administrative_court';
+    const ADMINISTRATIVE_SUBJECT_DISPUTE = 'administrative_subject_dispute';
+
     const CATEGORY_INSTRUCTION = 'instruction';
+
+    const INSTRUCTION_ESSENCE_ORDER = 'instruction_essence_order';
+    const INSTRUCTION_APPLICANT = 'instruction_applicant';
 
     /**
      * {@inheritdoc}
@@ -120,6 +151,60 @@ class OfficeCase extends \yii\db\ActiveRecord
             self::CATEGORY_ADMINISTRATIVE => Yii::t('rus', 'Административное'),
             self::CATEGORY_INSTRUCTION => Yii::t('rus', 'Поручение'),
         ];
+    }
+
+    public static function objectsCategory()
+    {
+        return [
+            self::CATEGORY_CIVIL => [
+                self::CIVIL_PLAINTIFF => Yii::t('rus', 'Истец'),
+                self::CIVIL_RESPONDENT => Yii::t('rus', 'Ответчик'),
+                self::CIVIL_SUBJECT_DISPUTE => Yii::t('rus', 'Предмет спора'),
+                self::CIVIL_COURT => Yii::t('rus', 'Суд'),
+            ],
+            self::CATEGORY_CRIMINAL => [
+                self::CRIMINAL_SUSPECT => Yii::t('rus', 'Подозреваемый (обвиняемый)'),
+                self::CRIMINAL_VICTIM => Yii::t('rus', 'Потерпевший'),
+                self::CRIMINAL_ESSENCE_CHARGE => Yii::t('rus', 'Суть обвинения'),
+                self::CRIMINAL_STAGE_PRE_INVESTIGATION => Yii::t('rus', 'Стадия расследования (Доследственная проверка)'),
+                self::CRIMINAL_STAGE_CONSEQUENCE => Yii::t('rus', 'Стадия расследования (Следствие)'),
+                self::CRIMINAL_STAGE_JUDICIAL => Yii::t('rus', 'Стадия расследования (Судебная стадия)'),
+                self::CRIMINAL_COURT => Yii::t('rus', 'Суд'),
+            ],
+            self::CATEGORY_EXECUTION => [
+                self::EXECUTION_RECOVERER => Yii::t('rus', 'Взыскатель'),
+                self::EXECUTION_DEBTOR => Yii::t('rus', 'Должник'),
+                self::EXECUTION_BAILIFF_SERVICE => Yii::t('rus', 'Приставы'),
+                self::EXECUTION_SUBJECT_EXECUTION => Yii::t('rus', 'Предмет исполнения'),
+            ],
+            self::CATEGORY_ADMINISTRATIVE => [
+                self::ADMINISTRATIVE_PLAINTIFF => Yii::t('rus', 'Административный истец'),
+                self::ADMINISTRATIVE_RESPONDENT => Yii::t('rus', 'Административный ответчик'),
+                self::ADMINISTRATIVE_OFFENDER => Yii::t('rus', 'Правонарушитель'),
+                self::ADMINISTRATIVE_COURT => Yii::t('rus', 'Суд'),
+                self::ADMINISTRATIVE_SUBJECT_DISPUTE => Yii::t('rus', 'Предмет спора'),
+            ],
+            self::CATEGORY_INSTRUCTION => [
+                self::INSTRUCTION_ESSENCE_ORDER => Yii::t('rus', 'Суть поручения'),
+                self::INSTRUCTION_APPLICANT => Yii::t('rus', 'Заявитель'),
+            ],
+        ];
+    }
+
+    public static function objectsCategoryFormat()
+    {
+        $arr = [];
+
+        foreach (self::objectsCategory() as $key => $objects){
+            foreach ($objects as $key_object => $name) {
+                $arr[$key][] = [
+                    'id' => $key_object,
+                    'text' => $name,
+                ];
+            }
+        }
+
+        return $arr;
     }
 
     /**
