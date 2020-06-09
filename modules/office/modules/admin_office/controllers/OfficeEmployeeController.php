@@ -4,7 +4,7 @@ namespace app\modules\office\modules\admin_office\controllers;
 
 use Yii;
 use app\modules\office\models\OfficeEmployee;
-use yii\data\ActiveDataProvider;
+use app\modules\office\models\search\OfficeEmployeeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,11 +35,11 @@ class OfficeEmployeeController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => OfficeEmployee::find(),
-        ]);
+        $searchModel = new OfficeEmployeeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

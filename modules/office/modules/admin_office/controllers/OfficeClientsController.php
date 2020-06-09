@@ -4,7 +4,7 @@ namespace app\modules\office\modules\admin_office\controllers;
 
 use Yii;
 use app\modules\office\models\OfficeClients;
-use yii\data\ActiveDataProvider;
+use app\modules\office\models\search\OfficeClientsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,11 +35,11 @@ class OfficeClientsController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => OfficeClients::find(),
-        ]);
+        $searchModel = new OfficeClientsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

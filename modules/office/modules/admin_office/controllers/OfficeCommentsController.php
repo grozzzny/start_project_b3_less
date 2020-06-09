@@ -4,7 +4,7 @@ namespace app\modules\office\modules\admin_office\controllers;
 
 use Yii;
 use app\modules\office\models\OfficeComments;
-use yii\data\ActiveDataProvider;
+use app\modules\office\models\search\OfficeCommentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,11 +35,11 @@ class OfficeCommentsController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => OfficeComments::find(),
-        ]);
+        $searchModel = new OfficeCommentsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

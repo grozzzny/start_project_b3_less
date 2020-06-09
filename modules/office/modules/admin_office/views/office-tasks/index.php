@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
+/* @var $searchModel app\modules\office\models\search\OfficeTasksSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('rus', 'Задачи');
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header-toolbar">
             <div class="sort-wrapper">
                 <div class="btn-group toolbar-item" role="group" aria-label="">
-                    <?= Html::a(Yii::t('rus', 'Создать задачу'), ['create'], ['class' => 'btn btn-primary']) ?>
+                    <?= $this->render('../_form_create_btn', ['label' => Yii::t('rus', 'Добавить задачу')])?>
                 </div>
             </div>
         </div>
@@ -35,10 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="office-tasks-index">
 
                     <?php Pjax::begin(); ?>
+                                    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
                 
                                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'columns' => [
+                        'filterModel' => $searchModel,
+        'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'id',

@@ -1,7 +1,7 @@
 <?php
 
 use app\modules\office\models\OfficeAccount;
-use kartik\select2\Select2;
+use app\modules\office\widgets\select2\Select2;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 

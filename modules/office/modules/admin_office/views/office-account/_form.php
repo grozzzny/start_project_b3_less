@@ -3,7 +3,7 @@
 use app\models\User;
 use app\modules\office\modules\admin_office\AdminOfficeModule;
 use app\modules\office\widgets\date_picker\DatePicker;
-use kartik\select2\Select2;
+use app\modules\office\widgets\select2\Select2;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 

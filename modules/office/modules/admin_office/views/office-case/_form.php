@@ -4,7 +4,7 @@ use app\modules\office\models\OfficeAccount;
 use app\modules\office\models\OfficeCase;
 use app\modules\office\models\OfficeClients;
 use app\modules\office\models\OfficeEmployee;
-use kartik\select2\Select2;
+use app\modules\office\widgets\select2\Select2;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
