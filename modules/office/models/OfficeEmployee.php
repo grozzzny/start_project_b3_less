@@ -3,6 +3,7 @@
 namespace app\modules\office\models;
 
 use app\components\BlameableTrait;
+use app\models\User;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -150,6 +151,11 @@ class OfficeEmployee extends \yii\db\ActiveRecord
         return $this->hasMany(OfficeTasks::className(), ['id' => 'task_id'])->viaTable('office_tasks_employee_rel', ['employee_id' => 'id']);
     }
 
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
     public static function roles()
     {
         return [
@@ -159,6 +165,11 @@ class OfficeEmployee extends \yii\db\ActiveRecord
             self::ROLE_PARTNER => Yii::t('rus', 'Партнер'),
             self::ROLE_ADMINISTRATOR => Yii::t('rus', 'Администратор'),
         ];
+    }
+
+    public static function map()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'user.email');
     }
 
     /**

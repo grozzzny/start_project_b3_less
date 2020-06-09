@@ -1,6 +1,9 @@
 <?php
 
 use app\modules\office\models\OfficeAccount;
+use app\modules\office\models\OfficeCase;
+use app\modules\office\models\OfficeClients;
+use app\modules\office\models\OfficeEmployee;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
@@ -18,13 +21,13 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'number')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'client_id')->textInput() ?>
+    <?= $form->field($model, 'client_id')->widget(Select2::className(), ['data' => OfficeClients::map()]) ?>
 
-    <?= $form->field($model, 'category')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'category')->widget(Select2::className(), ['data' => OfficeCase::categories()]) ?>
 
     <?= $form->field($model, 'object_category')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'curator_id')->textInput() ?>
+    <?= $form->field($model, 'curator_id')->widget(Select2::className(), ['data' => OfficeEmployee::map()]) ?>
 
     <?= $this->render('../_detail_view_created', ['model' => $model])?>
 

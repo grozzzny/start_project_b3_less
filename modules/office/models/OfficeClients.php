@@ -88,6 +88,11 @@ class OfficeClients extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function map()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'full_name');
+    }
+
     /**
      * {@inheritdoc}
      * @return \app\modules\office\models\query\OfficeClientsQuery the active query used by this AR class.

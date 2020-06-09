@@ -30,6 +30,12 @@ class OfficeCase extends \yii\db\ActiveRecord
 {
     use BlameableTrait;
 
+    const CATEGORY_CIVIL = 'civil';
+    const CATEGORY_CRIMINAL = 'criminal';
+    const CATEGORY_EXECUTION = 'execution';
+    const CATEGORY_ADMINISTRATIVE = 'administrative';
+    const CATEGORY_INSTRUCTION = 'instruction';
+
     /**
      * {@inheritdoc}
      */
@@ -56,6 +62,9 @@ class OfficeCase extends \yii\db\ActiveRecord
             [['number', 'category', 'object_category'], 'string', 'max' => 255],
             [[
                 'account_id',
+                'client_id',
+                'category',
+                'object_category',
             ], 'required'],
         ];
     }
@@ -98,6 +107,17 @@ class OfficeCase extends \yii\db\ActiveRecord
     public function getEmployees()
     {
         return $this->hasMany(OfficeEmployee::className(), ['id' => 'employee_id'])->viaTable('office_case_employee_rel', ['case_id' => 'id']);
+    }
+
+    public static function categories()
+    {
+        return [
+            self::CATEGORY_CIVIL => Yii::t('rus', 'Гражданское дело'),
+            self::CATEGORY_CRIMINAL => Yii::t('rus', 'Уголовное дело'),
+            self::CATEGORY_EXECUTION => Yii::t('rus', 'Исполнение судебного акта'),
+            self::CATEGORY_ADMINISTRATIVE => Yii::t('rus', 'Административное'),
+            self::CATEGORY_INSTRUCTION => Yii::t('rus', 'Поручение'),
+        ];
     }
 
     /**

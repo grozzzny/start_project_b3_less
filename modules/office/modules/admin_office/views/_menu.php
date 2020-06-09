@@ -32,16 +32,15 @@ $this->registerCss($css);
                 'active' => $controller_id == 'office-employee',
             ],
             [
-                'label' => Yii::t('rus', 'Дела'),
-                'url' => ['/admin/admin_office/office-case'],
-                'active' => $controller_id == 'office-case',
-            ],
-            [
                 'label' => Yii::t('rus', 'Клиенты'),
                 'url' => ['/admin/admin_office/office-clients'],
                 'active' => $controller_id == 'office-clients',
             ],
-
+            [
+                'label' => Yii::t('rus', 'Дела'),
+                'url' => ['/admin/admin_office/office-case'],
+                'active' => $controller_id == 'office-case',
+            ],
             [
                 'label' => Yii::t('rus', 'Консультации'),
                 'url' => ['/admin/admin_office/office-consultation'],
