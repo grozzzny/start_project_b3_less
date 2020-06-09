@@ -2,6 +2,7 @@
 
 use app\models\User;
 use app\modules\office\models\OfficeAccount;
+use app\modules\office\models\OfficeEmployee;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
@@ -19,9 +20,9 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'user_id')->widget(Select2::className(), ['data' => User::map()]) ?>
 
-    <?= $form->field($model, 'role')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'role')->widget(Select2::className(), ['data' => OfficeEmployee::roles()]) ?>
 
-    <?= $form->field($model, 'priority')->textInput() ?>
+    <?= $form->field($model, 'priority')->input('number') ?>
 
     <?= $this->render('../_detail_view_created', ['model' => $model])?>
 

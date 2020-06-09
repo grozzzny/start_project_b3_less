@@ -1,5 +1,7 @@
 <?php
 
+use app\modules\office\models\OfficeAccount;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -12,7 +14,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'account_id')->textInput() ?>
+    <?= $form->field($model, 'account_id')->widget(Select2::className(), ['data' => OfficeAccount::map()]) ?>
 
     <?= $form->field($model, 'task_id')->textInput() ?>
 

@@ -32,6 +32,12 @@ class OfficeEmployee extends \yii\db\ActiveRecord
 {
     use BlameableTrait;
 
+    const ROLE_GUEST = 'guest';
+    const ROLE_ASSISTANT = 'assistant';
+    const ROLE_LAWYER = 'lawyer';
+    const ROLE_PARTNER = 'partner';
+    const ROLE_ADMINISTRATOR = 'administrator';
+
     /**
      * {@inheritdoc}
      */
@@ -59,7 +65,10 @@ class OfficeEmployee extends \yii\db\ActiveRecord
             [['user_id', 'account_id'], 'unique', 'targetAttribute' => ['user_id', 'account_id']],
             [[
                 'account_id',
+                'user_id',
+                'role',
             ], 'required'],
+            [['priority'], 'default', 'value' => 0],
         ];
     }
 
@@ -139,6 +148,17 @@ class OfficeEmployee extends \yii\db\ActiveRecord
     public function getTasks()
     {
         return $this->hasMany(OfficeTasks::className(), ['id' => 'task_id'])->viaTable('office_tasks_employee_rel', ['employee_id' => 'id']);
+    }
+
+    public static function roles()
+    {
+        return [
+            self::ROLE_GUEST => Yii::t('rus', 'Гость'),
+            self::ROLE_ASSISTANT => Yii::t('rus', 'Помощник'),
+            self::ROLE_LAWYER => Yii::t('rus', 'Адвокат'),
+            self::ROLE_PARTNER => Yii::t('rus', 'Партнер'),
+            self::ROLE_ADMINISTRATOR => Yii::t('rus', 'Администратор'),
+        ];
     }
 
     /**
