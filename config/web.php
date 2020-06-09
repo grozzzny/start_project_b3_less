@@ -165,6 +165,7 @@ $config = [
             'class' => 'grozzzny\admin\AdminModule',
             'render_toolbar_role' => 'user-management',
             'live_edit_role' => 'user-management',
+            'defaultRoute' => 'admin_office',
             'as access' => [
                 'class' => 'grozzzny\admin\behaviors\AccessControl',
                 'rules' => [
