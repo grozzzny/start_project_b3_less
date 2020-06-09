@@ -1,5 +1,6 @@
 <?php
 
+use app\components\BlameableTrait;
 use yii\web\View;
 use yii\widgets\DetailView;
 
@@ -18,8 +19,20 @@ use yii\widgets\DetailView;
         'attributes' => [
             'created_at:datetime',
             'updated_at:datetime',
-            'created_by',
-            'updated_by',
+            [
+                'attribute' => 'created_by',
+                'value' => function($model){
+                    /** @var BlameableTrait $model */
+                    return $model->createdByEmail;
+                }
+            ],
+            [
+                'attribute' => 'updated_by',
+                'value' => function($model){
+                    /** @var BlameableTrait $model */
+                    return $model->updatedByEmail;
+                }
+            ],
         ]
     ])?>
 </div>

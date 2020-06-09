@@ -2,6 +2,7 @@
 
 namespace app\modules\office\models;
 
+use app\components\BlameableTrait;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -30,6 +31,8 @@ use yii\helpers\ArrayHelper;
  */
 class OfficeDocuments extends \yii\db\ActiveRecord
 {
+    use BlameableTrait;
+
     /**
      * {@inheritdoc}
      */
