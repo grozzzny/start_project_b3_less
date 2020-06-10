@@ -85,6 +85,16 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
                 'description',
                 'time_to',
             ], 'required'],
+            [['case_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CASE),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CASE)
+            ],
+            [['consultation_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CONSULTATION),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CONSULTATION)
+            ],
         ];
     }
 

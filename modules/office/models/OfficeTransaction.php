@@ -9,6 +9,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "office_transaction".
@@ -28,12 +29,16 @@ use yii\helpers\ArrayHelper;
  * @property int|null $updated_by
  * @property int|null $account_id
  * @property string $relation [varchar(255)]
+ * @property boolean $isAccount
  */
 class OfficeTransaction extends \yii\db\ActiveRecord implements RelationsInterface
 {
     use EmployeeTrait;
     use AccountTrait;
     use BlameableTrait;
+
+    const TYPE_ADD = 'add';
+    const TYPE_SUBTRACT = 'subtract';
 
     /**
      * {@inheritdoc}
@@ -62,7 +67,23 @@ class OfficeTransaction extends \yii\db\ActiveRecord implements RelationsInterfa
             [[
                 'account_id',
                 'relation',
+                'type',
+                'cost',
             ], 'required'],
+            [['case_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CASE),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CASE)
+            ],
+            [['consultation_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CONSULTATION),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CONSULTATION)
+            ],
+            [['employee_id'], 'required', 'when' => function($model) {
+                /** @var self $model */
+                return !$model->isAccount;
+            }, 'whenClient' => "function (attribute, value) { return $('#".Html::getInputId($this, 'is_account')."').prop('checked') == false; }"],
         ];
     }
 
@@ -90,9 +111,25 @@ class OfficeTransaction extends \yii\db\ActiveRecord implements RelationsInterfa
         ];
     }
 
+    public function getIsAccount()
+    {
+        return $this->is_account == 1;
+    }
+
+    public static function types()
+    {
+        return [
+            self::TYPE_ADD => Yii::t('rus', 'Пополнение'),
+            self::TYPE_SUBTRACT => Yii::t('rus', 'Списание'),
+        ];
+    }
+
     public static function relations()
     {
-        return [];
+        return [
+            Relation::RELATION_CASE => Relation::label(Relation::RELATION_CASE),
+            Relation::RELATION_CONSULTATION => Relation::label(Relation::RELATION_CONSULTATION),
+        ];
     }
 
     /**
