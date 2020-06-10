@@ -23,6 +23,7 @@ if($model->isNewRecord) return;
                 'attribute' => 'created_by',
                 'value' => function($model){
                     /** @var BlameableTrait|EmployeeTrait $model */
+                    if(!isset($model->createdEmployee)) return $model->createdByEmail;
                     $createdEmployee = $model->createdEmployee;
                     $data = [$model->createdByEmail];
                     if(!empty($createdEmployee)) $data[] = $createdEmployee->roleLabel;
@@ -33,6 +34,7 @@ if($model->isNewRecord) return;
                 'attribute' => 'updated_by',
                 'value' => function($model){
                     /** @var BlameableTrait|EmployeeTrait $model */
+                    if(!isset($model->createdEmployee)) return $model->updatedByEmail;
                     $createdEmployee = $model->createdEmployee;
                     $data = [$model->updatedByEmail];
                     if(!empty($createdEmployee)) $data[] = $createdEmployee->roleLabel;
