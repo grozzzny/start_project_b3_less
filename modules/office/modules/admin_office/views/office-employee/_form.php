@@ -22,7 +22,10 @@ use yii\bootstrap4\ActiveForm;
 
             <?= $form->field($model, 'role')->widget(Select2::className(), ['data' => OfficeEmployee::roles()]) ?>
 
+            <?= $form->field($model, 'full_name')->textInput() ?>
+
             <?= $form->field($model, 'priority')->input('number') ?>
+
         </div>
         <div class="col-md-6">
             <?= $this->render('../_detail_view_account', ['model' => $model])?>

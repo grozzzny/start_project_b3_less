@@ -32,12 +32,17 @@ use yii\helpers\ArrayHelper;
  * @property OfficeEmployee[] $employees
  * @property string $relation [varchar(255)]
  * @property int $consultation_id [int(11)]
+ * @property bool|integer $confirmed [tinyint(1)]
  */
 class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
 {
     use EmployeeTrait;
     use AccountTrait;
     use BlameableTrait;
+
+    const PRIORITY_CURRENT = 'current';
+    const PRIORITY_IMPORTANT = 'important';
+    const PRIORITY_URGENT = 'urgent';
 
     /**
      * {@inheritdoc}
@@ -66,14 +71,19 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
     public function rules()
     {
         return [
-            [['account_id', 'curator_id', 'case_id', 'client_id', 'time_to', 'created_at', 'updated_at', 'created_by', 'updated_by', 'consultation_id'], 'integer'],
+            [['account_id', 'curator_id', 'case_id', 'client_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'consultation_id'], 'integer'],
             [['description', 'relation'], 'string'],
             [['type_priority'], 'string', 'max' => 255],
-            [['time_to'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'datetime'],
+            [['confirmed'], 'boolean'],
+            [['confirmed'], 'default', 'value' => false],
+            [['time_to'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'time_to'],
             [['time_to'], 'default', 'value' => null],
             [[
                 'account_id',
                 'relation',
+                'curator_id',
+                'description',
+                'time_to',
             ], 'required'],
         ];
     }
@@ -88,6 +98,7 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
             'account_id' => Yii::t('rus', 'Аккаунт'),
             'curator_id' => Yii::t('rus', 'Куратор'),
             'case_id' => Yii::t('rus', 'Дело'),
+            'relation' => Yii::t('rus', 'Отношение'),
             'consultation_id' => Yii::t('rus', 'Консультация'),
             'client_id' => Yii::t('rus', 'Клиент'),
             'description' => Yii::t('rus', 'Описание'),
@@ -97,6 +108,7 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
             'updated_at' => Yii::t('rus', 'Дата обновления'),
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
+            'confirmed' => Yii::t('rus', 'Подтверждено куратором'),
         ];
     }
 
@@ -120,9 +132,21 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
         return $this->hasMany(OfficeEmployee::className(), ['id' => 'employee_id'])->viaTable('office_tasks_employee_rel', ['task_id' => 'id']);
     }
 
+    public static function priorities()
+    {
+        return [
+            self::PRIORITY_CURRENT => Yii::t('rus', 'Текущая'),
+            self::PRIORITY_IMPORTANT => Yii::t('rus', 'Важная'),
+            self::PRIORITY_URGENT => Yii::t('rus', 'Срочная'),
+        ];
+    }
+
     public static function relations()
     {
-        return [];
+        return [
+            Relation::RELATION_CASE => Relation::label(Relation::RELATION_CASE),
+            Relation::RELATION_CONSULTATION => Relation::label(Relation::RELATION_CONSULTATION),
+        ];
     }
 
     /**

@@ -32,6 +32,8 @@ use yii\helpers\ArrayHelper;
  * @property OfficeTasks[] $tasks
  *
  * @property-read string $roleLabel
+ * @property string $full_name [varchar(255)]
+ * @property User $user
  */
 class OfficeEmployee extends \yii\db\ActiveRecord
 {
@@ -68,12 +70,13 @@ class OfficeEmployee extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'account_id', 'priority', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['role'], 'string', 'max' => 255],
+            [['role', 'full_name'], 'string', 'max' => 255],
             [['user_id', 'account_id'], 'unique', 'targetAttribute' => ['user_id', 'account_id']],
             [[
                 'account_id',
                 'user_id',
                 'role',
+                'full_name',
             ], 'required'],
             [['priority'], 'default', 'value' => 0],
         ];
@@ -94,6 +97,7 @@ class OfficeEmployee extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('rus', 'Дата обновления'),
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
+            'full_name' => Yii::t('rus', 'ФИО'),
         ];
     }
 
@@ -167,6 +171,11 @@ class OfficeEmployee extends \yii\db\ActiveRecord
         return ArrayHelper::getValue(static::roles(), $this->role);
     }
 
+    public function getName()
+    {
+        return empty($this->full_name) ? $this->user->email : $this->full_name;
+    }
+
     public static function roles()
     {
         return [
@@ -180,8 +189,9 @@ class OfficeEmployee extends \yii\db\ActiveRecord
 
     public static function map($account_id)
     {
-        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'user.email');
+        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'name');
     }
+
 
     /**
      * {@inheritdoc}
