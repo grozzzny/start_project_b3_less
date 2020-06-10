@@ -26,6 +26,7 @@ use yii\validators\DateValidator;
  * @property string $name [varchar(255)]
  *
  * @property-read User $owner
+ * @property-read OfficeEmployee $createdEmployee
  */
 class OfficeAccount extends \yii\db\ActiveRecord
 {
@@ -100,6 +101,12 @@ class OfficeAccount extends \yii\db\ActiveRecord
     public function getOwner()
     {
         return $this->hasOne(User::class, ['id' => 'owner_id']);
+    }
+
+    public function getCreatedEmployee()
+    {
+        return $this->hasOne(OfficeEmployee::class, ['user_id' => 'created_by'])
+            ->onCondition(['account_id' => $this->id]);
     }
 
     public static function map()
