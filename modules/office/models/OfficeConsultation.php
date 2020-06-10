@@ -2,8 +2,9 @@
 
 namespace app\modules\office\models;
 
-use app\components\AccountTrait;
+use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
+use app\modules\office\components\EmployeeTrait;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -28,8 +29,12 @@ use yii\helpers\ArrayHelper;
  */
 class OfficeConsultation extends \yii\db\ActiveRecord
 {
+    use EmployeeTrait;
     use AccountTrait;
     use BlameableTrait;
+
+    const TYPE_ORAL  = 'oral';
+    const TYPE_WRITTEN = 'written';
 
     /**
      * {@inheritdoc}
@@ -98,6 +103,14 @@ class OfficeConsultation extends \yii\db\ActiveRecord
     public function getEmployees()
     {
         return $this->hasMany(OfficeEmployee::className(), ['id' => 'employee_id'])->viaTable('office_consultation_employee_rel', ['consultation_id' => 'id']);
+    }
+
+    public static function types()
+    {
+        return [
+            self::TYPE_ORAL => Yii::t('rus', 'Устная'),
+            self::TYPE_WRITTEN => Yii::t('rus', 'Письменная'),
+        ];
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\components;
+namespace app\modules\office\components;
 
 
 use app\modules\office\models\OfficeAccount;

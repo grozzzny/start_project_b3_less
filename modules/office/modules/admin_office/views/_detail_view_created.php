@@ -1,6 +1,7 @@
 <?php
 
 use app\components\BlameableTrait;
+use app\modules\office\components\EmployeeTrait;
 use yii\web\View;
 use yii\widgets\DetailView;
 
@@ -21,15 +22,21 @@ if($model->isNewRecord) return;
             [
                 'attribute' => 'created_by',
                 'value' => function($model){
-                    /** @var BlameableTrait $model */
-                    return $model->createdByEmail;
+                    /** @var BlameableTrait|EmployeeTrait $model */
+                    $createdEmployee = $model->createdEmployee;
+                    $data = [$model->createdByEmail];
+                    if(!empty($createdEmployee)) $data[] = $createdEmployee->roleLabel;
+                    return implode(' / ', $data);
                 }
             ],
             [
                 'attribute' => 'updated_by',
                 'value' => function($model){
-                    /** @var BlameableTrait $model */
-                    return $model->updatedByEmail;
+                    /** @var BlameableTrait|EmployeeTrait $model */
+                    $createdEmployee = $model->createdEmployee;
+                    $data = [$model->updatedByEmail];
+                    if(!empty($createdEmployee)) $data[] = $createdEmployee->roleLabel;
+                    return implode(' / ', $data);
                 }
             ],
         ]

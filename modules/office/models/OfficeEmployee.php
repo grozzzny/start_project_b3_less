@@ -2,9 +2,10 @@
 
 namespace app\modules\office\models;
 
-use app\components\AccountTrait;
+use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\models\User;
+use app\modules\office\components\EmployeeTrait;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -29,9 +30,12 @@ use yii\helpers\ArrayHelper;
  * @property OfficeConsultation[] $consultations
  * @property OfficeTasksEmployeeRel[] $officeTasksEmployeeRels
  * @property OfficeTasks[] $tasks
+ *
+ * @property-read string $roleLabel
  */
 class OfficeEmployee extends \yii\db\ActiveRecord
 {
+    use EmployeeTrait;
     use AccountTrait;
     use BlameableTrait;
 
@@ -156,6 +160,11 @@ class OfficeEmployee extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getRoleLabel()
+    {
+        return ArrayHelper::getValue(static::roles(), $this->role);
     }
 
     public static function roles()
