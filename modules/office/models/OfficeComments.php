@@ -59,9 +59,40 @@ class OfficeComments extends \yii\db\ActiveRecord implements RelationsInterface
             [['task_id', 'case_id', 'client_id', 'document_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'account_id', 'consultation_id', 'session_id'], 'integer'],
             [['text', 'relation'], 'string', 'max' => 255],
             [[
+                'text',
                 'relation',
                 'account_id',
             ], 'required'],
+            [['case_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CASE),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CASE)
+            ],
+            [['consultation_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CONSULTATION),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CONSULTATION)
+            ],
+            [['session_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_SESSION),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_SESSION)
+            ],
+            [['client_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CLIENT),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CLIENT)
+            ],
+            [['task_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_TASK),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_TASK)
+            ],
+            [['document_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_DOCUMENT),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_DOCUMENT)
+            ],
         ];
     }
 
@@ -90,7 +121,14 @@ class OfficeComments extends \yii\db\ActiveRecord implements RelationsInterface
 
     public static function relations()
     {
-        return [];
+        return [
+            Relation::RELATION_CASE => Relation::label(Relation::RELATION_CASE),
+            Relation::RELATION_CONSULTATION => Relation::label(Relation::RELATION_CONSULTATION),
+            Relation::RELATION_SESSION => Relation::label(Relation::RELATION_SESSION),
+            Relation::RELATION_CLIENT => Relation::label(Relation::RELATION_CLIENT),
+            Relation::RELATION_DOCUMENT => Relation::label(Relation::RELATION_DOCUMENT),
+            Relation::RELATION_TASK => Relation::label(Relation::RELATION_TASK),
+        ];
     }
 
     /**

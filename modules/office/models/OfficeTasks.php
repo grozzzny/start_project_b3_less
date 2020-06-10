@@ -5,6 +5,7 @@ namespace app\modules\office\models;
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
+use grozzzny\admin\helpers\StringHelper;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -33,6 +34,7 @@ use yii\helpers\ArrayHelper;
  * @property string $relation [varchar(255)]
  * @property int $consultation_id [int(11)]
  * @property bool|integer $confirmed [tinyint(1)]
+ * @property string $name
  */
 class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -140,6 +142,16 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
     public function getEmployees()
     {
         return $this->hasMany(OfficeEmployee::className(), ['id' => 'employee_id'])->viaTable('office_tasks_employee_rel', ['task_id' => 'id']);
+    }
+
+    public function getName()
+    {
+        return StringHelper::cut($this->description, 150);
+    }
+
+    public static function map($account_id)
+    {
+        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'name');
     }
 
     public static function priorities()

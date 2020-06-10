@@ -150,6 +150,11 @@ class OfficeDocuments extends \yii\db\ActiveRecord implements RelationsInterface
         ];
     }
 
+    public static function map($account_id)
+    {
+        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'name');
+    }
+
     public static function relations()
     {
         return [

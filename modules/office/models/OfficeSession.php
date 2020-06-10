@@ -24,6 +24,9 @@ use yii\helpers\ArrayHelper;
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
+ * @property OfficeCase $case
+ * @property string $datetimeActFormat
+ * @property string $name
  */
 class OfficeSession extends \yii\db\ActiveRecord
 {
@@ -85,6 +88,29 @@ class OfficeSession extends \yii\db\ActiveRecord
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
+    }
+
+    public function getDatetimeActFormat()
+    {
+        return $this->datetime_act;
+    }
+
+    public function getCase()
+    {
+        return $this->hasOne(OfficeCase::class, ['id' => 'case_id']);
+    }
+
+    public function getName()
+    {
+        return Yii::t('rus', 'Заседание по делу «{0}» от {1}', [
+            $this->case->name,
+            $this->datetimeActFormat
+        ]);
+    }
+
+    public static function map($account_id)
+    {
+        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'name');
     }
 
     /**
