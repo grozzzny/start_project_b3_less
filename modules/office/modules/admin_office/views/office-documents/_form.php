@@ -51,14 +51,6 @@ use yii\web\View;
             ]) ?>
             </div>
 
-<!--            --><?//= $form->field($model, 'client_id')->widget(Select2::className(), [
-//                'data' => OfficeClients::map($model->account_id),
-//                'pluginOptions' => [
-//                    'allowClear' => true,
-//                    'placeholder' => Yii::t('rus', 'Выберите значение'),
-//                ],
-//            ]) ?>
-
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
             <?= $form->field($model, 'category')->widget(Select2::className(), [

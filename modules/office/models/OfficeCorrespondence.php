@@ -63,7 +63,18 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord implements RelationsInte
             [[
                 'relation',
                 'account_id',
+                'employee_id',
             ], 'required'],
+            [['case_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CASE),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CASE)
+            ],
+            [['consultation_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CONSULTATION),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CONSULTATION)
+            ],
         ];
     }
 
@@ -94,7 +105,10 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord implements RelationsInte
 
     public static function relations()
     {
-        return [];
+        return [
+            Relation::RELATION_CASE => Relation::label(Relation::RELATION_CASE),
+            Relation::RELATION_CONSULTATION => Relation::label(Relation::RELATION_CONSULTATION),
+        ];
     }
 
 
