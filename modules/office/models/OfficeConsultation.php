@@ -26,6 +26,9 @@ use yii\helpers\ArrayHelper;
  *
  * @property OfficeConsultationEmployeeRel[] $officeConsultationEmployeeRels
  * @property OfficeEmployee[] $employees
+ * @property-read OfficeClients $client
+ * @property-read string $name
+ * @property-read string $typeLabel
  */
 class OfficeConsultation extends \yii\db\ActiveRecord
 {
@@ -61,6 +64,9 @@ class OfficeConsultation extends \yii\db\ActiveRecord
             [['account_id', 'client_id', 'cost', 'curator_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['type'], 'string', 'max' => 255],
             [[
+                'client_id',
+                'cost',
+                'type',
                 'account_id',
             ], 'required'],
         ];
@@ -103,6 +109,30 @@ class OfficeConsultation extends \yii\db\ActiveRecord
     public function getEmployees()
     {
         return $this->hasMany(OfficeEmployee::className(), ['id' => 'employee_id'])->viaTable('office_consultation_employee_rel', ['consultation_id' => 'id']);
+    }
+
+    public function getClient()
+    {
+        return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
+    }
+
+    public function getName()
+    {
+        return implode(' / ', [
+            $this->client->full_name,
+            $this->cost,
+            $this->typeLabel
+        ]);
+    }
+
+    public static function map($account_id)
+    {
+        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'name');
+    }
+
+    public function getTypeLabel()
+    {
+        return ArrayHelper::getValue(self::types(), $this->type);
     }
 
     public static function types()

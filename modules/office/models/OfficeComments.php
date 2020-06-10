@@ -24,8 +24,11 @@ use yii\helpers\ArrayHelper;
  * @property int|null $created_by
  * @property int|null $updated_by
  * @property int|null $account_id
+ * @property string $relation [varchar(255)]
+ * @property int $consultation_id [int(11)]
+ * @property int $session_id [int(11)]
  */
-class OfficeComments extends \yii\db\ActiveRecord
+class OfficeComments extends \yii\db\ActiveRecord implements RelationsInterface
 {
     use EmployeeTrait;
     use AccountTrait;
@@ -53,9 +56,10 @@ class OfficeComments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['task_id', 'case_id', 'client_id', 'document_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'account_id'], 'integer'],
-            [['text'], 'string', 'max' => 255],
+            [['task_id', 'case_id', 'client_id', 'document_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'account_id', 'consultation_id', 'session_id'], 'integer'],
+            [['text', 'relation'], 'string', 'max' => 255],
             [[
+                'relation',
                 'account_id',
             ], 'required'],
         ];
@@ -70,7 +74,10 @@ class OfficeComments extends \yii\db\ActiveRecord
             'id' => Yii::t('rus', 'ID'),
             'task_id' => Yii::t('rus', 'Задача'),
             'case_id' => Yii::t('rus', 'Дело'),
+            'relation' => Yii::t('rus', 'Отношение'),
             'client_id' => Yii::t('rus', 'Клиент'),
+            'session_id' => Yii::t('rus', 'Заседание'),
+            'consultation_id' => Yii::t('rus', 'Консультация'),
             'document_id' => Yii::t('rus', 'Документ'),
             'text' => Yii::t('rus', 'Описание'),
             'created_at' => Yii::t('rus', 'Дата создания'),
@@ -79,6 +86,11 @@ class OfficeComments extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('rus', 'Обновлен'),
             'account_id' => Yii::t('rus', 'Аккаунт'),
         ];
+    }
+
+    public static function relations()
+    {
+        return [];
     }
 
     /**

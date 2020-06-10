@@ -27,8 +27,10 @@ use yii\helpers\ArrayHelper;
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
+ * @property string $relation [varchar(255)]
+ * @property int $consultation_id [int(11)]
  */
-class OfficeCorrespondence extends \yii\db\ActiveRecord
+class OfficeCorrespondence extends \yii\db\ActiveRecord implements RelationsInterface
 {
     use EmployeeTrait;
     use AccountTrait;
@@ -56,9 +58,10 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'case_id', 'client_id', 'employee_id', 'cost', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['sender', 'recipient', 'description', 'mail_number'], 'string', 'max' => 255],
+            [['account_id', 'case_id', 'client_id', 'employee_id', 'cost', 'created_at', 'updated_at', 'created_by', 'updated_by', 'consultation_id'], 'integer'],
+            [['sender', 'recipient', 'description', 'mail_number', 'relation'], 'string', 'max' => 255],
             [[
+                'relation',
                 'account_id',
             ], 'required'],
         ];
@@ -74,9 +77,11 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord
             'account_id' => Yii::t('rus', 'Аккаунт'),
             'case_id' => Yii::t('rus', 'Дело'),
             'client_id' => Yii::t('rus', 'Клиент'),
+            'relation' => Yii::t('rus', 'Отношение'),
             'employee_id' => Yii::t('rus', 'Сотрудник'),
             'sender' => Yii::t('rus', 'Отправитель'),
             'recipient' => Yii::t('rus', 'Получатель'),
+            'consultation_id' => Yii::t('rus', 'Консультация'),
             'description' => Yii::t('rus', 'Краткое содержание'),
             'mail_number' => Yii::t('rus', 'Почтовый идентификатор'),
             'cost' => Yii::t('rus', 'Сумма'),
@@ -86,6 +91,12 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
     }
+
+    public static function relations()
+    {
+        return [];
+    }
+
 
     /**
      * {@inheritdoc}

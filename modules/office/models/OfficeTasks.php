@@ -30,8 +30,10 @@ use yii\helpers\ArrayHelper;
  *
  * @property OfficeTasksEmployeeRel[] $officeTasksEmployeeRels
  * @property OfficeEmployee[] $employees
+ * @property string $relation [varchar(255)]
+ * @property int $consultation_id [int(11)]
  */
-class OfficeTasks extends \yii\db\ActiveRecord
+class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
 {
     use EmployeeTrait;
     use AccountTrait;
@@ -64,13 +66,14 @@ class OfficeTasks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'curator_id', 'case_id', 'client_id', 'time_to', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['description'], 'string'],
+            [['account_id', 'curator_id', 'case_id', 'client_id', 'time_to', 'created_at', 'updated_at', 'created_by', 'updated_by', 'consultation_id'], 'integer'],
+            [['description', 'relation'], 'string'],
             [['type_priority'], 'string', 'max' => 255],
             [['time_to'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'datetime'],
             [['time_to'], 'default', 'value' => null],
             [[
                 'account_id',
+                'relation',
             ], 'required'],
         ];
     }
@@ -85,6 +88,7 @@ class OfficeTasks extends \yii\db\ActiveRecord
             'account_id' => Yii::t('rus', 'Аккаунт'),
             'curator_id' => Yii::t('rus', 'Куратор'),
             'case_id' => Yii::t('rus', 'Дело'),
+            'consultation_id' => Yii::t('rus', 'Консультация'),
             'client_id' => Yii::t('rus', 'Клиент'),
             'description' => Yii::t('rus', 'Описание'),
             'time_to' => Yii::t('rus', 'Срок задачи'),
@@ -114,6 +118,11 @@ class OfficeTasks extends \yii\db\ActiveRecord
     public function getEmployees()
     {
         return $this->hasMany(OfficeEmployee::className(), ['id' => 'employee_id'])->viaTable('office_tasks_employee_rel', ['task_id' => 'id']);
+    }
+
+    public static function relations()
+    {
+        return [];
     }
 
     /**

@@ -5,6 +5,7 @@ namespace app\modules\office\models;
 use app\modules\office\components\AccountTrait;
 use app\modules\office\components\EmployeeTrait;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "office_courts".
@@ -38,6 +39,7 @@ class OfficeCourts extends \yii\db\ActiveRecord
             [['name', 'address', 'phone'], 'string', 'max' => 255],
             [[
                 'account_id',
+                'name',
             ], 'required'],
         ];
     }
@@ -54,6 +56,11 @@ class OfficeCourts extends \yii\db\ActiveRecord
             'address' => Yii::t('rus', 'Адрес'),
             'phone' => Yii::t('rus', 'Телефон'),
         ];
+    }
+
+    public static function map($account_id)
+    {
+        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'name');
     }
 
     /**

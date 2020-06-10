@@ -27,8 +27,9 @@ use yii\helpers\ArrayHelper;
  * @property int|null $created_by
  * @property int|null $updated_by
  * @property int|null $account_id
+ * @property string $relation [varchar(255)]
  */
-class OfficeTransaction extends \yii\db\ActiveRecord
+class OfficeTransaction extends \yii\db\ActiveRecord implements RelationsInterface
 {
     use EmployeeTrait;
     use AccountTrait;
@@ -57,9 +58,10 @@ class OfficeTransaction extends \yii\db\ActiveRecord
     {
         return [
             [['cost', 'consultation_id', 'case_id', 'client_id', 'is_account', 'created_at', 'updated_at', 'created_by', 'updated_by', 'account_id'], 'integer'],
-            [['type', 'note', 'employee_id'], 'string', 'max' => 255],
+            [['type', 'note', 'employee_id', 'relation'], 'string', 'max' => 255],
             [[
                 'account_id',
+                'relation',
             ], 'required'],
         ];
     }
@@ -74,6 +76,7 @@ class OfficeTransaction extends \yii\db\ActiveRecord
             'cost' => Yii::t('rus', 'Сумма'),
             'type' => Yii::t('rus', 'Тип транзакции'), // Пополнение, списание
             'note' => Yii::t('rus', 'Примечание'),
+            'relation' => Yii::t('rus', 'Отношение'),
             'consultation_id' => Yii::t('rus', 'Консультация'),
             'case_id' => Yii::t('rus', 'Дело'),
             'client_id' => Yii::t('rus', 'Клиент'),
@@ -85,6 +88,11 @@ class OfficeTransaction extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('rus', 'Обновлен'),
             'account_id' => Yii::t('rus', 'Аккаунт'),
         ];
+    }
+
+    public static function relations()
+    {
+        return [];
     }
 
     /**

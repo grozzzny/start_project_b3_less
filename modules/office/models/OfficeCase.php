@@ -27,6 +27,11 @@ use yii\helpers\ArrayHelper;
  *
  * @property OfficeCaseEmployeeRel[] $officeCaseEmployeeRels
  * @property OfficeEmployee[] $employees
+ * @property-read string $objectCategoryLabel
+ * @property-read string $categoryLabel
+ * @property-read OfficeClients $client
+ * @property-read string $name
+ *
  */
 class OfficeCase extends \yii\db\ActiveRecord
 {
@@ -144,6 +149,32 @@ class OfficeCase extends \yii\db\ActiveRecord
         return $this->hasMany(OfficeEmployee::className(), ['id' => 'employee_id'])->viaTable('office_case_employee_rel', ['case_id' => 'id']);
     }
 
+    public function getObjectCategoryLabel()
+    {
+        $objects = ArrayHelper::getValue(static::objectsCategory(), $this->category);
+        return ArrayHelper::getValue($objects, $this->object_category);
+    }
+
+    public function getCategoryLabel()
+    {
+        return ArrayHelper::getValue(static::categories(), $this->category);
+    }
+
+    public function getClient()
+    {
+        return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
+    }
+
+    public function getName()
+    {
+        return implode(' / ', [
+            $this->number,
+            $this->client->full_name,
+            $this->categoryLabel,
+            $this->objectCategoryLabel
+        ]);
+    }
+
     public static function categories()
     {
         return [
@@ -207,6 +238,11 @@ class OfficeCase extends \yii\db\ActiveRecord
         }
 
         return $arr;
+    }
+
+    public static function map($account_id)
+    {
+        return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'name');
     }
 
     /**

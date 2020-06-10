@@ -1,10 +1,18 @@
 <?php
 
 use app\modules\office\models\OfficeAccount;
+use app\modules\office\models\OfficeCase;
+use app\modules\office\models\OfficeClients;
+use app\modules\office\models\OfficeConsultation;
+use app\modules\office\models\OfficeCourts;
+use app\modules\office\models\OfficeDocuments;
+use app\modules\office\models\Relation;
 use app\modules\office\widgets\date_time_picker\DateTimePicker;
 use app\modules\office\widgets\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeDocuments */
@@ -17,27 +25,65 @@ use yii\bootstrap4\ActiveForm;
 
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'case_id')->textInput() ?>
+            <?= $form->field($model, 'relation')->widget(Select2::className(), [
+                'data' => OfficeDocuments::relations(),
+                'pluginEvents' => ['change' => 'changeRelations'],
+            ]) ?>
 
-            <?= $form->field($model, 'client_id')->textInput() ?>
 
-            <?= $form->field($model, 'category')->textInput(['maxlength' => true]) ?>
+            <div data-relation="<?= Relation::RELATION_CASE?>">
+            <?= $form->field($model, 'case_id')->widget(Select2::className(), [
+                'data' => OfficeCase::map($model->account_id),
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'placeholder' => Yii::t('rus', 'Выберите значение'),
+                ],
+            ]) ?>
+            </div>
+            <div data-relation="<?= Relation::RELATION_CONSULTATION?>">
+            <?= $form->field($model, 'consultation_id')->widget(Select2::className(), [
+                'data' => OfficeConsultation::map($model->account_id),
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'placeholder' => Yii::t('rus', 'Выберите значение'),
+                ],
+            ]) ?>
+            </div>
 
-            <?= $form->field($model, 'datetime_act')->widget(DateTimePicker::class)?>
-
-            <?= $form->field($model, 'category_act')->textInput(['maxlength' => true]) ?>
+<!--            --><?//= $form->field($model, 'client_id')->widget(Select2::className(), [
+//                'data' => OfficeClients::map($model->account_id),
+//                'pluginOptions' => [
+//                    'allowClear' => true,
+//                    'placeholder' => Yii::t('rus', 'Выберите значение'),
+//                ],
+//            ]) ?>
 
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+            <?= $form->field($model, 'category')->widget(Select2::className(), [
+                'data' => OfficeDocuments::categories(),
+                'pluginEvents' => ['change' => 'changeCategoryDocuments']
+            ]) ?>
+
+
+            <div class="js-category-judicial-act" style="<?= $model->category == OfficeDocuments::CATEGORY_JUDICIAL_ACT ? '' : 'display: none;'?>">
+                <?= $form->field($model, 'datetime_act')->widget(DateTimePicker::class)?>
+
+                <?= $form->field($model, 'court_id')->widget(Select2::className(), ['data' => OfficeCourts::map($model->account_id)]) ?>
+
+                <?= $form->field($model, 'category_act')->widget(Select2::className(), ['data' => OfficeDocuments::categoriesAct()]) ?>
+
+                <?= $form->field($model, 'term_appeal')->widget(DateTimePicker::class)?>
+
+                <?= $form->field($model, 'result')->textarea() ?>
+            </div>
+
             <?= $form->field($model, 'file')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'note')->textarea() ?>
 
-            <?= $form->field($model, 'court_id')->textInput() ?>
 
-            <?= $form->field($model, 'term_appeal')->textInput() ?>
 
-            <?= $form->field($model, 'result')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-6">
             <?= $this->render('../_detail_view_account', ['model' => $model])?>
@@ -53,3 +99,23 @@ use yii\bootstrap4\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<? Relation::registerJsChangeRelations($model); ?>
+
+<?
+$this->registerJsVar('data_object_category', OfficeCase::objectsCategoryFormat());
+
+$js = <<<JS
+    var changeCategoryDocuments = function() {
+        var select = $(this),
+        box = $(".js-category-judicial-act");
+
+       if(select.val() === 'judicial_act'){
+           box.show();
+       } else {
+           box.hide();
+       }
+    }
+JS;
+$this->registerJs($js, View::POS_END);
+?>

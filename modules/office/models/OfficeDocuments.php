@@ -5,10 +5,14 @@ namespace app\modules\office\models;
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
+use app\modules\office\components\RelationValidator;
 use Yii;
+use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "office_documents".
@@ -30,12 +34,24 @@ use yii\helpers\ArrayHelper;
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
+ * @property string $relation [varchar(255)]
+ * @property int $consultation_id [int(11)]
  */
-class OfficeDocuments extends \yii\db\ActiveRecord
+class OfficeDocuments extends \yii\db\ActiveRecord implements RelationsInterface
 {
     use EmployeeTrait;
     use AccountTrait;
     use BlameableTrait;
+
+    const CATEGORY_CURRENT = 'current';
+    const CATEGORY_JUDICIAL_ACT = 'judicial_act';
+    const CATEGORY_DOCUMENTS = 'documents';
+
+    const CATEGORY_ACT_SOLUTIONS = 'solutions';
+    const CATEGORY_ACT_SENTENCES = 'sentences';
+    const CATEGORY_ACT_RESOLUTIONS = 'resolutions';
+    const CATEGORY_ACT_ORDERS = 'orders';
+    const CATEGORY_ACT_DEFINITIONS = 'definitions';
 
     /**
      * {@inheritdoc}
@@ -50,6 +66,16 @@ class OfficeDocuments extends \yii\db\ActiveRecord
         return ArrayHelper::merge(parent::behaviors(), [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'datetimeActConvert' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'datetime_act'],
+                'value' => function ($event) {return empty($this->datetime_act) ? null : date('d.m.Y H:i', $this->datetime_act);},
+            ],
+            'termAppealConvert' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'term_appeal'],
+                'value' => function ($event) {return empty($this->term_appeal) ? null : date('d.m.Y H:i', $this->term_appeal);},
+            ],
         ]);
     }
 
@@ -59,12 +85,33 @@ class OfficeDocuments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'case_id', 'client_id', 'datetime_act', 'court_id', 'term_appeal', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['datetime_act'], 'date', 'format' => 'dd.MM.yyyy'],
-            [['category', 'category_act', 'name', 'file', 'note', 'result'], 'string', 'max' => 255],
+            [['account_id', 'case_id', 'client_id', 'court_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'consultation_id'], 'integer'],
+            [['datetime_act'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'datetime_act'],
+            [['term_appeal'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'term_appeal'],
+            [['category', 'category_act', 'name', 'file', 'note', 'result', 'relation'], 'string', 'max' => 255],
             [[
+                'relation',
                 'account_id',
+                'name',
             ], 'required'],
+            [[
+                'datetime_act',
+                'court_id',
+                'category_act',
+            ], 'required', 'when' => function($model) {
+                /** @var self $model */
+                return $model->category == self::CATEGORY_JUDICIAL_ACT;
+            }, 'whenClient' => "function (attribute, value) { return $('#".Html::getInputId($this, 'category')."').val() == '".self::CATEGORY_JUDICIAL_ACT."'; }"],
+            [['case_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CASE),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CASE)
+            ],
+            [['consultation_id'],
+                'required',
+                'when' => Relation::when(Relation::RELATION_CONSULTATION),
+                'whenClient' => Relation::whenClient($this, Relation::RELATION_CONSULTATION)
+            ],
         ];
     }
 
@@ -77,10 +124,12 @@ class OfficeDocuments extends \yii\db\ActiveRecord
             'id' => Yii::t('rus', 'ID'),
             'account_id' => Yii::t('rus', 'Аккаунт'),
             'case_id' => Yii::t('rus', 'Дело'),
+            'relation' => Yii::t('rus', 'Отношение'),
             'client_id' => Yii::t('rus', 'Клиент'),
-            'category' => Yii::t('rus', 'Категория'), // Текущие, Судебный акт, Документы
+            'category' => Yii::t('rus', 'Категория'),
+            'consultation_id' => Yii::t('rus', 'Консультация'),
             'datetime_act' => Yii::t('rus', 'Дата судебного акта'),
-            'category_act' => Yii::t('rus', 'Категория акта'), // Решение, приговор, постановление и т.д.
+            'category_act' => Yii::t('rus', 'Категория акта'),
             'name' => Yii::t('rus', 'Наименование'),
             'file' => Yii::t('rus', 'Файл pdf'),
             'note' => Yii::t('rus', 'Примечание'),
@@ -91,6 +140,34 @@ class OfficeDocuments extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('rus', 'Дата обновления'),
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
+        ];
+    }
+
+    public static function relations()
+    {
+        return [
+            Relation::RELATION_CASE => Relation::label(Relation::RELATION_CASE),
+            Relation::RELATION_CONSULTATION => Relation::label(Relation::RELATION_CONSULTATION),
+        ];
+    }
+
+    public static function categories()
+    {
+        return [
+            static::CATEGORY_CURRENT => Yii::t('rus', 'Текущие'),
+            static::CATEGORY_DOCUMENTS => Yii::t('rus', 'Документы'),
+            static::CATEGORY_JUDICIAL_ACT => Yii::t('rus', 'Судебный акт'),
+        ];
+    }
+
+    public static function categoriesAct()
+    {
+        return [
+            static::CATEGORY_ACT_SOLUTIONS => Yii::t('rus', 'Решение'),
+            static::CATEGORY_ACT_SENTENCES => Yii::t('rus', 'Приговор'),
+            static::CATEGORY_ACT_RESOLUTIONS => Yii::t('rus', 'Постановление'),
+            static::CATEGORY_ACT_ORDERS => Yii::t('rus', 'Распоряжение'),
+            static::CATEGORY_ACT_DEFINITIONS => Yii::t('rus', 'Определение'),
         ];
     }
 
