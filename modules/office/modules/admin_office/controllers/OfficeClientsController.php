@@ -97,6 +97,17 @@ class OfficeClientsController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionOpenImage($id)
+    {
+        $model = $this->findModel($id);
+
+        if(empty($model->passport_photo)) throw new NotFoundHttpException(Yii::t('rus', 'Файл не найден'));
+
+        $file = Yii::getAlias('@app/'.$model->passport_photo);
+
+        return Yii::$app->response->sendFile($file, 'file', ['inline' => true])->send();
+    }
+
     /**
      * Finds the OfficeClients model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

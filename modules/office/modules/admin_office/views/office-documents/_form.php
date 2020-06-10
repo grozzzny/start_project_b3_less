@@ -9,6 +9,7 @@ use app\modules\office\models\OfficeDocuments;
 use app\modules\office\models\Relation;
 use app\modules\office\widgets\date_time_picker\DateTimePicker;
 use app\modules\office\widgets\select2\Select2;
+use grozzzny\admin\widgets\file_input\FileInputWidget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
@@ -78,11 +79,12 @@ use yii\web\View;
                 <?= $form->field($model, 'result')->textarea() ?>
             </div>
 
-            <?= $form->field($model, 'file')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'file')->widget(FileInputWidget::class, [
+                'url' => ['open-file', 'id' => $model->id],
+                'urlOptions' => ['target' => '_blank']
+            ])?>
 
             <?= $form->field($model, 'note')->textarea() ?>
-
-
 
         </div>
         <div class="col-md-6">

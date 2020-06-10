@@ -97,6 +97,17 @@ class OfficeDocumentsController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionOpenFile($id)
+    {
+        $model = $this->findModel($id);
+
+        if(empty($model->file)) throw new NotFoundHttpException(Yii::t('rus', 'Файл не найден'));
+
+        $file = Yii::getAlias('@app/'.$model->file);
+
+        return Yii::$app->response->sendFile($file, 'file', ['inline' => true])->send();
+    }
+
     /**
      * Finds the OfficeDocuments model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

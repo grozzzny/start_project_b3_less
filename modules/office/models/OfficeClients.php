@@ -5,7 +5,7 @@ namespace app\modules\office\models;
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
-use grozzzny\admin\widgets\file_input\components\FileBehavior;
+use app\modules\office\components\FileBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -54,7 +54,8 @@ class OfficeClients extends \yii\db\ActiveRecord
             'image' => [
                 'class' => FileBehavior::className(),
                 'fileAttribute' => 'passport_photo',
-                'uploadPath' => '/uploads/passport_photo',
+                'root' => '@app',
+                'uploadPath' => '/store/{account_id}/passport',
             ],
         ]);
     }

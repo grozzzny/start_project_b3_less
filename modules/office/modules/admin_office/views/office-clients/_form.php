@@ -43,7 +43,9 @@ use yii\widgets\MaskedInput;
                 ->widget(MaskedInput::className(),['mask'=>'999-999'])
                 ->textInput(['placeholder'=>'___-___']);?>
 
-            <?= $form->field($model, 'passport_photo')->widget(ImageInputWidget::className()) ?>
+            <?= $form->field($model, 'passport_photo')->widget(ImageInputWidget::className(), [
+                'src' => ['open-image', 'id' => $model->id]
+            ]) ?>
         </div>
         <div class="col-md-6">
             <?= $this->render('../_detail_view_account', ['model' => $model])?>

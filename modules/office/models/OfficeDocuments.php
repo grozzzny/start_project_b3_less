@@ -5,7 +5,7 @@ namespace app\modules\office\models;
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
-use app\modules\office\components\RelationValidator;
+use app\modules\office\components\FileBehavior;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -76,6 +76,12 @@ class OfficeDocuments extends \yii\db\ActiveRecord implements RelationsInterface
                 'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'term_appeal'],
                 'value' => function ($event) {return empty($this->term_appeal) ? null : date('d.m.Y H:i', $this->term_appeal);},
             ],
+            'file' => [
+                'class' => FileBehavior::className(),
+                'fileAttribute' => 'file',
+                'root' => '@app',
+                'uploadPath' => '/store/{account_id}/documents',
+            ],
         ]);
     }
 
@@ -86,9 +92,10 @@ class OfficeDocuments extends \yii\db\ActiveRecord implements RelationsInterface
     {
         return [
             [['account_id', 'case_id', 'client_id', 'court_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'consultation_id'], 'integer'],
+            [['file'], 'file', 'extensions' => ['pdf']],
             [['datetime_act'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'datetime_act'],
             [['term_appeal'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'term_appeal'],
-            [['category', 'category_act', 'name', 'file', 'note', 'result', 'relation'], 'string', 'max' => 255],
+            [['category', 'category_act', 'name', 'note', 'result', 'relation'], 'string', 'max' => 255],
             [[
                 'relation',
                 'account_id',
