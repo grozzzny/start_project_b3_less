@@ -1,6 +1,7 @@
 <?php
 
 use app\modules\office\models\OfficeAccount;
+use app\modules\office\models\OfficeCase;
 use app\modules\office\widgets\date_time_picker\DateTimePicker;
 use app\modules\office\widgets\select2\Select2;
 use yii\helpers\Html;
@@ -17,9 +18,13 @@ use yii\bootstrap4\ActiveForm;
 
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'case_id')->textInput() ?>
-
-            <?= $form->field($model, 'client_id')->textInput() ?>
+            <?= $form->field($model, 'case_id')->widget(Select2::className(), [
+                'data' => OfficeCase::map($model->account_id),
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'placeholder' => Yii::t('rus', 'Выберите значение'),
+                ],
+            ]) ?>
 
             <?= $form->field($model, 'datetime_act')->widget(DateTimePicker::class)?>
         </div>
