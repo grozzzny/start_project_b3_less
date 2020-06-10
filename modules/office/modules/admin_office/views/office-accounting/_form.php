@@ -1,5 +1,7 @@
 <?php
 
+use app\modules\office\models\OfficeTransaction;
+use app\modules\office\widgets\select2\Select2;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
@@ -14,15 +16,15 @@ use yii\bootstrap4\ActiveForm;
 
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'cost')->textInput() ?>
+            <?= $form->field($model, 'cost')->input('number') ?>
 
-            <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'type')->widget(Select2::className(), ['data' => OfficeTransaction::types()]) ?>
 
-            <?= $form->field($model, 'note')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'note')->textarea() ?>
 
-            <?= $form->field($model, 'target')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'target')->textarea() ?>
 
-            <?= $form->field($model, 'transaction_id')->textInput() ?>
+            <?= $form->field($model, 'transaction_id')->input('number')->label(Yii::t('rus', 'Идентификатор связаной транзакции')) ?>
         </div>
         <div class="col-md-6">
             <?= $this->render('../_detail_view_account', ['model' => $model])?>
