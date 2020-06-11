@@ -1,5 +1,9 @@
 <?php
 
+use app\modules\office\models\OfficeAccount;
+use app\modules\office\models\OfficeEmployee;
+use app\modules\office\widgets\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -36,24 +40,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="office-employee-index">
 
                     <?php Pjax::begin(); ?>
-                                    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                
-                                    <?= GridView::widget([
+
+                        <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
-        'columns' => [
+                            'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
-
                             'id',
-            'user_id',
-            'account_id',
-            'role',
-            'priority',
-            //'created_at',
-            //'updated_at',
-            //'created_by',
-            //'updated_by',
+                            [
+                                'attribute' => 'account_id',
+                                'value' => function($model){ return $model->accountName; },
+                                'filter' => OfficeAccount::select2FilterSettings($searchModel)
+                            ],
+                            'full_name',
+                            [
+                                'attribute' => 'user_email',
+                                'value' => function($model){
+                                    /** @var OfficeEmployee $model */
+                                    return $model->user->email;
+                                },
+                                'label' => Yii::t('rus', 'Email')
+                            ],
 
+                            [
+                                'attribute' => 'role',
+                                'value' => function($model){
+                                    /** @var OfficeEmployee $model */
+                                    return $model->roleLabel;
+                                },
+                                'filter' => OfficeEmployee::roles()
+                            ],
+                            'priority',
                             [
                                 'class' => 'yii\grid\ActionColumn',
                                 'buttonOptions' => ['class' => 'btn btn-default'],
@@ -73,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
                     ]); ?>
-                
+
                     <?php Pjax::end(); ?>
 
                 </div>

@@ -11,6 +11,8 @@ use app\modules\office\models\OfficeEmployee;
  */
 class OfficeEmployeeSearch extends OfficeEmployee
 {
+    public $user_email;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +20,8 @@ class OfficeEmployeeSearch extends OfficeEmployee
     {
         return [
             [['id', 'user_id', 'account_id', 'priority', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['role'], 'safe'],
+            [['role', 'full_name'], 'safe'],
+            ['user_email', 'safe']
         ];
     }
 
@@ -72,6 +75,10 @@ class OfficeEmployeeSearch extends OfficeEmployee
         ]);
 
         $query->andFilterWhere(['like', 'role', $this->role]);
+        $query->andFilterWhere(['like', 'full_name', $this->full_name]);
+
+        $query->joinWith('user');
+        $query->andFilterWhere(['like', 'user.email', $this->user_email]);
 
         return $dataProvider;
     }

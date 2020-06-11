@@ -34,6 +34,7 @@ use yii\helpers\ArrayHelper;
  * @property-read string $roleLabel
  * @property string $full_name [varchar(255)]
  * @property User $user
+ * @property string $name
  */
 class OfficeEmployee extends \yii\db\ActiveRecord
 {

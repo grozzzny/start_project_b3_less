@@ -37,24 +37,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?php Pjax::begin(); ?>
                                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                
+
                                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
-        'columns' => [
+                        'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'id',
-            'cost',
-            'type',
-            'note',
-            'target',
-            //'transaction_id',
-            //'created_at',
-            //'updated_at',
-            //'created_by',
-            //'updated_by',
-            //'account_id',
+                            'cost',
+                            'type',
+                            'note',
+                            'target',
+                            //'transaction_id',
+                            //'created_at',
+                            //'updated_at',
+                            //'created_by',
+                            //'updated_by',
+                            //'account_id',
 
                             [
                                 'class' => 'yii\grid\ActionColumn',
@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
                     ]); ?>
-                
+
                     <?php Pjax::end(); ?>
 
                 </div>

@@ -4,6 +4,7 @@ namespace app\modules\office\models;
 
 use app\components\BlameableTrait;
 use app\models\User;
+use app\modules\office\widgets\select2\Select2;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -28,6 +29,7 @@ use yii\validators\DateValidator;
  * @property-read User $owner
  * @property-read OfficeEmployee $createdEmployee
  * @property-read boolean $isActive
+ * @property-read string $activeAtFormat
  */
 class OfficeAccount extends \yii\db\ActiveRecord
 {
@@ -118,6 +120,19 @@ class OfficeAccount extends \yii\db\ActiveRecord
     public function getActiveAtFormat()
     {
         return $this->active_at;
+    }
+
+    public static function select2FilterSettings($model)
+    {
+        return Select2::widget([
+            'model' => $model,
+            'attribute' => 'account_id',
+            'data' => ArrayHelper::map(OfficeAccount::find()->all(), 'id', 'name'),
+            'pluginOptions' => [
+                'allowClear' => true,
+                'placeholder' => Yii::t('rus', 'Выберите значение'),
+            ],
+        ]);
     }
 
     public static function map()
