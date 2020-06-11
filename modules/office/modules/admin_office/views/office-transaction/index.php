@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\office\models\OfficeAccount;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -37,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?php Pjax::begin(); ?>
                                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                
+
                                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
@@ -45,19 +46,24 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'id',
-            'cost',
-            'type',
-            'note',
-            'consultation_id',
-            //'case_id',
-            //'client_id',
-            //'is_account',
-            //'employee_id',
-            //'created_at',
-            //'updated_at',
-            //'created_by',
-            //'updated_by',
-            //'account_id',
+                            [
+                                'attribute' => 'account_id',
+                                'value' => function($model){ return $model->accountName; },
+                                'filter' => OfficeAccount::select2FilterSettings($searchModel)
+                            ],
+                            'cost',
+                            'type',
+                            'note',
+                            'consultation_id',
+                            //'case_id',
+                            //'client_id',
+                            //'is_account',
+                            //'employee_id',
+                            //'created_at',
+                            //'updated_at',
+                            //'created_by',
+                            //'updated_by',
+                            //'account_id',
 
                             [
                                 'class' => 'yii\grid\ActionColumn',
@@ -78,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
                     ]); ?>
-                
+
                     <?php Pjax::end(); ?>
 
                 </div>

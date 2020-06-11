@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\office\models\OfficeAccount;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -45,6 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'id',
+                            [
+                                'attribute' => 'account_id',
+                                'value' => function($model){ return $model->accountName; },
+                                'filter' => OfficeAccount::select2FilterSettings($searchModel)
+                            ],
                             'cost',
                             'type',
                             'note',
