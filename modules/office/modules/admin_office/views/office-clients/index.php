@@ -1,5 +1,7 @@
 <?php
 
+use app\components\BlameableTrait;
+use app\models\User;
 use app\modules\office\models\OfficeAccount;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -54,18 +56,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             'full_name',
                             'phone',
                             'date_of_birth',
-                            //'place_of_birth',
-                            //'place_registration',
-                            //'place_residence',
-                            //'passport_number',
-                            //'passport_date',
-                            //'passport_institution',
-                            //'passport_photo',
-                            //'created_at',
-                            //'updated_at',
-                            //'created_by',
-                            //'updated_by',
-
+                            [
+                                'attribute' => 'created_by',
+                                'value' => function($model){ /** @var BlameableTrait $model */ return $model->createdByEmail; },
+                                'filter' => User::select2CreatedBy($searchModel)
+                            ],
+                            [
+                                'attribute' => 'created_at',
+                                'value' => function($model){return date('d.m.Y H:i', $model->created_at);},
+                                'filter' => false,
+                            ],
                             [
                                 'class' => 'yii\grid\ActionColumn',
                                 'buttonOptions' => ['class' => 'btn btn-default'],
