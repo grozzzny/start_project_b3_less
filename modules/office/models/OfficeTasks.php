@@ -4,6 +4,7 @@ namespace app\modules\office\models;
 
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
+use app\modules\office\components\ClientsBehavior;
 use app\modules\office\components\EmployeeTrait;
 use grozzzny\admin\helpers\StringHelper;
 use Yii;
@@ -35,6 +36,10 @@ use yii\helpers\ArrayHelper;
  * @property int $consultation_id [int(11)]
  * @property bool|integer $confirmed [tinyint(1)]
  * @property string $name
+ *
+ * @property-read OfficeCase $case
+ * @property-read OfficeConsultation $consultation
+ * @property-read OfficeClients $client
  */
 class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -63,6 +68,13 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'time_to'],
                 'value' => function ($event) {return empty($this->time_to) ? null : date('d.m.Y H:i', $this->time_to);},
+            ],
+            'client_id' => [
+                'class' => ClientsBehavior::class,
+                'relations' => [
+                    'case',
+                    'consultation',
+                ]
             ],
         ]);
     }
@@ -147,6 +159,21 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
     public function getName()
     {
         return StringHelper::cut($this->description, 150);
+    }
+
+    public function getCase()
+    {
+        return $this->hasOne(OfficeCase::class, ['id' => 'case_id']);
+    }
+
+    public function getConsultation()
+    {
+        return $this->hasOne(OfficeConsultation::class, ['id' => 'consultation_id']);
+    }
+
+    public function getClient()
+    {
+        return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
     }
 
     public static function map($account_id)

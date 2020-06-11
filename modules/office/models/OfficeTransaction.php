@@ -4,6 +4,7 @@ namespace app\modules\office\models;
 
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
+use app\modules\office\components\ClientsBehavior;
 use app\modules\office\components\EmployeeTrait;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -30,6 +31,10 @@ use yii\helpers\Html;
  * @property int|null $account_id
  * @property string $relation [varchar(255)]
  * @property boolean $isAccount
+ *
+ * @property-read OfficeCase $case
+ * @property-read OfficeConsultation $consultation
+ * @property-read OfficeClients $client
  */
 class OfficeTransaction extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -53,6 +58,13 @@ class OfficeTransaction extends \yii\db\ActiveRecord implements RelationsInterfa
         return ArrayHelper::merge(parent::behaviors(), [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'client_id' => [
+                'class' => ClientsBehavior::class,
+                'relations' => [
+                    'case',
+                    'consultation',
+                ]
+            ],
         ]);
     }
 
@@ -114,6 +126,21 @@ class OfficeTransaction extends \yii\db\ActiveRecord implements RelationsInterfa
     public function getIsAccount()
     {
         return $this->is_account == 1;
+    }
+
+    public function getCase()
+    {
+        return $this->hasOne(OfficeCase::class, ['id' => 'case_id']);
+    }
+
+    public function getConsultation()
+    {
+        return $this->hasOne(OfficeConsultation::class, ['id' => 'consultation_id']);
+    }
+
+    public function getClient()
+    {
+        return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
     }
 
     public static function types()

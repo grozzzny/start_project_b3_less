@@ -4,6 +4,7 @@ namespace app\modules\office\models;
 
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
+use app\modules\office\components\ClientsBehavior;
 use app\modules\office\components\EmployeeTrait;
 use Yii;
 use yii\behaviors\AttributeBehavior;
@@ -27,6 +28,8 @@ use yii\helpers\ArrayHelper;
  * @property OfficeCase $case
  * @property string $datetimeActFormat
  * @property string $name
+ *
+ * @property-read OfficeClients $client
  */
 class OfficeSession extends \yii\db\ActiveRecord
 {
@@ -51,6 +54,12 @@ class OfficeSession extends \yii\db\ActiveRecord
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'datetime_act'],
                 'value' => function ($event) {return empty($this->datetime_act) ? null : date('d.m.Y H:i', $this->datetime_act);},
+            ],
+            'client_id' => [
+                'class' => ClientsBehavior::class,
+                'relations' => [
+                    'case',
+                ]
             ],
         ]);
     }
@@ -106,6 +115,11 @@ class OfficeSession extends \yii\db\ActiveRecord
             $this->case->name,
             $this->datetimeActFormat
         ]);
+    }
+
+    public function getClient()
+    {
+        return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
     }
 
     public static function map($account_id)

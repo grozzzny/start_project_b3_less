@@ -4,6 +4,7 @@ namespace app\modules\office\models;
 
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
+use app\modules\office\components\ClientsBehavior;
 use app\modules\office\components\EmployeeTrait;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -29,6 +30,10 @@ use yii\helpers\ArrayHelper;
  * @property int|null $updated_by
  * @property string $relation [varchar(255)]
  * @property int $consultation_id [int(11)]
+ *
+ * @property-read OfficeCase $case
+ * @property-read OfficeConsultation $consultation
+ * @property-read OfficeClients $client
  */
 class OfficeCorrespondence extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -49,6 +54,13 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord implements RelationsInte
         return ArrayHelper::merge(parent::behaviors(), [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'client_id' => [
+                'class' => ClientsBehavior::class,
+                'relations' => [
+                    'case',
+                    'consultation',
+                ]
+            ],
         ]);
     }
 
@@ -101,6 +113,21 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord implements RelationsInte
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
+    }
+
+    public function getCase()
+    {
+        return $this->hasOne(OfficeCase::class, ['id' => 'case_id']);
+    }
+
+    public function getConsultation()
+    {
+        return $this->hasOne(OfficeConsultation::class, ['id' => 'consultation_id']);
+    }
+
+    public function getClient()
+    {
+        return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
     }
 
     public static function relations()

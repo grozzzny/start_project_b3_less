@@ -4,6 +4,7 @@ namespace app\modules\office\models;
 
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
+use app\modules\office\components\ClientsBehavior;
 use app\modules\office\components\EmployeeTrait;
 use app\modules\office\components\FileBehavior;
 use Yii;
@@ -36,6 +37,10 @@ use yii\helpers\Html;
  * @property int|null $updated_by
  * @property string $relation [varchar(255)]
  * @property int $consultation_id [int(11)]
+ *
+ * @property-read OfficeCase $case
+ * @property-read OfficeConsultation $consultation
+ * @property-read OfficeClients $client
  */
 class OfficeDocuments extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -81,6 +86,13 @@ class OfficeDocuments extends \yii\db\ActiveRecord implements RelationsInterface
                 'fileAttribute' => 'file',
                 'root' => '@app',
                 'uploadPath' => '/store/{account_id}/documents',
+            ],
+            'client_id' => [
+                'class' => ClientsBehavior::class,
+                'relations' => [
+                    'case',
+                    'consultation',
+                ]
             ],
         ]);
     }
@@ -148,6 +160,21 @@ class OfficeDocuments extends \yii\db\ActiveRecord implements RelationsInterface
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
+    }
+
+    public function getCase()
+    {
+        return $this->hasOne(OfficeCase::class, ['id' => 'case_id']);
+    }
+
+    public function getConsultation()
+    {
+        return $this->hasOne(OfficeConsultation::class, ['id' => 'consultation_id']);
+    }
+
+    public function getClient()
+    {
+        return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
     }
 
     public static function map($account_id)
