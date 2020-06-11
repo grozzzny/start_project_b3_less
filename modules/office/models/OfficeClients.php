@@ -6,6 +6,7 @@ use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
 use app\modules\office\components\FileBehavior;
+use app\modules\office\widgets\select2\Select2;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -102,6 +103,19 @@ class OfficeClients extends \yii\db\ActiveRecord
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
+    }
+
+    public static function select2Filter($model)
+    {
+        return Select2::widget([
+            'model' => $model,
+            'attribute' => 'client_id',
+            'data' => ArrayHelper::map(OfficeClients::find()->all(), 'id', 'full_name'),
+            'pluginOptions' => [
+                'allowClear' => true,
+                'placeholder' => Yii::t('rus', 'Выберите значение'),
+            ],
+        ]);
     }
 
     public static function map($account_id)

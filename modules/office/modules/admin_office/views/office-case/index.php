@@ -1,6 +1,10 @@
 <?php
 
+use app\components\BlameableTrait;
+use app\models\User;
 use app\modules\office\models\OfficeAccount;
+use app\modules\office\models\OfficeCase;
+use app\modules\office\models\OfficeClients;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -42,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
-        'columns' => [
+                        'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'id',
@@ -52,14 +56,31 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'filter' => OfficeAccount::select2FilterSettings($searchModel)
                             ],
                             'number',
-                            'client_id',
-                            'category',
-                            //'object_category',
-                            //'curator_id',
-                            //'created_at',
-                            //'updated_at',
-                            //'created_by',
-                            //'updated_by',
+                            [
+                                'attribute' => 'client_id',
+                                'value' => function($model){ /** @var OfficeCase $model */ return $model->client->full_name; },
+                                'filter' => OfficeClients::select2Filter($searchModel)
+                            ],
+                            [
+                                'attribute' => 'category',
+                                'value' => function($model){ /** @var OfficeCase $model */ return $model->categoryLabel; },
+                                'filter' => OfficeCase::categories()
+                            ],
+                            [
+                                'attribute' => 'object_category',
+                                'value' => function($model){ /** @var OfficeCase $model */ return $model->objectCategoryLabel; },
+                                'filter' => OfficeCase::objectsCategoryOnly()
+                            ],
+                            [
+                                'attribute' => 'created_by',
+                                'value' => function($model){ /** @var BlameableTrait $model */ return $model->createdByEmail; },
+                                'filter' => User::select2CreatedBy($searchModel)
+                            ],
+                            [
+                                'attribute' => 'created_at',
+                                'value' => function($model){return date('d.m.Y H:i', $model->created_at);},
+                                'filter' => false,
+                            ],
 
                             [
                                 'class' => 'yii\grid\ActionColumn',

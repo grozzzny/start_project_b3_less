@@ -224,6 +224,19 @@ class OfficeCase extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function objectsCategoryOnly()
+    {
+        $arr = [];
+
+        foreach (self::objectsCategory() as $key => $objects){
+            foreach ($objects as $key_object => $name) {
+                $arr[$key_object] = ArrayHelper::getValue(self::categories(), $key). ' / ' .$name;
+            }
+        }
+
+        return $arr;
+    }
+
     public static function objectsCategoryFormat()
     {
         $arr = [];
