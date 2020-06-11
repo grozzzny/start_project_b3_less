@@ -105,6 +105,8 @@ class OfficeClientsController extends Controller
 
         $file = Yii::getAlias('@app/'.$model->passport_photo);
 
+        if(!file_exists($file)) throw new NotFoundHttpException(Yii::t('rus', 'Файла не существует'));
+
         return Yii::$app->response->sendFile($file, 'file', ['inline' => true])->send();
     }
 

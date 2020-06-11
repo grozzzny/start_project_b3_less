@@ -105,6 +105,8 @@ class OfficeDocumentsController extends Controller
 
         $file = Yii::getAlias('@app/'.$model->file);
 
+        if(!file_exists($file)) throw new NotFoundHttpException(Yii::t('rus', 'Файла не существует'));
+
         return Yii::$app->response->sendFile($file, 'file', ['inline' => true])->send();
     }
 
