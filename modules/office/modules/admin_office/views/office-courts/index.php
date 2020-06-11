@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card">
             <div class="card-body">
                 <div class="office-courts-index">
-
+                    <div class="table-responsive">
                     <?php Pjax::begin(); ?>
                                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]); ?>
 
                     <?php Pjax::end(); ?>
-
+                    </div>
                 </div>
             </div>
         </div>

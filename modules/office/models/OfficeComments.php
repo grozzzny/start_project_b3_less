@@ -9,6 +9,7 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
+use grozzzny\admin\helpers\StringHelper;
 
 /**
  * This is the model class for table "office_comments".
@@ -27,6 +28,9 @@ use yii\helpers\ArrayHelper;
  * @property string $relation [varchar(255)]
  * @property int $consultation_id [int(11)]
  * @property int $session_id [int(11)]
+ * @property string $relationLabel
+ *
+ * @property-read string $textShort
  */
 class OfficeComments extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -117,6 +121,16 @@ class OfficeComments extends \yii\db\ActiveRecord implements RelationsInterface
             'updated_by' => Yii::t('rus', 'Обновлен'),
             'account_id' => Yii::t('rus', 'Аккаунт'),
         ];
+    }
+
+    public function getRelationLabel()
+    {
+        return ArrayHelper::getValue(self::relations(), $this->relation);
+    }
+
+    public function getTextShort()
+    {
+        return StringHelper::cut($this->text, 150);
     }
 
     public static function relations()

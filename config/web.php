@@ -85,6 +85,9 @@ $config = [
                 ],
             ],
         ],
+        'formatter' => [
+            'nullDisplay' => '-',
+        ],
     ],
     'modules' => [
         'office' => [

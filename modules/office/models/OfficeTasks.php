@@ -40,6 +40,8 @@ use yii\helpers\ArrayHelper;
  * @property-read OfficeCase $case
  * @property-read OfficeConsultation $consultation
  * @property-read OfficeClients $client
+ * @property-read OfficeEmployee $curator
+ * @property-read string $typePriorityLabel
  */
 class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -174,6 +176,16 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
     public function getClient()
     {
         return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
+    }
+
+    public function getCurator()
+    {
+        return $this->hasOne(OfficeEmployee::class, ['id' => 'curator_id']);
+    }
+
+    public function getTypePriorityLabel()
+    {
+        return ArrayHelper::getValue(self::priorities(), $this->type_priority);
     }
 
     public static function map($account_id)

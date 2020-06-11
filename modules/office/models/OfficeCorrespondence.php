@@ -34,6 +34,7 @@ use yii\helpers\ArrayHelper;
  * @property-read OfficeCase $case
  * @property-read OfficeConsultation $consultation
  * @property-read OfficeClients $client
+ * @property-read OfficeEmployee $employee
  */
 class OfficeCorrespondence extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -128,6 +129,11 @@ class OfficeCorrespondence extends \yii\db\ActiveRecord implements RelationsInte
     public function getClient()
     {
         return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
+    }
+
+    public function getEmployee()
+    {
+        return $this->hasOne(OfficeEmployee::class, ['id' => 'employee_id']);
     }
 
     public static function relations()

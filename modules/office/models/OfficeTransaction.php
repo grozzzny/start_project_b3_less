@@ -35,6 +35,8 @@ use yii\helpers\Html;
  * @property-read OfficeCase $case
  * @property-read OfficeConsultation $consultation
  * @property-read OfficeClients $client
+ * @property-read string $typeLabel
+ * @property-read OfficeEmployee $employee
  */
 class OfficeTransaction extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -141,6 +143,16 @@ class OfficeTransaction extends \yii\db\ActiveRecord implements RelationsInterfa
     public function getClient()
     {
         return $this->hasOne(OfficeClients::class, ['id' => 'client_id']);
+    }
+
+    public function getEmployee()
+    {
+        return $this->hasOne(OfficeEmployee::class, ['id' => 'employee_id']);
+    }
+
+    public function getTypeLabel()
+    {
+        return ArrayHelper::getValue(self::types(), $this->type);
     }
 
     public static function types()

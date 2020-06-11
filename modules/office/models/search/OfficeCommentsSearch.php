@@ -18,7 +18,7 @@ class OfficeCommentsSearch extends OfficeComments
     {
         return [
             [['id', 'task_id', 'case_id', 'client_id', 'document_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'account_id'], 'integer'],
-            [['text'], 'safe'],
+            [['text', 'relation'], 'safe'],
         ];
     }
 
@@ -71,6 +71,7 @@ class OfficeCommentsSearch extends OfficeComments
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'account_id' => $this->account_id,
+            'relation' => $this->relation,
         ]);
 
         $query->andFilterWhere(['like', 'text', $this->text]);

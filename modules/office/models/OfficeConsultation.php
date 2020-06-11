@@ -5,6 +5,7 @@ namespace app\modules\office\models;
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
+use app\modules\office\widgets\select2\Select2;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -122,6 +123,19 @@ class OfficeConsultation extends \yii\db\ActiveRecord
             $this->client->full_name,
             $this->cost,
             $this->typeLabel
+        ]);
+    }
+
+    public static function select2Filter($model)
+    {
+        return Select2::widget([
+            'model' => $model,
+            'attribute' => 'consultation_id',
+            'data' => ArrayHelper::map(OfficeConsultation::find()->all(), 'id', 'name'),
+            'pluginOptions' => [
+                'allowClear' => true,
+                'placeholder' => Yii::t('rus', 'Выберите значение'),
+            ],
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace app\modules\office\models;
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
+use app\modules\office\widgets\select2\Select2;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -172,6 +173,19 @@ class OfficeCase extends \yii\db\ActiveRecord
             $this->client->full_name,
             $this->categoryLabel,
             $this->objectCategoryLabel
+        ]);
+    }
+
+    public static function select2Filter($model)
+    {
+        return Select2::widget([
+            'model' => $model,
+            'attribute' => 'case_id',
+            'data' => ArrayHelper::map(OfficeCase::find()->all(), 'id', 'name'),
+            'pluginOptions' => [
+                'allowClear' => true,
+                'placeholder' => Yii::t('rus', 'Выберите значение'),
+            ],
         ]);
     }
 

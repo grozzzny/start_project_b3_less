@@ -17,7 +17,7 @@ class OfficeCorrespondenceSearch extends OfficeCorrespondence
     public function rules()
     {
         return [
-            [['id', 'account_id', 'case_id', 'client_id', 'employee_id', 'cost', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'account_id', 'case_id', 'client_id', 'employee_id', 'cost', 'created_at', 'updated_at', 'created_by', 'updated_by', 'consultation_id'], 'integer'],
             [['sender', 'recipient', 'description', 'mail_number'], 'safe'],
         ];
     }
@@ -65,6 +65,7 @@ class OfficeCorrespondenceSearch extends OfficeCorrespondence
             'account_id' => $this->account_id,
             'case_id' => $this->case_id,
             'client_id' => $this->client_id,
+            'consultation_id' => $this->consultation_id,
             'employee_id' => $this->employee_id,
             'cost' => $this->cost,
             'created_at' => $this->created_at,

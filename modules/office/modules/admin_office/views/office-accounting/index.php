@@ -1,6 +1,10 @@
 <?php
 
+use app\components\BlameableTrait;
+use app\models\User;
 use app\modules\office\models\OfficeAccount;
+use app\modules\office\models\OfficeAccounting;
+use app\modules\office\models\OfficeTransaction;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -35,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card">
             <div class="card-body">
                 <div class="office-accounting-index">
-
+                    <div class="table-responsive">
                     <?php Pjax::begin(); ?>
                                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -52,15 +56,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'filter' => OfficeAccount::select2FilterSettings($searchModel)
                             ],
                             'cost',
-                            'type',
+                            [
+                                'attribute' => 'type',
+                                'value' => function($model){ /** @var OfficeAccounting $model */ return $model->typeLabel; },
+                                'filter' => OfficeTransaction::types()
+                            ],
                             'note',
                             'target',
-                            //'transaction_id',
-                            //'created_at',
-                            //'updated_at',
-                            //'created_by',
-                            //'updated_by',
-                            //'account_id',
+                            [
+                                'attribute' => 'created_by',
+                                'value' => function($model){ /** @var BlameableTrait $model */ return $model->createdByEmail; },
+                                'filter' => User::select2CreatedBy($searchModel)
+                            ],
+                            [
+                                'attribute' => 'created_at',
+                                'value' => function($model){return date('d.m.Y H:i', $model->created_at);},
+                                'filter' => false,
+                            ],
 
                             [
                                 'class' => 'yii\grid\ActionColumn',
@@ -83,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]); ?>
 
                     <?php Pjax::end(); ?>
-
+                    </div>
                 </div>
             </div>
         </div>

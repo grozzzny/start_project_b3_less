@@ -6,6 +6,7 @@ use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\models\User;
 use app\modules\office\components\EmployeeTrait;
+use app\modules\office\widgets\select2\Select2;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -175,6 +176,19 @@ class OfficeEmployee extends \yii\db\ActiveRecord
     public function getName()
     {
         return empty($this->full_name) ? $this->user->email : $this->full_name;
+    }
+
+    public static function select2Filter($model, $attribute = 'employee_id')
+    {
+        return Select2::widget([
+            'model' => $model,
+            'attribute' => $attribute,
+            'data' => ArrayHelper::map(OfficeEmployee::find()->all(), 'id', 'name'),
+            'pluginOptions' => [
+                'allowClear' => true,
+                'placeholder' => Yii::t('rus', 'Выберите значение'),
+            ],
+        ]);
     }
 
     public static function roles()

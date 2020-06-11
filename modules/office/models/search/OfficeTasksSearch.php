@@ -17,7 +17,7 @@ class OfficeTasksSearch extends OfficeTasks
     public function rules()
     {
         return [
-            [['id', 'account_id', 'curator_id', 'case_id', 'client_id', 'time_to', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'account_id', 'curator_id', 'case_id', 'client_id', 'time_to', 'created_at', 'updated_at', 'created_by', 'updated_by', 'consultation_id'], 'integer'],
             [['description', 'type_priority'], 'safe'],
         ];
     }
@@ -67,6 +67,7 @@ class OfficeTasksSearch extends OfficeTasks
             'case_id' => $this->case_id,
             'client_id' => $this->client_id,
             'time_to' => $this->time_to,
+            'consultation_id' => $this->consultation_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,

@@ -17,7 +17,7 @@ class OfficeDocumentsSearch extends OfficeDocuments
     public function rules()
     {
         return [
-            [['id', 'account_id', 'case_id', 'client_id', 'datetime_act', 'court_id', 'term_appeal', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'account_id', 'case_id', 'consultation_id', 'client_id', 'datetime_act', 'court_id', 'term_appeal', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['category', 'category_act', 'name', 'file', 'note', 'result'], 'safe'],
         ];
     }
@@ -64,6 +64,7 @@ class OfficeDocumentsSearch extends OfficeDocuments
             'id' => $this->id,
             'account_id' => $this->account_id,
             'case_id' => $this->case_id,
+            'consultation_id' => $this->consultation_id,
             'client_id' => $this->client_id,
             'datetime_act' => $this->datetime_act,
             'court_id' => $this->court_id,

@@ -24,6 +24,8 @@ use yii\helpers\ArrayHelper;
  * @property int|null $created_by
  * @property int|null $updated_by
  * @property int|null $account_id
+ *
+ * @property-read string $typeLabel
  */
 class OfficeAccounting extends \yii\db\ActiveRecord
 {
@@ -81,6 +83,11 @@ class OfficeAccounting extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('rus', 'Обновлен'),
             'account_id' => Yii::t('rus', 'Аккаунт'),
         ];
+    }
+
+    public function getTypeLabel()
+    {
+        return ArrayHelper::getValue(OfficeTransaction::types(), $this->type);
     }
 
     /**

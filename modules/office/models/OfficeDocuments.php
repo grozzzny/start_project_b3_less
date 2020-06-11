@@ -41,6 +41,7 @@ use yii\helpers\Html;
  * @property-read OfficeCase $case
  * @property-read OfficeConsultation $consultation
  * @property-read OfficeClients $client
+ * @property-read string $categoryLabel
  */
 class OfficeDocuments extends \yii\db\ActiveRecord implements RelationsInterface
 {
@@ -160,6 +161,11 @@ class OfficeDocuments extends \yii\db\ActiveRecord implements RelationsInterface
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
         ];
+    }
+
+    public function getCategoryLabel()
+    {
+        return ArrayHelper::getValue(self::categories(), $this->category);
     }
 
     public function getCase()

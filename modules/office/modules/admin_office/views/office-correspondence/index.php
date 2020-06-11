@@ -1,6 +1,13 @@
 <?php
 
+use app\components\BlameableTrait;
+use app\models\User;
 use app\modules\office\models\OfficeAccount;
+use app\modules\office\models\OfficeCase;
+use app\modules\office\models\OfficeClients;
+use app\modules\office\models\OfficeConsultation;
+use app\modules\office\models\OfficeCorrespondence;
+use app\modules\office\models\OfficeEmployee;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -35,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card">
             <div class="card-body">
                 <div class="office-correspondence-index">
-
+                    <div class="table-responsive">
                     <?php Pjax::begin(); ?>
                                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -51,18 +58,38 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => function($model){ return $model->accountName; },
                                 'filter' => OfficeAccount::select2FilterSettings($searchModel)
                             ],
-                            'case_id',
-                            'client_id',
-                            'employee_id',
-                            //'sender',
-                            //'recipient',
-                            //'description',
-                            //'mail_number',
-                            //'cost',
-                            //'created_at',
-                            //'updated_at',
-                            //'created_by',
-                            //'updated_by',
+                            [
+                                'attribute' => 'client_id',
+                                'value' => function($model){ /** @var OfficeCorrespondence $model */ return $model->client->full_name; },
+                                'filter' => OfficeClients::select2Filter($searchModel)
+                            ],
+                            [
+                                'attribute' => 'case_id',
+                                'value' => function($model){ /** @var OfficeCorrespondence $model */ return $model->case->name; },
+                                'filter' => OfficeCase::select2Filter($searchModel)
+                            ],
+                            [
+                                'attribute' => 'consultation_id',
+                                'value' => function($model){ /** @var OfficeCorrespondence $model */ return $model->consultation->name; },
+                                'filter' => OfficeConsultation::select2Filter($searchModel)
+                            ],
+                            [
+                                'attribute' => 'employee_id',
+                                'value' => function($model){ /** @var OfficeCorrespondence $model */ return $model->employee->name; },
+                                'filter' => OfficeEmployee::select2Filter($searchModel)
+                            ],
+                            'sender',
+                            'recipient',
+                            [
+                                'attribute' => 'created_by',
+                                'value' => function($model){ /** @var BlameableTrait $model */ return $model->createdByEmail; },
+                                'filter' => User::select2CreatedBy($searchModel)
+                            ],
+                            [
+                                'attribute' => 'created_at',
+                                'value' => function($model){return date('d.m.Y H:i', $model->created_at);},
+                                'filter' => false,
+                            ],
 
                             [
                                 'class' => 'yii\grid\ActionColumn',
@@ -85,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]); ?>
 
                     <?php Pjax::end(); ?>
-
+                    </div>
                 </div>
             </div>
         </div>
