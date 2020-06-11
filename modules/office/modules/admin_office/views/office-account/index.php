@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\office\models\OfficeAccount;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -37,18 +38,42 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?php Pjax::begin(); ?>
                                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                
+
                                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
-        'columns' => [
+                        'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
-
                             'id',
-            'owner_id',
-            'created_at',
-            'updated_at',
-            'created_by',
+                            [
+                                'value' => function($model){
+                                    /** @var OfficeAccount $model */
+                                    return $model->name;
+                                },
+                                'label' => Yii::t('rus', 'Наименование аккаунта')
+                            ],
+                            [
+                                'attribute' => 'active',
+                                'value' => function($model){
+                                    /** @var OfficeAccount $model */
+                                    return $model->isActive ? '✅' : '';
+                                },
+                                'filter' => [
+                                    Yii::t('rus', 'Не активно'),
+                                    Yii::t('rus', 'Активно'),
+                                ]
+                            ],
+                            [
+                                'attribute' => 'active_at',
+                                'value' => function($model){
+                                    /** @var OfficeAccount $model */
+                                    return $model->activeAtFormat;
+                                },
+                                'filter' => false
+                            ],
+//            'created_at',
+//            'updated_at',
+//            'created_by',
             //'updated_by',
             //'active',
             //'active_at',
@@ -73,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
                     ]); ?>
-                
+
                     <?php Pjax::end(); ?>
 
                 </div>

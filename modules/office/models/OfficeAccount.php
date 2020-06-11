@@ -27,6 +27,7 @@ use yii\validators\DateValidator;
  *
  * @property-read User $owner
  * @property-read OfficeEmployee $createdEmployee
+ * @property-read boolean $isActive
  */
 class OfficeAccount extends \yii\db\ActiveRecord
 {
@@ -103,10 +104,20 @@ class OfficeAccount extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'owner_id']);
     }
 
+    public function getIsActive()
+    {
+        return $this->active == 1;
+    }
+
     public function getCreatedEmployee()
     {
         return $this->hasOne(OfficeEmployee::class, ['user_id' => 'created_by'])
             ->onCondition(['account_id' => $this->id]);
+    }
+
+    public function getActiveAtFormat()
+    {
+        return $this->active_at;
     }
 
     public static function map()
