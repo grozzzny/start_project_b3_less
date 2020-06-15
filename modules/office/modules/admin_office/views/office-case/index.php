@@ -67,9 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'filter' => OfficeCase::categories()
                             ],
                             [
-                                'attribute' => 'object_category',
-                                'value' => function($model){ /** @var OfficeCase $model */ return $model->objectCategoryLabel; },
-                                'filter' => OfficeCase::objectsCategoryOnly()
+                                'attribute' => 'subject',
+                                'value' => function($model){ /** @var OfficeCase $model */ return $model->subjectShort; },
                             ],
                             [
                                 'attribute' => 'created_by',

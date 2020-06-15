@@ -6,10 +6,13 @@ use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
 use app\modules\office\widgets\select2\Select2;
+use grozzzny\admin\helpers\StringHelper;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\web\View;
 
 /**
  * This is the model class for table "office_case".
@@ -19,7 +22,6 @@ use yii\helpers\ArrayHelper;
  * @property string|null $number
  * @property int|null $client_id
  * @property string|null $category
- * @property string|null $object_category
  * @property int|null $curator_id
  * @property int|null $created_at
  * @property int|null $updated_at
@@ -28,10 +30,32 @@ use yii\helpers\ArrayHelper;
  *
  * @property OfficeCaseEmployeeRel[] $officeCaseEmployeeRels
  * @property OfficeEmployee[] $employees
- * @property-read string $objectCategoryLabel
  * @property-read string $categoryLabel
  * @property-read OfficeClients $client
  * @property-read string $name
+ *
+ * @property string $civil_plaintiff [varchar(255)]
+ * @property string $civil_respondent [varchar(255)]
+ * @property string $civil_subject_dispute [varchar(255)]
+ * @property string $civil_court_id [varchar(255)]
+ * @property string $criminal_suspect [varchar(255)]
+ * @property string $criminal_victim [varchar(255)]
+ * @property string $criminal_essence_charge [varchar(255)]
+ * @property string $criminal_stage [varchar(255)]
+ * @property string $criminal_court_id [varchar(255)]
+ * @property string $execution_recoverer [varchar(255)]
+ * @property string $execution_debtor [varchar(255)]
+ * @property string $execution_bailiff_service [varchar(255)]
+ * @property string $execution_subject_execution [varchar(255)]
+ * @property string $administrative_plaintiff [varchar(255)]
+ * @property string $administrative_respondent [varchar(255)]
+ * @property string $administrative_offender [varchar(255)]
+ * @property string $administrative_court_id [varchar(255)]
+ * @property string $administrative_subject_dispute [varchar(255)]
+ * @property string $instruction_essence_order [varchar(255)]
+ * @property string $instruction_applicant [varchar(255)]
+ * @property-read string $subject
+ * @property-read string $subjectShort
  *
  */
 class OfficeCase extends \yii\db\ActiveRecord
@@ -41,41 +65,14 @@ class OfficeCase extends \yii\db\ActiveRecord
     use BlameableTrait;
 
     const CATEGORY_CIVIL = 'civil';
-
-    const CIVIL_PLAINTIFF = 'civil_plaintiff';
-    const CIVIL_RESPONDENT = 'civil_respondent';
-    const CIVIL_SUBJECT_DISPUTE = 'civil_subject_dispute';
-    const CIVIL_COURT = 'civil_court';
-
     const CATEGORY_CRIMINAL = 'criminal';
-
-    const CRIMINAL_SUSPECT = 'criminal_suspect';
-    const CRIMINAL_VICTIM = 'criminal_victim';
-    const CRIMINAL_ESSENCE_CHARGE = 'criminal_essence_charge';
-    const CRIMINAL_STAGE_PRE_INVESTIGATION = 'criminal_stage_pre_investigation';
-    const CRIMINAL_STAGE_CONSEQUENCE = 'criminal_stage_consequence';
-    const CRIMINAL_STAGE_JUDICIAL = 'criminal_stage_judicial';
-    const CRIMINAL_COURT = 'criminal_court';
-
     const CATEGORY_EXECUTION = 'execution';
-
-    const EXECUTION_RECOVERER = 'execution_recoverer';
-    const EXECUTION_DEBTOR = 'execution_debtor';
-    const EXECUTION_BAILIFF_SERVICE = 'execution_bailiff_service';
-    const EXECUTION_SUBJECT_EXECUTION = 'execution_subject_execution';
-
     const CATEGORY_ADMINISTRATIVE = 'administrative';
-
-    const ADMINISTRATIVE_PLAINTIFF = 'administrative_plaintiff';
-    const ADMINISTRATIVE_RESPONDENT = 'administrative_respondent';
-    const ADMINISTRATIVE_OFFENDER = 'administrative_offender';
-    const ADMINISTRATIVE_COURT = 'administrative_court';
-    const ADMINISTRATIVE_SUBJECT_DISPUTE = 'administrative_subject_dispute';
-
     const CATEGORY_INSTRUCTION = 'instruction';
 
-    const INSTRUCTION_ESSENCE_ORDER = 'instruction_essence_order';
-    const INSTRUCTION_APPLICANT = 'instruction_applicant';
+    const STAGE_PRE_INVESTIGATION = 'pre_investigation';
+    const STAGE_CONSEQUENCE = 'consequence';
+    const STAGE_JUDICIAL = 'judicial';
 
     /**
      * {@inheritdoc}
@@ -100,13 +97,86 @@ class OfficeCase extends \yii\db\ActiveRecord
     {
         return [
             [['account_id', 'client_id', 'curator_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['number', 'category', 'object_category'], 'string', 'max' => 255],
+            [['number', 'category'], 'string', 'max' => 255],
             [[
                 'account_id',
                 'client_id',
                 'category',
-                'object_category',
             ], 'required'],
+            [[
+                'civil_plaintiff',
+                'civil_respondent',
+                'civil_subject_dispute',
+                'criminal_suspect',
+                'criminal_victim',
+                'criminal_essence_charge',
+                'criminal_stage',
+                'execution_recoverer',
+                'execution_debtor',
+                'execution_bailiff_service',
+                'execution_subject_execution',
+                'administrative_plaintiff',
+                'administrative_respondent',
+                'administrative_offender',
+                'administrative_subject_dispute',
+                'instruction_essence_order',
+                'instruction_applicant',
+            ], 'string'],
+            [[
+                'civil_court_id',
+                'criminal_court_id',
+                'administrative_court_id',
+            ], 'integer'],
+            [[
+                'civil_plaintiff',
+                'civil_respondent',
+                'civil_subject_dispute',
+                'civil_court_id',
+            ],
+                'required',
+                'when' => self::when(self::CATEGORY_CIVIL),
+                'whenClient' => self::whenClient($this, self::CATEGORY_CIVIL)
+            ],
+            [[
+                'criminal_suspect',
+                'criminal_victim',
+                'criminal_essence_charge',
+                'criminal_stage',
+                'criminal_court_id',
+            ],
+                'required',
+                'when' => self::when(self::CATEGORY_CRIMINAL),
+                'whenClient' => self::whenClient($this, self::CATEGORY_CRIMINAL)
+            ],
+            [[
+                'execution_recoverer',
+                'execution_debtor',
+                'execution_bailiff_service',
+                'execution_subject_execution',
+            ],
+                'required',
+                'when' => self::when(self::CATEGORY_EXECUTION),
+                'whenClient' => self::whenClient($this, self::CATEGORY_EXECUTION)
+            ],
+            [[
+                'administrative_plaintiff',
+                'administrative_respondent',
+                'administrative_offender',
+                'administrative_court_id',
+                'administrative_subject_dispute',
+            ],
+                'required',
+                'when' => self::when(self::CATEGORY_ADMINISTRATIVE),
+                'whenClient' => self::whenClient($this, self::CATEGORY_ADMINISTRATIVE)
+            ],
+            [[
+                'instruction_essence_order',
+                'instruction_applicant',
+            ],
+                'required',
+                'when' => self::when(self::CATEGORY_INSTRUCTION),
+                'whenClient' => self::whenClient($this, self::CATEGORY_INSTRUCTION)
+            ],
         ];
     }
 
@@ -121,12 +191,33 @@ class OfficeCase extends \yii\db\ActiveRecord
             'number' => Yii::t('rus', 'Номер дела'),
             'client_id' => Yii::t('rus', 'Клиент'),
             'category' => Yii::t('rus', 'Категория'),
-            'object_category' => Yii::t('rus', 'Объект категории'),
             'curator_id' => Yii::t('rus', 'Куратор'),
             'created_at' => Yii::t('rus', 'Дата создания'),
             'updated_at' => Yii::t('rus', 'Дата обновления'),
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
+
+            'civil_plaintiff' => Yii::t('rus', 'Истец'),
+            'civil_respondent' => Yii::t('rus', 'Ответчик'),
+            'civil_subject_dispute' => Yii::t('rus', 'Предмет спора'),
+            'civil_court_id' => Yii::t('rus', 'Суд'),
+            'criminal_suspect' => Yii::t('rus', 'Подозреваемый (обвиняемый)'),
+            'criminal_victim' => Yii::t('rus', 'Потерпевший'),
+            'criminal_essence_charge' => Yii::t('rus', 'Суть обвинения'),
+            'criminal_stage' => Yii::t('rus', 'Стадия расследования'),
+            'criminal_court_id' => Yii::t('rus', 'Суд'),
+            'execution_recoverer' => Yii::t('rus', 'Взыскатель'),
+            'execution_debtor' => Yii::t('rus', 'Должник'),
+            'execution_bailiff_service' => Yii::t('rus', 'Приставы'),
+            'execution_subject_execution' => Yii::t('rus', 'Предмет исполнения'),
+            'administrative_plaintiff' => Yii::t('rus', 'Административный истец'),
+            'administrative_respondent' => Yii::t('rus', 'Административный ответчик'),
+            'administrative_offender' => Yii::t('rus', 'Правонарушитель'),
+            'administrative_court_id' => Yii::t('rus', 'Суд'),
+            'administrative_subject_dispute' => Yii::t('rus', 'Предмет спора'),
+            'instruction_essence_order' => Yii::t('rus', 'Суть поручения'),
+            'instruction_applicant' => Yii::t('rus', 'Заявитель'),
+            'subject' => Yii::t('rus', 'Предмет'),
         ];
     }
 
@@ -150,12 +241,6 @@ class OfficeCase extends \yii\db\ActiveRecord
         return $this->hasMany(OfficeEmployee::className(), ['id' => 'employee_id'])->viaTable('office_case_employee_rel', ['case_id' => 'id']);
     }
 
-    public function getObjectCategoryLabel()
-    {
-        $objects = ArrayHelper::getValue(static::objectsCategory(), $this->category);
-        return ArrayHelper::getValue($objects, $this->object_category);
-    }
-
     public function getCategoryLabel()
     {
         return ArrayHelper::getValue(static::categories(), $this->category);
@@ -171,9 +256,30 @@ class OfficeCase extends \yii\db\ActiveRecord
         return implode(' / ', [
             $this->number,
             $this->client->full_name,
-            $this->categoryLabel,
-            $this->objectCategoryLabel
+            $this->categoryLabel
         ]);
+    }
+
+    public function getSubject()
+    {
+        switch ($this->category){
+            case self::CATEGORY_CIVIL:
+                return $this->civil_subject_dispute;
+            case self::CATEGORY_CRIMINAL:
+                return $this->criminal_essence_charge;
+            case self::CATEGORY_EXECUTION:
+                return $this->execution_subject_execution;
+            case self::CATEGORY_ADMINISTRATIVE:
+                return $this->administrative_subject_dispute;
+            case self::CATEGORY_INSTRUCTION:
+                return $this->instruction_essence_order;
+            default: return '';
+        }
+    }
+
+    public function getSubjectShort()
+    {
+        return StringHelper::cut($this->subject, 200);
     }
 
     public static function select2Filter($model)
@@ -200,76 +306,57 @@ class OfficeCase extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function objectsCategory()
+
+    public static function stages()
     {
         return [
-            self::CATEGORY_CIVIL => [
-                self::CIVIL_PLAINTIFF => Yii::t('rus', 'Истец'),
-                self::CIVIL_RESPONDENT => Yii::t('rus', 'Ответчик'),
-                self::CIVIL_SUBJECT_DISPUTE => Yii::t('rus', 'Предмет спора'),
-                self::CIVIL_COURT => Yii::t('rus', 'Суд'),
-            ],
-            self::CATEGORY_CRIMINAL => [
-                self::CRIMINAL_SUSPECT => Yii::t('rus', 'Подозреваемый (обвиняемый)'),
-                self::CRIMINAL_VICTIM => Yii::t('rus', 'Потерпевший'),
-                self::CRIMINAL_ESSENCE_CHARGE => Yii::t('rus', 'Суть обвинения'),
-                self::CRIMINAL_STAGE_PRE_INVESTIGATION => Yii::t('rus', 'Стадия расследования (Доследственная проверка)'),
-                self::CRIMINAL_STAGE_CONSEQUENCE => Yii::t('rus', 'Стадия расследования (Следствие)'),
-                self::CRIMINAL_STAGE_JUDICIAL => Yii::t('rus', 'Стадия расследования (Судебная стадия)'),
-                self::CRIMINAL_COURT => Yii::t('rus', 'Суд'),
-            ],
-            self::CATEGORY_EXECUTION => [
-                self::EXECUTION_RECOVERER => Yii::t('rus', 'Взыскатель'),
-                self::EXECUTION_DEBTOR => Yii::t('rus', 'Должник'),
-                self::EXECUTION_BAILIFF_SERVICE => Yii::t('rus', 'Приставы'),
-                self::EXECUTION_SUBJECT_EXECUTION => Yii::t('rus', 'Предмет исполнения'),
-            ],
-            self::CATEGORY_ADMINISTRATIVE => [
-                self::ADMINISTRATIVE_PLAINTIFF => Yii::t('rus', 'Административный истец'),
-                self::ADMINISTRATIVE_RESPONDENT => Yii::t('rus', 'Административный ответчик'),
-                self::ADMINISTRATIVE_OFFENDER => Yii::t('rus', 'Правонарушитель'),
-                self::ADMINISTRATIVE_COURT => Yii::t('rus', 'Суд'),
-                self::ADMINISTRATIVE_SUBJECT_DISPUTE => Yii::t('rus', 'Предмет спора'),
-            ],
-            self::CATEGORY_INSTRUCTION => [
-                self::INSTRUCTION_ESSENCE_ORDER => Yii::t('rus', 'Суть поручения'),
-                self::INSTRUCTION_APPLICANT => Yii::t('rus', 'Заявитель'),
-            ],
+            self::STAGE_PRE_INVESTIGATION => Yii::t('rus', 'Доследственная проверка'),
+            self::STAGE_CONSEQUENCE => Yii::t('rus', 'Следствие'),
+            self::STAGE_JUDICIAL => Yii::t('rus', 'Судебная стадия'),
         ];
-    }
-
-    public static function objectsCategoryOnly()
-    {
-        $arr = [];
-
-        foreach (self::objectsCategory() as $key => $objects){
-            foreach ($objects as $key_object => $name) {
-                $arr[$key_object] = ArrayHelper::getValue(self::categories(), $key). ' / ' .$name;
-            }
-        }
-
-        return $arr;
-    }
-
-    public static function objectsCategoryFormat()
-    {
-        $arr = [];
-
-        foreach (self::objectsCategory() as $key => $objects){
-            foreach ($objects as $key_object => $name) {
-                $arr[$key][] = [
-                    'id' => $key_object,
-                    'text' => $name,
-                ];
-            }
-        }
-
-        return $arr;
     }
 
     public static function map($account_id)
     {
         return ArrayHelper::map(self::find()->accaunt($account_id)->all(), 'id', 'name');
+    }
+
+    public static function registerJsChangeCategory($model)
+    {
+        /** @var self $model */
+        $keys = array_keys(self::categories());
+        $category = empty($model->category) ? $keys[0] : $model->category;
+
+        $js = <<<JS
+            var showCategory = function(category) {
+                $('[data-category]').hide();
+                $('[data-category="'+category+'"]').show();
+            };
+            showCategory('$category');
+            
+            var changeCategoryCase = function() {
+               showCategory($(this).val());
+            }
+JS;
+        Yii::$app->view->registerJs($js, View::POS_END);
+    }
+
+    public static function when($category)
+    {
+        return function($model) use ($category) {
+            /** @var self $model */
+            return $model->category == $category;
+        };
+    }
+
+    public static function whenClient($model, $category)
+    {
+        /** @var self $model */
+        $id = Html::getInputId($model, 'category');
+        return <<<JS
+            function (attribute, value) { return $('#$id').val() == '$category'; }
+JS;
+
     }
 
     /**

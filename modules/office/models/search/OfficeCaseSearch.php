@@ -11,6 +11,7 @@ use app\modules\office\models\OfficeCase;
  */
 class OfficeCaseSearch extends OfficeCase
 {
+    public $subject;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +19,7 @@ class OfficeCaseSearch extends OfficeCase
     {
         return [
             [['id', 'account_id', 'client_id', 'curator_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['number', 'category', 'object_category'], 'safe'],
+            [['number', 'category', 'subject'], 'safe'],
         ];
     }
 
@@ -71,9 +72,18 @@ class OfficeCaseSearch extends OfficeCase
             'updated_by' => $this->updated_by,
         ]);
 
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'OR',
+            ['like', 'civil_subject_dispute', $this->subject],
+            ['like', 'criminal_essence_charge', $this->subject],
+            ['like', 'execution_subject_execution', $this->subject],
+            ['like', 'administrative_subject_dispute', $this->subject],
+            ['like', 'instruction_essence_order', $this->subject],
+        ]);
+
         $query->andFilterWhere(['like', 'number', $this->number])
-            ->andFilterWhere(['like', 'category', $this->category])
-            ->andFilterWhere(['like', 'object_category', $this->object_category]);
+            ->andFilterWhere(['like', 'category', $this->category]);
 
         return $dataProvider;
     }

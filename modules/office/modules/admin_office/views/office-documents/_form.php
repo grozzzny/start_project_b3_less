@@ -97,8 +97,6 @@ use yii\web\View;
 <? Relation::registerJsChangeRelations($model); ?>
 
 <?
-$this->registerJsVar('data_object_category', OfficeCase::objectsCategoryFormat());
-
 $js = <<<JS
     var changeCategoryDocuments = function() {
         var select = $(this),

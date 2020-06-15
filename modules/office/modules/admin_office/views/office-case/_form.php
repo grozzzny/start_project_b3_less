@@ -1,14 +1,12 @@
 <?php
 
-use app\modules\office\models\OfficeAccount;
 use app\modules\office\models\OfficeCase;
 use app\modules\office\models\OfficeClients;
+use app\modules\office\models\OfficeCourts;
 use app\modules\office\models\OfficeEmployee;
 use app\modules\office\widgets\select2\Select2;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
-use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\office\models\OfficeCase */
@@ -36,9 +34,40 @@ use yii\web\View;
                 'pluginEvents' => ['change' => 'changeCategoryCase']
             ]) ?>
 
-            <?= $form->field($model, 'object_category')->widget(Select2::className(), [
-                'data' => !empty($model->category) ? ArrayHelper::getValue(OfficeCase::objectsCategory(), $model->category): current(OfficeCase::objectsCategory())
-            ]) ?>
+            <div data-category="<?= OfficeCase::CATEGORY_CIVIL?>">
+                <?= $form->field($model, 'civil_plaintiff')->textInput() ?>
+                <?= $form->field($model, 'civil_respondent')->textInput() ?>
+                <?= $form->field($model, 'civil_subject_dispute')->textarea() ?>
+                <?= $form->field($model, 'civil_court_id')->widget(Select2::className(), ['data' => OfficeCourts::map($model->account_id)]) ?>
+            </div>
+
+            <div data-category="<?= OfficeCase::CATEGORY_CRIMINAL?>">
+                <?= $form->field($model, 'criminal_suspect')->textInput() ?>
+                <?= $form->field($model, 'criminal_victim')->textInput() ?>
+                <?= $form->field($model, 'criminal_essence_charge')->textarea() ?>
+                <?= $form->field($model, 'criminal_stage')->widget(Select2::className(), ['data' => OfficeCase::stages()]) ?>
+                <?= $form->field($model, 'criminal_court_id')->widget(Select2::className(), ['data' => OfficeCourts::map($model->account_id)]) ?>
+            </div>
+
+            <div data-category="<?= OfficeCase::CATEGORY_EXECUTION?>">
+                <?= $form->field($model, 'execution_recoverer')->textInput() ?>
+                <?= $form->field($model, 'execution_debtor')->textInput() ?>
+                <?= $form->field($model, 'execution_bailiff_service')->textInput() ?>
+                <?= $form->field($model, 'execution_subject_execution')->textarea() ?>
+            </div>
+
+            <div data-category="<?= OfficeCase::CATEGORY_ADMINISTRATIVE?>">
+                <?= $form->field($model, 'administrative_plaintiff')->textInput() ?>
+                <?= $form->field($model, 'administrative_respondent')->textInput() ?>
+                <?= $form->field($model, 'administrative_offender')->textInput() ?>
+                <?= $form->field($model, 'administrative_court_id')->widget(Select2::className(), ['data' => OfficeCourts::map($model->account_id)]) ?>
+                <?= $form->field($model, 'administrative_subject_dispute')->textarea() ?>
+            </div>
+
+            <div data-category="<?= OfficeCase::CATEGORY_INSTRUCTION?>">
+                <?= $form->field($model, 'instruction_applicant')->textInput() ?>
+                <?= $form->field($model, 'instruction_essence_order')->textarea() ?>
+            </div>
 
             <?= $form->field($model, 'curator_id')->widget(Select2::className(), [
                 'data' => OfficeEmployee::map($model->account_id),
@@ -63,22 +92,4 @@ use yii\web\View;
 
 </div>
 
-<?
-$this->registerJsVar('data_object_category', OfficeCase::objectsCategoryFormat());
-
-$js = <<<JS
-    var changeCategoryCase = function() {
-        var select = $(this),
-        select_object_category = $("#officecase-object_category");
-        
-        select_object_category.empty();
-        
-        $.each(data_object_category[select.val()], function(i, ob) {
-          select_object_category.append("<option value='"+ob.id+"'>"+ob.text+"</option");
-        });
-        
-        select_object_category.trigger("change");
-    }
-JS;
-$this->registerJs($js, View::POS_END);
-?>
+<? OfficeCase::registerJsChangeCategory($model); ?>
