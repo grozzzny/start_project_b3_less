@@ -88,6 +88,12 @@ $config = [
         'formatter' => [
             'nullDisplay' => '-',
         ],
+        'user' => [
+            'class' => 'app\components\User',
+            'enableAutoLogin' => true,
+            'loginUrl' => ['/user/security/login'],
+            'identityClass' => 'app\models\User',
+        ],
     ],
     'modules' => [
         'office' => [
@@ -98,7 +104,7 @@ $config = [
         'user' => [
             'class' => Da\User\Module::class,
             'classMap' => [
-                'RegistrationForm' => 'app\forms\RegistrationForm'
+                'User' => 'app\models\User'
             ],
             'controllerMap' => [
                 'admin' => [

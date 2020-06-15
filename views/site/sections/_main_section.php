@@ -9,7 +9,6 @@ use yii\web\View;
  * @var View $this
  * @var AdminPages $page
  */
-
 ?>
 
 
@@ -27,15 +26,20 @@ use yii\web\View;
                         <div class="mb-5"><?=$page->liveEditText?></div>
                         <div>
                             <? if(Yii::$app->user->isGuest):?>
-                                <a href="#" class="btn btn-primary mr-2 mb-2"><?=Yii::t('app', 'Get Started')?></a>
+                                <a href="<?=Url::to(['/site/create'])?>" class="btn btn-primary mr-2 mb-2"><?=Yii::t('rus', 'Создать аккаунт')?></a>
                                 <a href="<?=Url::to(['/user/login'])?>" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign in')?></a>
                             <? else: ?>
-                                <a href="<?=Url::to(['/office'])?>" class="btn btn-primary mr-2 mb-2"><?=Yii::t('app', 'Administration')?></a>
+                                <? if(empty(Yii::$app->user->identity->officeAccount)): ?>
+                                    <a href="<?=Url::to(['/site/create'])?>" class="btn btn-primary mr-2 mb-2"><?=Yii::t('rus', 'Создать аккаунт')?></a>
+                                <? endif;?>
+                                <? if(count(Yii::$app->user->identity->officeEmployees) != 0): ?>
+                                    <a href="<?=Url::to(['/office'])?>" class="btn btn-success mr-2 mb-2"><?=Yii::t('app', 'Administration')?></a>
+                                <? endif;?>
                                 <a href="<?=Url::to(['/user/logout'])?>" data-method="post" class="btn btn-light mr-2 mb-2"><?=Yii::t('app', 'Sign Out')?></a>
                             <? endif;?>
                         </div>
                         <? if(Yii::$app->user->isGuest):?>
-                        <div class="mt-3">
+                        <div class="mt-3 auth-block">
                             <?= yii\authclient\widgets\AuthChoice::widget([
                                 'baseAuthUrl' => ['/user/security/auth'],
                                 'popupMode' => false,

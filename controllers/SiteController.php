@@ -2,10 +2,12 @@
 
 namespace app\controllers;
 
+use app\modules\office\models\OfficeAccount;
 use grozzzny\admin\modules\pages\models\AdminPages;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -117,6 +119,22 @@ class SiteController extends Controller
         return $this->render('contact', [
             'model' => $model,
         ]);
+    }
+
+    public function actionCreate()
+    {
+        $this->layout = 'main_with_container';
+
+        $model = Yii::createObject(['class' => OfficeAccount::class, 'scenario' => OfficeAccount::SCENARIO_CREATE]);
+
+        if(!Yii::$app->user->isGuest) {
+            if(!empty(Yii::$app->user->identity->officeAccount)) throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+            $model->email = Yii::$app->user->identity->email;
+        }
+
+        $page = AdminPages::get('site-create-account');
+
+        return $this->render('create', ['model' => $model, 'page' => $page]);
     }
 
     /**

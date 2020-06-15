@@ -35,6 +35,10 @@ class OfficeAccount extends \yii\db\ActiveRecord
 {
     use BlameableTrait;
 
+    public $email;
+
+    const SCENARIO_CREATE = 'create';
+
     /**
      * {@inheritdoc}
      */
@@ -81,6 +85,9 @@ class OfficeAccount extends \yii\db\ActiveRecord
                 'owner_id',
                 'active_at',
             ], 'required'],
+            [[
+                'email',
+            ], 'required', 'on' => self::SCENARIO_CREATE],
         ];
     }
     /**
@@ -98,6 +105,17 @@ class OfficeAccount extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('rus', 'Дата обновления'),
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
+            'email' => Yii::t('rus', 'Электронный адрес'),
+        ];
+    }
+
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_DEFAULT => parent::scenarios()['default'],
+            self::SCENARIO_CREATE => [
+                'email',
+            ],
         ];
     }
 

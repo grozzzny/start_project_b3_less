@@ -11,6 +11,8 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+$isMainPage = Yii::$app->controller->route == 'site/index';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -33,7 +35,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<div class="site-wrap">
+<div class="site-wrap <?= $isMainPage ? 'main-page' : ''?>">
 
     <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
