@@ -65,6 +65,16 @@ use yii\bootstrap4\ActiveForm;
             <?= $form->field($model, 'type_priority')->widget(Select2::className(), ['data' => OfficeTasks::priorities()]) ?>
 
             <?= $form->field($model, 'confirmed')->checkbox(AdminOfficeModule::checkboxSettings()) ?>
+
+            <?= $form->field($model, 'employees_ids')->widget(Select2::className(), [
+                'data' => OfficeEmployee::map($model->account_id),
+                'options' => ['multiple' => true],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'placeholder' => Yii::t('rus', 'Выберите значение'),
+                ],
+            ]) ?>
+
         </div>
         <div class="col-md-6">
             <?= $this->render('../_detail_view_account', ['model' => $model])?>

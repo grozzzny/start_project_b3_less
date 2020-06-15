@@ -2,6 +2,7 @@
 
 namespace app\modules\office\models;
 
+use app\components\RelationIdsBehavior;
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
@@ -40,6 +41,8 @@ class OfficeConsultation extends \yii\db\ActiveRecord
     const TYPE_ORAL  = 'oral';
     const TYPE_WRITTEN = 'written';
 
+    public $employees_ids = [];
+
     /**
      * {@inheritdoc}
      */
@@ -53,6 +56,11 @@ class OfficeConsultation extends \yii\db\ActiveRecord
         return ArrayHelper::merge(parent::behaviors(), [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'employees_ids' => [
+                'class' => RelationIdsBehavior::class,
+                'relationName' => 'employees',
+                'attribute' => 'employees_ids',
+            ],
         ]);
     }
 
@@ -69,7 +77,9 @@ class OfficeConsultation extends \yii\db\ActiveRecord
                 'cost',
                 'type',
                 'account_id',
+                'employees_ids',
             ], 'required'],
+            [['employees_ids'], 'safe'],
         ];
     }
 
@@ -89,6 +99,7 @@ class OfficeConsultation extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('rus', 'Дата обновления'),
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
+            'employees_ids' => Yii::t('rus', 'Исполнители'),
         ];
     }
 

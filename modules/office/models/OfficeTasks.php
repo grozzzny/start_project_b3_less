@@ -2,6 +2,7 @@
 
 namespace app\modules\office\models;
 
+use app\components\RelationIdsBehavior;
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\ClientsBehavior;
@@ -53,6 +54,8 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
     const PRIORITY_IMPORTANT = 'important';
     const PRIORITY_URGENT = 'urgent';
 
+    public $employees_ids = [];
+
     /**
      * {@inheritdoc}
      */
@@ -78,6 +81,11 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
                     'consultation',
                 ]
             ],
+            'employees_ids' => [
+                'class' => RelationIdsBehavior::class,
+                'relationName' => 'employees',
+                'attribute' => 'employees_ids',
+            ],
         ]);
     }
 
@@ -100,7 +108,9 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
                 'curator_id',
                 'description',
                 'time_to',
+                'employees_ids',
             ], 'required'],
+            [['employees_ids'], 'safe'],
             [['case_id'],
                 'required',
                 'when' => Relation::when(Relation::RELATION_CASE),
@@ -135,6 +145,7 @@ class OfficeTasks extends \yii\db\ActiveRecord implements RelationsInterface
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
             'confirmed' => Yii::t('rus', 'Подтверждено куратором'),
+            'employees_ids' => Yii::t('rus', 'Исполнители'),
         ];
     }
 

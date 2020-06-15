@@ -2,6 +2,7 @@
 
 namespace app\modules\office\models;
 
+use app\components\RelationIdsBehavior;
 use app\modules\office\components\AccountTrait;
 use app\components\BlameableTrait;
 use app\modules\office\components\EmployeeTrait;
@@ -74,6 +75,8 @@ class OfficeCase extends \yii\db\ActiveRecord
     const STAGE_CONSEQUENCE = 'consequence';
     const STAGE_JUDICIAL = 'judicial';
 
+    public $employees_ids = [];
+
     /**
      * {@inheritdoc}
      */
@@ -87,6 +90,11 @@ class OfficeCase extends \yii\db\ActiveRecord
         return ArrayHelper::merge(parent::behaviors(), [
             BlameableBehavior::className(),
             TimestampBehavior::className(),
+            'employees_ids' => [
+                'class' => RelationIdsBehavior::class,
+                'relationName' => 'employees',
+                'attribute' => 'employees_ids',
+            ],
         ]);
     }
 
@@ -102,6 +110,7 @@ class OfficeCase extends \yii\db\ActiveRecord
                 'account_id',
                 'client_id',
                 'category',
+                'employees_ids',
             ], 'required'],
             [[
                 'civil_plaintiff',
@@ -177,6 +186,7 @@ class OfficeCase extends \yii\db\ActiveRecord
                 'when' => self::when(self::CATEGORY_INSTRUCTION),
                 'whenClient' => self::whenClient($this, self::CATEGORY_INSTRUCTION)
             ],
+            [['employees_ids'], 'safe'],
         ];
     }
 
@@ -218,6 +228,7 @@ class OfficeCase extends \yii\db\ActiveRecord
             'instruction_essence_order' => Yii::t('rus', 'Суть поручения'),
             'instruction_applicant' => Yii::t('rus', 'Заявитель'),
             'subject' => Yii::t('rus', 'Предмет'),
+            'employees_ids' => Yii::t('rus', 'Исполнители'),
         ];
     }
 
