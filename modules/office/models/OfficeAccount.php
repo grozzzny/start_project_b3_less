@@ -4,6 +4,7 @@ namespace app\modules\office\models;
 
 use app\components\BlameableTrait;
 use app\models\User;
+use app\modules\office\components\CreateAccountBehavior;
 use app\modules\office\widgets\select2\Select2;
 use Yii;
 use yii\behaviors\AttributeBehavior;
@@ -36,6 +37,7 @@ class OfficeAccount extends \yii\db\ActiveRecord
     use BlameableTrait;
 
     public $email;
+    public $full_name;
 
     const SCENARIO_CREATE = 'create';
 
@@ -66,6 +68,9 @@ class OfficeAccount extends \yii\db\ActiveRecord
                     return $this->name = $name;
                 },
             ],
+            'create_account' => [
+                'class' => CreateAccountBehavior::class
+            ]
         ]);
     }
 
@@ -85,9 +90,11 @@ class OfficeAccount extends \yii\db\ActiveRecord
                 'owner_id',
                 'active_at',
             ], 'required'],
-            [[
-                'email',
-            ], 'required', 'on' => self::SCENARIO_CREATE],
+            [['email', 'full_name'], 'required', 'on' => self::SCENARIO_CREATE],
+            [['email'], 'email'],
+            [['full_name'], 'string'],
+            [['email'], 'validatorUniqueUser'],
+            [['email'], 'validatorUniqueAccount'],
         ];
     }
     /**
@@ -106,6 +113,7 @@ class OfficeAccount extends \yii\db\ActiveRecord
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
             'email' => Yii::t('rus', 'Электронный адрес'),
+            'full_name' => Yii::t('rus', 'ФИО'),
         ];
     }
 
@@ -115,6 +123,7 @@ class OfficeAccount extends \yii\db\ActiveRecord
             self::SCENARIO_DEFAULT => parent::scenarios()['default'],
             self::SCENARIO_CREATE => [
                 'email',
+                'full_name',
             ],
         ];
     }
@@ -138,6 +147,24 @@ class OfficeAccount extends \yii\db\ActiveRecord
     public function getActiveAtFormat()
     {
         return $this->active_at;
+    }
+
+    public function validatorUniqueUser($attribute, $params) {
+        if(!Yii::$app->user->isGuest) return false;
+
+        $existModel = User::find()->andWhere(['email' => $this->email])->exists();
+
+        if ($existModel) {
+            $this->addError($attribute, 'Пользователь с таким электронным адресом уже зарегистрирован в системе. Пожалуйста авторизуйтесь.');
+        }
+    }
+
+    public function validatorUniqueAccount($attribute, $params) {
+        $existModel = self::find()->joinWith('owner')->andWhere(['email' => $this->email])->exists();
+
+        if ($existModel) {
+            $this->addError($attribute, 'Пользователь с таким электронным адресом уже имеет аккаунт.');
+        }
     }
 
     public static function select2FilterSettings($model)

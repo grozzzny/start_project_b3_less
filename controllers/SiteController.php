@@ -69,27 +69,6 @@ class SiteController extends Controller
         return $this->render('index', ['page' => $page]);
     }
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Logout action.
@@ -103,24 +82,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
     public function actionCreate()
     {
         $this->layout = 'main_with_container';
@@ -132,18 +93,18 @@ class SiteController extends Controller
             $model->email = Yii::$app->user->identity->email;
         }
 
+        if($model->load(Yii::$app->request->post())){
+            if(!$model->save()) {
+                Yii::error(json_encode($model->errors, JSON_UNESCAPED_UNICODE));
+                Yii::$app->session->setFlash('danger', Yii::t('rus', 'Ошибка в сохранении'));
+            } else {
+                return $this->redirect(['/office']);
+            }
+        }
+
+
         $page = AdminPages::get('site-create-account');
 
         return $this->render('create', ['model' => $model, 'page' => $page]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 }

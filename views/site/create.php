@@ -53,6 +53,8 @@ Modal::end();
 
         <?= $form->field($model, 'email')->textInput(['disabled' => !Yii::$app->user->isGuest])?>
 
+        <?= $form->field($model, 'full_name')->textInput()?>
+
         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" required="required" value="1">
