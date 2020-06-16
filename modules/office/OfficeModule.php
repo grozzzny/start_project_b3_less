@@ -2,6 +2,9 @@
 
 namespace app\modules\office;
 
+use Yii;
+use yii\filters\AccessControl;
+
 /**
  * office module definition class
  */
@@ -14,13 +17,20 @@ class OfficeModule extends \yii\base\Module
 
     public $layout = 'main';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function init()
+    public function behaviors()
     {
-        parent::init();
-
-        // custom initialization code goes here
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return !empty(Yii::$app->user->selectedEmploee);
+                        }
+                    ],
+                ],
+            ],
+        ];
     }
 }

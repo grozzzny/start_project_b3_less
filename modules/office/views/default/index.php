@@ -10,3 +10,6 @@
         <code><?= __FILE__ ?></code>
     </p>
 </div>
+
+
+<? var_dump(Yii::$app->user->selectedEmploee);?>

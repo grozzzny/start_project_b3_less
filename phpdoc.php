@@ -14,7 +14,7 @@ class Yii extends \yii\BaseYii
  * @property yii\caching\FileCache $cache
  * @property yii\rbac\DbManager $authManager
  * @property yii\db\Connection $db
- * @property \app\models\User $user
+ * @property \app\components\User $user
  **/
 abstract class BaseApplication extends yii\base\Application
 {

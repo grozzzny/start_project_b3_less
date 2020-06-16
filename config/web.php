@@ -88,6 +88,13 @@ $config = [
         'formatter' => [
             'nullDisplay' => '-',
         ],
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@Da/User/resources/views' => '@app/views/user'
+                ]
+            ]
+        ],
         'user' => [
             'class' => 'app\components\User',
             'enableAutoLogin' => true,

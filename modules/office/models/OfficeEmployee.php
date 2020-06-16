@@ -36,6 +36,7 @@ use yii\helpers\ArrayHelper;
  * @property string $full_name [varchar(255)]
  * @property User $user
  * @property string $name
+ * @property-read OfficeAccount $officeAccount
  */
 class OfficeEmployee extends \yii\db\ActiveRecord
 {
@@ -101,6 +102,11 @@ class OfficeEmployee extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('rus', 'Обновлен'),
             'full_name' => Yii::t('rus', 'ФИО'),
         ];
+    }
+
+    public function getOfficeAccount()
+    {
+        return $this->hasOne(OfficeAccount::class, ['id' => 'account_id']);
     }
 
     /**

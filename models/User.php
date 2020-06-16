@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property-read OfficeAccount $officeAccount
  * @property-read OfficeEmployee[] $officeEmployees
+ * @property-read OfficeEmployee $officeEmployeePrimary
  */
 class User extends \Da\User\Model\User
 {
@@ -30,6 +31,11 @@ class User extends \Da\User\Model\User
     public static function map()
     {
         return ArrayHelper::map(User::find()->all(), 'id', 'email');
+    }
+
+    public function getOfficeEmployeePrimary()
+    {
+        return $this->getOfficeEmployees()->orderBy(['priority' => SORT_ASC])->one();
     }
 
     public static function select2CreatedBy($model)
