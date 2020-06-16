@@ -155,7 +155,7 @@ class OfficeAccount extends \yii\db\ActiveRecord
         $existModel = User::find()->andWhere(['email' => $this->email])->exists();
 
         if ($existModel) {
-            $this->addError($attribute, 'Пользователь с таким электронным адресом уже зарегистрирован в системе. Пожалуйста авторизуйтесь.');
+            $this->addError($attribute, Yii::t('rus', 'Пользователь с таким электронным адресом уже зарегистрирован в системе. Пожалуйста авторизуйтесь.'));
         }
     }
 
@@ -163,7 +163,7 @@ class OfficeAccount extends \yii\db\ActiveRecord
         $existModel = self::find()->joinWith('owner')->andWhere(['email' => $this->email])->exists();
 
         if ($existModel) {
-            $this->addError($attribute, 'Пользователь с таким электронным адресом уже имеет аккаунт.');
+            $this->addError($attribute, Yii::t('rus', 'Пользователь с таким электронным адресом уже имеет аккаунт.'));
         }
     }
 
