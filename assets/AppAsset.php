@@ -24,7 +24,7 @@ class AppAsset extends AssetBundle
         'scss/style.css',
     ];
     public $js = [
-
+        'js/scripts.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
@@ -33,7 +33,9 @@ class AppAsset extends AssetBundle
         'yii\bootstrap4\BootstrapPluginAsset',
         'grozzzny\depends\bootstrap_datepicker\BootstrapDatepickerAsset',
         'grozzzny\depends\fancybox\FancyboxAsset',
-        'grozzzny\depends\mdbootstrap\MDBootstrapAsset',
-        'grozzzny\depends\mdbootstrap\MDBootstrapPluginAsset',
+        'app\assets\MDBootstrapAsset',
+        'app\assets\MDBootstrapPluginAsset',
+        'grozzzny\depends\wow_animations\WowAnimationsAsset',
+        'grozzzny\depends\jarallax\JarallaxAsset',
     ];
 }
