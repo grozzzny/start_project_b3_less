@@ -34,6 +34,7 @@ $isMainPage = Yii::$app->controller->route == 'site/index';
     <!--Navbar-->
     <?= $this->render('_navbar')?>
 
+    <? if($isMainPage):?>
     <!-- Intro Section -->
     <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url(https://mdbootstrap.com/img/Photos/Others/model-3.jpg); background-repeat: no-repeat; background-size: cover; background-position: center center;">
         <div class="mask rgba-white-light">
@@ -55,6 +56,7 @@ $isMainPage = Yii::$app->controller->route == 'site/index';
         </div>
     </div>
 
+    <? endif; ?>
 
 </header>
 <!--Main Navigation-->

@@ -1,23 +1,19 @@
-html,
-body,
-header,
-.jarallax {
+body.main-page header, .jarallax {
   height: 700px;
 }
 
+body:not(.main-page) {
+  padding-top: 78px;
+}
+
 @media (max-width: 740px) {
-  html,
-body,
-header,
+  body.main-page header,
 .jarallax {
     height: 100vh;
   }
 }
 @media (min-width: 800px) and (max-width: 850px) {
-  html,
-body,
-header,
-.jarallax {
+  body.main-page, .jarallax {
     height: 100vh;
   }
 }
@@ -39,11 +35,11 @@ header,
     margin-bottom: 1.5rem !important;
   }
 }
-.top-nav-collapse {
+.top-nav-collapse, body:not(.main-page) .navbar {
   background-color: #7283A7 !important;
 }
 
-.navbar:not(.top-nav-collapse) {
+body.main-page .navbar:not(.top-nav-collapse) {
   background: transparent !important;
 }
 
