@@ -27,13 +27,13 @@ $config = [
             'clients' => [
                 'facebook' => [
                     'class' => 'Da\User\AuthClient\Facebook',
-                    'clientId' => '734484907365597',
-                    'clientSecret' => '835ce954c0705eceb3d790ee56189f59'
+                    'clientId' => '2726285704320901',
+                    'clientSecret' => '6e9c64b3df512591489cbe0a8687b68d'
                 ],
                 'google' => [
                     'class' => 'Da\User\AuthClient\Google',
-                    'clientId' => '44327651252-c8n5asj21kkk697n7nh9i5j4sbep90ub.apps.googleusercontent.com',
-                    'clientSecret' => 'IN2Nl_3oKhyCUXOvkF8rd_nN',
+                    'clientId' => '788530037218-ok1irhaosnrq88rq3cikjn4aq547e722.apps.googleusercontent.com',
+                    'clientSecret' => 's3h1QWFfeQ7LLpsSBgd0f5O1',
                 ],
                 'vkontakte' => [
                     'class' => 'Da\User\AuthClient\VKontakte',
