@@ -21,26 +21,19 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'https://fonts.googleapis.com/css?family=Nunito:300,400,700',
-        'fonts/flaticon/font/flaticon.css',
         'scss/style.css',
     ];
     public $js = [
-        'js/main.js',
+
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\web\JqueryAsset',
         'yii\bootstrap4\BootstrapAsset',
         'yii\bootstrap4\BootstrapPluginAsset',
-        'grozzzny\depends\jquery_ui\JqueryUiAsset',
-        'grozzzny\depends\popper\PopperAsset',
-        'grozzzny\depends\owl_carousel\OwlAsset',
-        'grozzzny\depends\countdown\CountdownAsset',
         'grozzzny\depends\bootstrap_datepicker\BootstrapDatepickerAsset',
-        'grozzzny\depends\easing\EasingAsset',
-        'grozzzny\depends\aos\AosAsset',
         'grozzzny\depends\fancybox\FancyboxAsset',
-        'grozzzny\depends\sticky\StickyAsset',
-        'grozzzny\depends\icomoon\IcomoonAsset',
+        'grozzzny\depends\mdbootstrap\MDBootstrapAsset',
+        'grozzzny\depends\mdbootstrap\MDBootstrapPluginAsset',
     ];
 }

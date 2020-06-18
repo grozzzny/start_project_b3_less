@@ -28,12 +28,6 @@ $isMainPage = Yii::$app->controller->route == 'site/index';
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 <?php $this->beginBody() ?>
 
-<div id="overlayer"></div>
-<div class="loader">
-    <div class="spinner-border text-primary" role="status">
-        <span class="sr-only"><?= Yii::t('rus', 'Загрузка')?>...</span>
-    </div>
-</div>
 
 <div class="site-wrap <?= $isMainPage ? 'main-page' : ''?>">
 

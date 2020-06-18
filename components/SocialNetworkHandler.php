@@ -17,6 +17,8 @@ class SocialNetworkHandler extends BaseObject
     {
         $user = WebUser::createUserAndLogin($event->client->email, $event->client->username);
 
+        if(empty($user)) return;
+
         $event->account->user_id = $user->id;
         $event->account->save();
     }

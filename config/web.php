@@ -37,19 +37,19 @@ $config = [
                 ],
                 'vkontakte' => [
                     'class' => 'Da\User\AuthClient\VKontakte',
-                    'clientId' => '7496030',
-                    'clientSecret' => 'GDGsOUakcjvfeEUsqSyg'
+                    'clientId' => '7515489',
+                    'clientSecret' => 'WSRblQUEkX58lGLmSj17'
                 ],
                 'yandex' => [
                     'class' => 'Da\User\AuthClient\Yandex',
-                    'clientId' => '50ad017a1cd442fb9972772d2f68d564',
-                    'clientSecret' => '52db19e497684756b731308c9fa9f6e4'
+                    'clientId' => '5c7c9b8aa5c447658e174a3d09a6cec9',
+                    'clientSecret' => 'cc994955eeb34395ae92166c9111bab5'
                 ],
             ]
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'L3KpFOPujkAyXhxXX7L71iqk7b-8nxol',
+            'cookieValidationKey' => 'L3KpFfD5f11ssRtv9qk7b-8nxol',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -103,10 +103,6 @@ $config = [
         ],
     ],
     'modules' => [
-        'office' => [
-            'class' => 'app\modules\office\OfficeModule',
-        ],
-
         // https://yii2-usuario.readthedocs.io/en/latest/
         'user' => [
             'class' => Da\User\Module::class,
@@ -153,14 +149,14 @@ $config = [
                     'layout' => '@app/views/layouts/main_with_container'
                 ],
             ],
-            'administrators' => ['grozzzny'], // this is required for accessing administrative actions
+            'administrators' => ['admin'], // this is required for accessing administrative actions
             'mailParams' => [
                 'fromEmail' => function() {
                     return [Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']];
                 }
             ],
             'generatePasswords' => true,
-            'switchIdentitySessionKey' => '651ds5d1Sdfrgdfg334',
+            'switchIdentitySessionKey' => '651ds5d1Sdasd3frgdfg334',
         ],
         'redactor' => [
             'class' => 'yii\redactor\RedactorModule',
@@ -181,7 +177,7 @@ $config = [
             'class' => 'grozzzny\admin\AdminModule',
             'render_toolbar_role' => 'user-management',
             'live_edit_role' => 'user-management',
-            'defaultRoute' => 'admin_office',
+            'defaultRoute' => 'default',
             'as access' => [
                 'class' => 'grozzzny\admin\behaviors\AccessControl',
                 'rules' => [
@@ -237,9 +233,6 @@ $config = [
                 ];
             },
             'modules' => [
-                'admin_office' => [
-                    'class' => 'app\modules\office\modules\admin_office\AdminOfficeModule',
-                ],
                 'pages' => [
                     'class' => 'grozzzny\admin\modules\pages\PagesModule',
                 ],
