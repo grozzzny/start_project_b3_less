@@ -105,6 +105,7 @@ $config = [
         ],
         'formatter' => [
             'nullDisplay' => '-',
+            'timeZone' => 'Europe/Kaliningrad',
         ],
         'view' => [
             'theme' => [
