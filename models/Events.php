@@ -32,6 +32,7 @@ use yii\helpers\ArrayHelper;
  * @property Rating[] $ratings
  * @property string $image [varchar(255)]
  * @property string $descriptionShort
+ * @property string $countTimeLabel
  */
 class Events extends \yii\db\ActiveRecord
 {
