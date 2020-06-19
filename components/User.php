@@ -15,6 +15,7 @@ use yii\web\Cookie;
  * @package app\components
  * @property \app\models\User $identity
  * @property-read integer $cookieLocationId
+ * @property-read Locations $selectedLocation
  *
  */
 class User extends \yii\web\User
@@ -49,6 +50,13 @@ class User extends \yii\web\User
         return $user;
     }
 
+    public function getSelectedLocation()
+    {
+        if(!empty($this->_selectedLocation)) return $this->_selectedLocation;
+
+        return $this->_selectedLocation = Locations::findOne($this->cookieLocationId);
+    }
+
     public function setCookieLocation($id)
     {
         Yii::$app->response->cookies->add(new Cookie([
@@ -62,7 +70,8 @@ class User extends \yii\web\User
         $location_id = Yii::$app->request->cookies->get('location_id')->value;
 
         if(empty($location_id)){
-            $location_id = Locations::find()->one()->id;
+            $this->_selectedLocation = Locations::find()->one();
+            $location_id = $this->_selectedLocation->id;
             $this->setCookieLocation($location_id);
         }
 

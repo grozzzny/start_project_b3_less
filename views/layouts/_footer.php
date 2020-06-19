@@ -97,45 +97,13 @@ use grozzzny\admin\modules\social_links\models\AdminSocialLinks;use yii\web\View
 
     <hr>
 
-    <!--Social buttons-->
-    <div class="social-section text-center">
-        <ul class="list-unstyled list-inline">
-
-            <li class="list-inline-item">
-                <a class="btn-floating btn-fb">
-                    <i class="fab fa-facebook-f"> </i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a class="btn-floating btn-tw">
-                    <i class="fab fa-twitter"> </i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a class="btn-floating btn-gplus">
-                    <i class="fab fa-google-plus-g"> </i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a class="btn-floating btn-li">
-                    <i class="fab fa-linkedin-in"> </i>
-                </a>
-            </li>
-            <li class="list-inline-item">
-                <a class="btn-floating btn-dribbble">
-                    <i class="fab fa-dribbble"> </i>
-                </a>
-            </li>
-
-        </ul>
-    </div>
-    <!--/.Social buttons-->
-
     <!--Copyright-->
     <div class="footer-copyright py-3 text-center">
         <div class="container-fluid">
             &copy; <script>document.write(new Date().getFullYear());</script> Copyright:
-            <a href="https://mdbootstrap.com/docs/jquery/"> MDBootstrap.com </a>
+            <a href="/"> STICK-RACING </a>
+            by
+            <a href="https://pr-kenig.ru"> PR-kenig </a>
 
         </div>
     </div>

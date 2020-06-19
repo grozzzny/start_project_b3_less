@@ -3,6 +3,9 @@
 @import "../../vendor/npm-asset/bootstrap/scss/mixins";
 
 @import "base/_variables";
+@import "partitions/_cascade";
+@import "partitions/_stripe.scss";
+@import "sections/_teames.scss";
 
 main{
   min-height: 50vh;
@@ -15,7 +18,6 @@ body.main-page header, .jarallax {
 body:not(.main-page){
   padding-top: 78px;
 }
-
 
 .form-theme-narrow {
   width: 100%;

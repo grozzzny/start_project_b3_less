@@ -1,0 +1,30 @@
+
+.collection-card .stripe {
+  position: absolute;
+  bottom: 3rem;
+  width: 100%;
+  padding: 1.2rem;
+  text-align: center
+}
+
+.collection-card .stripe.dark {
+  background-color: rgba(0,0,0,0.7)
+}
+
+.collection-card .stripe.dark a p {
+  color: #eee
+}
+
+.collection-card .stripe.light {
+  background-color: rgba(255,255,255,0.7)
+}
+
+.collection-card .stripe.light a p {
+  color: #424242
+}
+
+.collection-card .stripe a p {
+  padding: 0;
+  margin: 0;
+  letter-spacing: .25rem
+}
