@@ -9,10 +9,15 @@ use yii\helpers\ArrayHelper;
 /**
  * Class User
  * @package app\models
- *
+ * @property-read Teames $team
  */
 class User extends \Da\User\Model\User
 {
+
+    public function getTeam()
+    {
+        return $this->hasOne(Teames::class, ['owner_id' => 'id']);
+    }
 
     public static function map()
     {

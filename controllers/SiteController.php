@@ -2,14 +2,30 @@
 
 namespace app\controllers;
 
+use app\models\Teames;
 use grozzzny\admin\modules\pages\models\AdminPages;
 use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
-use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'location' => ['post'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -31,23 +47,26 @@ class SiteController extends Controller
     {
         $page = AdminPages::get('page-index');
 
-        if(Yii::$app->request->isPost){
-            $location_id = Yii::$app->request->post('location_id');
-            Yii::$app->user->setCookieLocation($location_id);
-            $this->redirect(Yii::$app->request->referrer);
-        }
-
         return $this->render('index', ['page' => $page]);
+    }
+
+    public function actionLocation()
+    {
+        $location_id = Yii::$app->request->post('location_id');
+
+        Yii::$app->user->setCookieLocation($location_id);
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     public function actionCreate()
     {
         $this->layout = 'main_with_container';
 
-        $model = Yii::createObject(['class' => OfficeAccount::class, 'scenario' => OfficeAccount::SCENARIO_CREATE]);
+        $model = Yii::createObject(['class' => Teames::class, 'scenario' => Teames::SCENARIO_CREATE]);
 
         if(!Yii::$app->user->isGuest) {
-            if(!empty(Yii::$app->user->identity->officeAccount)) throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+            if(!empty(Yii::$app->user->identity->team)) throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
             $model->email = Yii::$app->user->identity->email;
         }
 
@@ -56,12 +75,11 @@ class SiteController extends Controller
                 Yii::error(json_encode($model->errors, JSON_UNESCAPED_UNICODE));
                 Yii::$app->session->setFlash('danger', Yii::t('rus', 'Ошибка в сохранении'));
             } else {
-                return $this->redirect(['/office']);
+                return $this->redirect(['/']);
             }
         }
 
-
-        $page = AdminPages::get('site-create-account');
+        $page = AdminPages::get('site-create-team');
 
         return $this->render('create', ['model' => $model, 'page' => $page]);
     }

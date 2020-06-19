@@ -50,7 +50,7 @@ use yii\web\View;
                     </a>
                 </li>
             </ul>
-            <?= Html::beginForm('/')?>
+            <?= Html::beginForm('/site/location')?>
                 <div class="md-form my-0">
                     <?= Select2::widget([
                         'name' => 'location_id',

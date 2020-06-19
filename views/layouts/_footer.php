@@ -1,6 +1,9 @@
 <?php
 
-use grozzzny\admin\modules\social_links\models\AdminSocialLinks;use yii\web\View;
+use grozzzny\admin\modules\social_links\models\AdminSocialLinks;
+use grozzzny\admin\modules\text\LiveEditText;
+use yii\helpers\Url;
+use yii\web\View;
 
 /**
  * @var View $this
@@ -10,7 +13,7 @@ use grozzzny\admin\modules\social_links\models\AdminSocialLinks;use yii\web\View
 
 
 <!--Footer-->
-<footer class="page-footer pt-4 mt-4 text-center text-md-left mdb-color lighten-2">
+<footer class="page-footer pt-4 mt-4 text-center text-md-left grey darken-4">
 
     <!--Footer Links-->
     <div class="container">
@@ -18,10 +21,8 @@ use grozzzny\admin\modules\social_links\models\AdminSocialLinks;use yii\web\View
 
             <!--First column-->
             <div class="col-md-3 mr-auto">
-                <h5 class="text-uppercase mb-3">Footer Content</h5>
-                <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet,
-                    consectetur
-                    adipisicing elit.</p>
+                <h5 class="text-uppercase mb-3">STICK-RACING</h5>
+                <p class="text-white-50"><?= LiveEditText::widget(['slug' => 'footer-description', 'label' => 'Игра по городскому ориентированию на автомобилях, в погоне за стикерами'])?></p>
             </div>
             <!--/.First column-->
 
@@ -29,19 +30,42 @@ use grozzzny\admin\modules\social_links\models\AdminSocialLinks;use yii\web\View
 
             <!--Second column-->
             <div class="col-md-2 ml-auto">
-                <h5 class="text-uppercase mb-3">Links</h5>
+                <h5 class="text-uppercase mb-3"><?= Yii::t('rus', 'Ссылки')?></h5>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#!">Link 1</a>
+                        <a class="text-white-50" href="<?= Url::to(['/'])?>">
+                            <?= Yii::t('rus', 'Главная')?>
+                        </a>
                     </li>
                     <li>
-                        <a href="#!">Link 2</a>
+                        <a class="text-white-50" href="<?= Url::to(['/events'])?>">
+                            <?= Yii::t('rus', 'События')?>
+                        </a>
                     </li>
                     <li>
-                        <a href="#!">Link 3</a>
+                        <a class="text-white-50" href="<?= Url::to(['/teames'])?>">
+                            <?= Yii::t('rus', 'Команды')?>
+                        </a>
                     </li>
                     <li>
-                        <a href="#!">Link 4</a>
+                        <a class="text-white-50" href="<?= Url::to(['/rating'])?>">
+                            <?= Yii::t('rus', 'Рейтинг')?>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white-50" href="<?= Url::to(['/rule'])?>">
+                            <?= Yii::t('rus', 'Правила')?>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white-50" href="<?= Url::to(['/politica'])?>">
+                            <?= Yii::t('rus', 'Политика конфиденциальности')?>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white-50" href="<?= 'https://vk.com/stickracing' ?>">
+                            <?= Yii::t('rus', 'Группа вконтакте')?>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -49,45 +73,15 @@ use grozzzny\admin\modules\social_links\models\AdminSocialLinks;use yii\web\View
 
             <hr class="w-100 clearfix d-md-none">
 
-            <!--Third column-->
-            <div class="col-md-2 ml-auto">
-                <h5 class="text-uppercase mb-3">Links</h5>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#!">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 4</a>
-                    </li>
-                </ul>
-            </div>
-            <!--/.Third column-->
-
-            <hr class="w-100 clearfix d-md-none">
 
             <!--Fourth column-->
-            <div class="col-md-3 ml-auto">
-                <h5 class="text-uppercase mb-3">Links</h5>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#!">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 4</a>
-                    </li>
-                </ul>
+            <div class="col-md-5 ml-auto">
+                <script type="text/javascript" src="https://vk.com/js/api/openapi.js?168"></script>
+                <!-- VK Widget -->
+                <div id="vk_groups"></div>
+                <script type="text/javascript">
+                    VK.Widgets.Group("vk_groups", {mode: 4, wide: 1, no_cover: 1, height: "300"}, 7006567);
+                </script>
             </div>
             <!--/.Fourth column-->
 
