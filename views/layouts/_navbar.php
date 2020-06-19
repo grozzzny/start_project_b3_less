@@ -24,27 +24,27 @@ use yii\web\View;
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item <?=Yii::$app->controller->route == 'site/index' ? 'active' : ''?>">
                     <a class="nav-link" href="<?= Url::to(['/'])?>">
                         <?= Yii::t('rus', 'Главная')?>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item <?=Yii::$app->controller->id == 'events' ? 'active' : ''?>">
                     <a class="nav-link" href="<?= Url::to(['/events'])?>">
                         <?= Yii::t('rus', 'События')?>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item <?=Yii::$app->controller->id == 'teames' ? 'active' : ''?>">
                     <a class="nav-link" href="<?= Url::to(['/teames'])?>">
                         <?= Yii::t('rus', 'Команды')?>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item <?=Yii::$app->controller->id == 'rating' ? 'active' : ''?>">
                     <a class="nav-link" href="<?= Url::to(['/rating'])?>">
                         <?= Yii::t('rus', 'Рейтинг')?>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item <?=Yii::$app->controller->id == 'rule' ? 'active' : ''?>">
                     <a class="nav-link" href="<?= Url::to(['/rule'])?>">
                         <?= Yii::t('rus', 'Правила')?>
                     </a>

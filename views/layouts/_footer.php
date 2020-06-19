@@ -23,6 +23,8 @@ use yii\web\View;
             <div class="col-md-3 mr-auto">
                 <h5 class="text-uppercase mb-3">STICK-RACING</h5>
                 <p class="text-white-50"><?= LiveEditText::widget(['slug' => 'footer-description', 'label' => 'Игра по городскому ориентированию на автомобилях, в погоне за стикерами'])?></p>
+                <h5 class="text-uppercase mb-3"><?=Yii::t('rus', 'КОНТАКТЫ')?></h5>
+                <p class="text-white-50"><?= LiveEditText::widget(['slug' => 'footer-description-2', 'label' => 'Телефон: <small>+7 (911)</small> 458 71 42 <br>Email: info@stick-racing.ru'])?></p>
             </div>
             <!--/.First column-->
 

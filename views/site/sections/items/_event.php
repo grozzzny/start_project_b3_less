@@ -33,7 +33,7 @@ use yii\web\View;
         <!-- Text -->
         <p class="card-text"><?=$model->descriptionShort?></p>
 
-        <a class="btn btn-outline-black btn-block waves-effect waves-light"><?= Yii::t('rus', 'Подробнее')?></a>
+<!--        <a class="btn btn-outline-black btn-block waves-effect waves-light">--><?//= Yii::t('rus', 'Подробнее')?><!--</a>-->
 
         <!-- Card footer -->
         <div class="card-footer text-muted text-center mt-4">
