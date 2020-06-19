@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Events;
 use app\models\Teames;
 use grozzzny\admin\modules\pages\models\AdminPages;
 use Yii;
@@ -47,7 +48,21 @@ class SiteController extends Controller
     {
         $page = AdminPages::get('page-index');
 
-        return $this->render('index', ['page' => $page]);
+        $teames = Teames::find()
+            ->andWhere(['active' => true])
+            ->orderBy(['created_at' => SORT_DESC])
+            ->limit(4)
+            ->all();
+
+        $events = Events::find()
+            ->andWhere(['active' => true])
+            ->andWhere(['loaction_id' => Yii::$app->user->selectedLocation->id])
+            ->andWhere(['>=', 'time_to', time()])
+            ->orderBy(['created_at' => SORT_DESC])
+            ->limit(3)
+            ->all();
+
+        return $this->render('index', ['page' => $page, 'teames' => $teames, 'events' => $events]);
     }
 
     public function actionLocation()

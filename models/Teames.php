@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\components\BlameableTrait;
 use app\components\CreateTeamBehavior;
+use grozzzny\admin\helpers\Image;
 use grozzzny\admin\widgets\file_input\components\FileBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -149,5 +150,16 @@ class Teames extends \yii\db\ActiveRecord
     public function getIsActive()
     {
         return $this->active == 1;
+    }
+
+    public function getImage($width = null, $height = null)
+    {
+        if(!isset(Yii::$app->params['noimage'])) return Image::thumb($this->image, $width, $height);
+
+        $path = empty($this->image) ? Yii::$app->params['noimage'] : $this->image;
+
+        $image = Image::thumb($path, $width, $height);
+
+        return empty($image) ? Image::thumb(Yii::$app->params['noimage'], $width, $height) : $image;
     }
 }

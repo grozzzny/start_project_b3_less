@@ -3,6 +3,8 @@
 namespace app\models;
 
 use app\components\BlameableTrait;
+use grozzzny\admin\helpers\Image;
+use grozzzny\admin\helpers\StringHelper;
 use grozzzny\admin\widgets\file_input\components\FileBehavior;
 use Yii;
 use yii\behaviors\AttributeBehavior;
@@ -29,6 +31,7 @@ use yii\helpers\ArrayHelper;
  * @property Locations $loaction
  * @property Rating[] $ratings
  * @property string $image [varchar(255)]
+ * @property string $descriptionShort
  */
 class Events extends \yii\db\ActiveRecord
 {
@@ -128,5 +131,36 @@ class Events extends \yii\db\ActiveRecord
     public function getRatings()
     {
         return $this->hasMany(Rating::className(), ['event_id' => 'id']);
+    }
+
+
+
+    public function getImage($width = null, $height = null)
+    {
+        if(!isset(Yii::$app->params['noimage'])) return Image::thumb($this->image, $width, $height);
+
+        $path = empty($this->image) ? Yii::$app->params['noimage'] : $this->image;
+
+        $image = Image::thumb($path, $width, $height);
+
+        return empty($image) ? Image::thumb(Yii::$app->params['noimage'], $width, $height) : $image;
+    }
+
+    public function getCountTimeLabel()
+    {
+        $seconds = abs($this->getOldAttribute('time_to') - time());
+
+        $days = floor($seconds / 86400);
+
+        return Yii::t(
+            'rus',
+            '{n, plural, =0{уже прошло} =1{ день} one{# день} few{# дня} many{# дней} other{# дней}}',
+            ['n' => $days]
+        );
+    }
+
+    public function getDescriptionShort()
+    {
+        return StringHelper::cut($this->description, 150);
     }
 }

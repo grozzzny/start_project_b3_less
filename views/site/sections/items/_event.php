@@ -1,9 +1,11 @@
 <?php
 
+use app\models\Events;
 use yii\web\View;
 
 /**
  * @var View $this
+ * @var Events $model
  */
 
 ?>
@@ -13,7 +15,7 @@ use yii\web\View;
 
     <!-- Card image -->
     <div class="view view-cascade overlay">
-        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/photo6.jpg" alt="Card image cap">
+        <img class="card-img-top" src="<?=$model->getImage(350, 233)?>" alt="">
         <a href="#!">
             <div class="mask rgba-white-slight waves-effect waves-light"></div>
         </a>
@@ -23,18 +25,19 @@ use yii\web\View;
     <div class="card-body card-body-cascade text-center pb-0">
 
         <!-- Title -->
-        <h4 class="card-title"><strong>Alison Belmont</strong></h4>
+        <h4 class="card-title"><strong><?=$model->name?></strong></h4>
         <!-- Subtitle -->
 
+        <h5 class="red-text pb-2"><strong><?=$model->time_from?></strong></h5>
+
         <!-- Text -->
-        <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque
-            laudantium, totam rem aperiam. </p>
+        <p class="card-text"><?=$model->descriptionShort?></p>
 
         <a class="btn btn-outline-black btn-block waves-effect waves-light"><?= Yii::t('rus', 'Подробнее')?></a>
 
         <!-- Card footer -->
         <div class="card-footer text-muted text-center mt-4">
-            2 days ago
+            <?=$model->countTimeLabel?>
         </div>
 
     </div>
