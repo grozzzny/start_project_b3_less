@@ -6,7 +6,7 @@ $routes = require __DIR__ . '/routes.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'court-case.ru',
+    'name' => 'stick-racing.ru',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
