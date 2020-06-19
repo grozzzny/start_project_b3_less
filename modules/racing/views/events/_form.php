@@ -3,6 +3,7 @@
 use app\models\Locations;
 use app\modules\racing\RacingModule;
 use app\widgets\DateTimePicker;
+use grozzzny\admin\widgets\file_input\ImageInputWidget;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
@@ -19,6 +20,8 @@ use yii\bootstrap4\ActiveForm;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'image')->widget(ImageInputWidget::className()) ?>
 
     <?= $form->field($model, 'loaction_id')->widget(Select2::className(), [
         'data' => Locations::map(),

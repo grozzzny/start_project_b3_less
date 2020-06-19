@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\BlameableTrait;
+use grozzzny\admin\widgets\file_input\components\FileBehavior;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -27,6 +28,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property Locations $loaction
  * @property Rating[] $ratings
+ * @property string $image [varchar(255)]
  */
 class Events extends \yii\db\ActiveRecord
 {
@@ -55,6 +57,11 @@ class Events extends \yii\db\ActiveRecord
                 'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'time_to'],
                 'value' => function ($event) {return empty($this->time_to) ? null : date('d.m.Y H:i', $this->time_to);},
             ],
+            'image' => [
+                'class' => FileBehavior::className(),
+                'fileAttribute' => 'image',
+                'uploadPath' => '/uploads/events',
+            ],
         ]);
     }
 
@@ -71,6 +78,7 @@ class Events extends \yii\db\ActiveRecord
             [['time_to'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'time_to'],
             [['time_to'], 'default', 'value' => null],
             [['name'], 'string', 'max' => 255],
+            [['image'], 'image'],
             [['loaction_id'], 'exist', 'skipOnError' => true, 'targetClass' => Locations::className(), 'targetAttribute' => ['loaction_id' => 'id']],
             [[
                 'name',
@@ -98,6 +106,7 @@ class Events extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('rus', 'Дата обновления'),
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
+            'image' => Yii::t('rus', 'Изображение'),
         ];
     }
 

@@ -4,6 +4,10 @@
 
 @import "base/_variables";
 
+main{
+  min-height: 50vh;
+}
+
 body.main-page header, .jarallax {
   height: 700px;
 }
