@@ -7,7 +7,7 @@ namespace app\assets;
 class MDBootstrapPluginAsset extends \grozzzny\depends\mdbootstrap\MDBootstrapPluginAsset
 {
     public $depends = [
-        'grozzzny\depends\mdbootstrap\MDBootstrapAsset',
+        'app\assets\MDBootstrapAsset',
         'grozzzny\depends\popper\PopperAsset',
     ];
 }

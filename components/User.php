@@ -4,19 +4,23 @@
 namespace app\components;
 
 
+use app\models\Locations;
 use Da\User\Factory\MailFactory;
 use Da\User\Service\UserCreateService;
 use Yii;
+use yii\web\Cookie;
 
 /**
  * Class User
  * @package app\components
  * @property \app\models\User $identity
+ * @property-read integer $cookieLocationId
  *
  */
 class User extends \yii\web\User
 {
 
+    private $_selectedLocation;
 
     public static function createUserAndLogin($email, $username)
     {
@@ -43,5 +47,25 @@ class User extends \yii\web\User
         Yii::$app->user->login($user);
 
         return $user;
+    }
+
+    public function setCookieLocation($id)
+    {
+        Yii::$app->response->cookies->add(new Cookie([
+            'name' => 'location_id',
+            'value' => $id,
+        ]));
+    }
+
+    public function getCookieLocationId()
+    {
+        $location_id = Yii::$app->request->cookies->get('location_id')->value;
+
+        if(empty($location_id)){
+            $location_id = Locations::find()->one()->id;
+            $this->setCookieLocation($location_id);
+        }
+
+        return $location_id;
     }
 }

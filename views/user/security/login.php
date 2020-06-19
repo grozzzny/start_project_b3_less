@@ -69,10 +69,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= Html::submitButton(
         Yii::t('usuario', 'Sign in'),
-        ['class' => 'btn btn-primary btn-block', 'tabindex' => '3']
+        ['class' => 'btn btn-yellow btn-block', 'tabindex' => '3']
     ) ?>
 
     <?php if ($module->enableEmailConfirmation): ?>
+        <br>
         <p class="text-center">
             <?= Html::a(
                 Yii::t('usuario', 'Didn\'t receive confirmation message?'),

@@ -1,6 +1,8 @@
 <?php
 
+use app\models\Locations;
 use kartik\select2\Select2;
+use yii\bootstrap4\Html;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\View;
@@ -48,19 +50,23 @@ use yii\web\View;
                     </a>
                 </li>
             </ul>
-            <form class="form-inline">
+            <?= Html::beginForm('/')?>
                 <div class="md-form my-0">
                     <?= Select2::widget([
-                        'name' => 'employee',
+                        'name' => 'location_id',
+                        'value' => Yii::$app->user->cookieLocationId,
                         'bsVersion' => '4',
                         'pluginOptions' => [
                             'width' => '200px'
                         ],
                         'size' => Select2::SMALL,
-                        'data' => ['1' => 'г. Светлый' . ' ']
+                        'data' => Locations::map(),
+                        'pluginEvents' => [
+                            'change' => "function() { $(this).parents('form').submit(); }",
+                        ]
                     ])?>
                 </div>
-            </form>
+            <?= Html::endForm();?>
         </div>
     </div>
 </nav>

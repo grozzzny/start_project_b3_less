@@ -22,6 +22,24 @@ $config = [
         ]
     ],
     'components' => [
+        'assetManager' => [
+            // uncomment the following line if you want to auto update your assets (unix hosting only)
+            //'linkAssets' => true,
+            'appendTimestamp' => true,
+            'forceCopy' => false,
+            'bundles' => [
+                'yii\bootstrap4\BootstrapAsset' => [
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
+                    'css' => ['scss/bootstrap/bootstrap.css'],
+                ],
+                'app\assets\MDBootstrapAsset' => [
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
+                    'css' => ['scss/mdb/mdb.css'],
+                ],
+            ],
+        ],
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
             'clients' => [

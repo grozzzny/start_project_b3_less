@@ -6,4 +6,5 @@ return [
     'senderName' => 'STICK-RACING',
     'noimage' => '/images/noimage.jpg',
     'nophoto' => '/images/nophoto.png',
+    'bsVersion' => '4.x',
 ];

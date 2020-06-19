@@ -5,6 +5,7 @@ namespace app\controllers;
 use grozzzny\admin\modules\pages\models\AdminPages;
 use Yii;
 use yii\web\Controller;
+use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
@@ -29,6 +30,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $page = AdminPages::get('page-index');
+
+        if(Yii::$app->request->isPost){
+            $location_id = Yii::$app->request->post('location_id');
+            Yii::$app->user->setCookieLocation($location_id);
+            $this->redirect(Yii::$app->request->referrer);
+        }
 
         return $this->render('index', ['page' => $page]);
     }

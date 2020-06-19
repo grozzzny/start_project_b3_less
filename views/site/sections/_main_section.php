@@ -22,7 +22,7 @@ use yii\web\View;
                             <span class="warning-color font-weight-bold pl-3 pr-3"><?= LiveEditText::widget(['slug' => 'main-section', 'label' => 'STICK-RACING'])?></span>
                         </h1>
                         <h5 class="text-uppercase mb-5 mt-1 font-weight-bold wow fadeInDown" data-wow-delay="0.3s">
-                            <?= LiveEditText::widget(['slug' => 'main-section-description', 'label' => 'игра по городскому ориентированию на автомобилях, <br> заключающаяся в поиске стикеров по фотографии'])?>
+                            <?= LiveEditText::widget(['slug' => 'main-section-description', 'label' => 'игра по городскому ориентированию на автомобилях, <br> в погоне за стикерами'])?>
                         </h5>
                         <? if(Yii::$app->user->isGuest):?>
                             <a href="<?=Url::to(['/site/create'])?>" class="btn btn-outline-yellow btn-lg wow fadeInDown" data-wow-delay="0.3s"><?=Yii::t('rus', 'Зарегистрировать команду')?></a>

@@ -7,6 +7,12 @@ body.main-page header, .jarallax {
 body:not(.main-page) {
   padding-top: 78px; }
 
+.form-theme-narrow {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto; }
+
 @media (max-width: 740px) {
   body.main-page header,
   .jarallax {
