@@ -177,7 +177,7 @@ $config = [
             'class' => 'grozzzny\admin\AdminModule',
             'render_toolbar_role' => 'user-management',
             'live_edit_role' => 'user-management',
-            'defaultRoute' => 'default',
+            'defaultRoute' => 'racing',
             'as access' => [
                 'class' => 'grozzzny\admin\behaviors\AccessControl',
                 'rules' => [
@@ -190,12 +190,8 @@ $config = [
             'nav_items' => function() {
                 return [
                     [
-                        'label' => 'Начальная',
-                        'url' => ['/admin/default']
-                    ],
-                    [
-                        'label' => 'Журнал судебных дел',
-                        'url' => ['/admin/admin_office']
+                        'label' => 'Стик-рейсинг',
+                        'url' => ['/admin/racing']
                     ],
                     [
                         'label' => 'Пользователи',
@@ -209,47 +205,18 @@ $config = [
                     [
                         'label' => 'Текстовые блоки',
                         'url' => ['/admin/text/default']
-                    ],
-                    [
-                        'label' => 'Преимущества',
-                        'url' => ['/admin/features/default']
-                    ],
-                    [
-                        'label' => 'Отзывы',
-                        'url' => ['/admin/testimonials/default']
-                    ],
-                    [
-                        'label' => 'Обратный звонок',
-                        'url' => ['/admin/feedback/default']
-                    ],
-                    [
-                        'label' => 'Ссылки соц. сетей',
-                        'url' => ['/admin/social_links/default']
-                    ],
-                    [
-                        'label' => 'Dashboard demo',
-                        'url' => 'https://www.bootstrapdash.com/demo/star-admin-free/jquery/src/demo_1/index.html',
                     ]
                 ];
             },
             'modules' => [
+                'racing' => [
+                    'class' => 'app\modules\racing\RacingModule',
+                ],
                 'pages' => [
                     'class' => 'grozzzny\admin\modules\pages\PagesModule',
                 ],
                 'text' => [
                     'class' => 'grozzzny\admin\modules\text\TextModule',
-                ],
-                'features' => [
-                    'class' => 'grozzzny\admin\modules\features\FeaturesModule',
-                ],
-                'testimonials' => [
-                    'class' => 'grozzzny\admin\modules\testimonials\TestimonialsModule',
-                ],
-                'feedback' => [
-                    'class' => 'grozzzny\admin\modules\feedback\FeedbackModule',
-                ],
-                'social_links' => [
-                    'class' => 'grozzzny\admin\modules\social_links\SocialLinksModule',
                 ],
             ],
         ],

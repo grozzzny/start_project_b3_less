@@ -25,7 +25,7 @@ use yii\web\View;
                             <?= LiveEditText::widget(['slug' => 'main-section-description', 'label' => 'игра по городскому ориентированию на автомобилях, <br> заключающаяся в поиске стикеров по фотографии'])?>
                         </h5>
                         <? if(Yii::$app->user->isGuest):?>
-                            <a href="<?=Url::to(['/site/create'])?>" class="btn btn-outline-yellow btn-lg wow fadeInDown" data-wow-delay="0.3s"><?=Yii::t('rus', 'Создать команду')?></a>
+                            <a href="<?=Url::to(['/site/create'])?>" class="btn btn-outline-yellow btn-lg wow fadeInDown" data-wow-delay="0.3s"><?=Yii::t('rus', 'Зарегистрировать команду')?></a>
                             <a href="<?=Url::to(['/user/login'])?>" class="btn  btn-yellow btn-lg wow fadeInDown" data-wow-delay="0.3s"><?=Yii::t('app', 'Sign in')?></a>
                         <? else: ?>
 <!--                            --><?// if(empty(Yii::$app->user->identity->officeAccount)): ?>

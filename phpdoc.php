@@ -27,9 +27,3 @@ class WebApplication extends yii\web\Application
 class ConsoleApplication extends yii\console\Application
 {
 }
-
-/**
- * @property \app\models\User $identity
- */
-class User extends \yii\web\User {
-}
