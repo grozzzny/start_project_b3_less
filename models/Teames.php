@@ -70,7 +70,7 @@ class Teames extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 255],
             [['image'], 'image'],
             [['owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['owner_id' => 'id']],
-            [['email'], 'required', 'on' => self::SCENARIO_CREATE],
+            [['email', 'name'], 'required', 'on' => self::SCENARIO_CREATE],
             [['email'], 'email'],
             [['email'], 'validatorUniqueUser'],
             [['email'], 'validatorUniqueTeam'],
@@ -120,6 +120,8 @@ class Teames extends \yii\db\ActiveRecord
             self::SCENARIO_DEFAULT => parent::scenarios()['default'],
             self::SCENARIO_CREATE => [
                 'email',
+                'name',
+                'image',
             ],
         ];
     }

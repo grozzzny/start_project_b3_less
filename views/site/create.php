@@ -2,6 +2,7 @@
 
 use app\models\Teames;
 use grozzzny\admin\modules\pages\models\AdminPages;
+use grozzzny\admin\widgets\file_input\ImageInputWidget;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Modal;
 use yii\web\View;
@@ -40,6 +41,10 @@ Modal::end();
     ])?>
 
     <?= $form->field($model, 'email')->textInput(['disabled' => !Yii::$app->user->isGuest])?>
+
+    <?= $form->field($model, 'name')?>
+
+    <?= $form->field($model, 'image')->widget(ImageInputWidget::className()) ?>
 
     <div class="checkbox mb-3">
         <label>

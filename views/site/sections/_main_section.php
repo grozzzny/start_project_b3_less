@@ -29,7 +29,7 @@ use yii\web\View;
                             <a href="<?=Url::to(['/user/login'])?>" class="btn  btn-yellow btn-lg wow fadeInDown" data-wow-delay="0.3s"><?=Yii::t('app', 'Sign in')?></a>
                         <? else: ?>
                             <? if(empty(Yii::$app->user->identity->team)): ?>
-                                <a href="<?=Url::to(['/site/create'])?>" class="btn btn-primary mr-2 mb-2"><?=Yii::t('rus', 'Зарегистрировать команду')?></a>
+                                <a href="<?=Url::to(['/site/create'])?>" class="btn btn-outline-yellow btn-lg wow fadeInDown" data-wow-delay="0.3s"><?=Yii::t('rus', 'Зарегистрировать команду')?></a>
                             <? endif;?>
                             <a href="<?=Url::to(['/user/logout'])?>" data-method="post" class="btn  btn-yellow btn-lg wow fadeInDown" data-wow-delay="0.3s"><?=Yii::t('app', 'Sign Out')?></a>
                         <? endif;?>
