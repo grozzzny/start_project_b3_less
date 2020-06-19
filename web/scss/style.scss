@@ -2,6 +2,8 @@
 @import "../../vendor/npm-asset/bootstrap/scss/variables";
 @import "../../vendor/npm-asset/bootstrap/scss/mixins";
 
+@import "base/_variables";
+
 body.main-page header, .jarallax {
   height: 700px;
 }
@@ -13,13 +15,20 @@ body:not(.main-page){
 @media (max-width: 740px) {
   body.main-page header,
   .jarallax {
-    height: 100vh;
+    height: 120vh;
   }
 }
 
 @media (min-width: 800px) and (max-width: 850px) {
   body.main-page, .jarallax {
-    height: 100vh;
+    height: 120vh;
+  }
+}
+
+.auth-block{
+  .auth-clients{
+    margin-left: 0 !important;
+    padding-left: 0 !important;
   }
 }
 
@@ -42,21 +51,21 @@ body:not(.main-page){
 }
 
 .top-nav-collapse, body:not(.main-page) .navbar {
-  background-color: #7283A7 !important;
+  background-color: $color-theme !important;
 }
 
 body.main-page .navbar:not(.top-nav-collapse) {
-  background: transparent !important;
+  background: transparent;
 }
 
 @media (max-width: 768px) {
-  .navbar:not(.top-nav-collapse) {
-    background: #7283A7 !important;
+  .navbar{
+    background: $color-theme !important;
   }
 }
 @media (min-width: 800px) and (max-width: 850px) {
-  .navbar:not(.top-nav-collapse) {
-    background: #7283A7!important;
+  .navbar {
+    background: $color-theme!important;
   }
 }
 
