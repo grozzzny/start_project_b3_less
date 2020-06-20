@@ -35,6 +35,7 @@ class Teames extends \yii\db\ActiveRecord
     public $email;
 
     const SCENARIO_CREATE = 'create';
+    const SCENARIO_EDIT_USER = 'edit_user';
 
     /**
      * {@inheritdoc}
@@ -72,6 +73,7 @@ class Teames extends \yii\db\ActiveRecord
             [['image'], 'image'],
             [['owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['owner_id' => 'id']],
             [['email', 'name'], 'required', 'on' => self::SCENARIO_CREATE],
+            [['name'], 'required', 'on' => self::SCENARIO_EDIT_USER],
             [['email'], 'email'],
             [['email'], 'validatorUniqueUser'],
             [['email'], 'validatorUniqueTeam'],
@@ -121,6 +123,10 @@ class Teames extends \yii\db\ActiveRecord
             self::SCENARIO_DEFAULT => parent::scenarios()['default'],
             self::SCENARIO_CREATE => [
                 'email',
+                'name',
+                'image',
+            ],
+            self::SCENARIO_EDIT_USER => [
                 'name',
                 'image',
             ],

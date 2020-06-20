@@ -50,6 +50,31 @@ use yii\web\View;
                     </a>
                 </li>
             </ul>
+            <? if(!Yii::$app->user->isGuest):?>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item">
+                    <a href="<?=Url::to(['/settings'])?>" class="btn btn btn-amber btn-rounded btn-sm waves-effect waves-light">
+                        <i class="fas fa-user"></i>
+                        <?= Yii::$app->user->identity->email?>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?=Url::to(['/user/logout'])?>" data-method="post" class="btn btn btn-amber btn-rounded btn-sm waves-effect waves-light">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <?=Yii::t('app', 'Sign Out')?>
+                    </a>
+                </li>
+            </ul>
+            <? else:?>
+                <ul class="navbar-nav ml-auto nav-flex-icons">
+                    <li class="nav-item">
+                        <a href="<?=Url::to(['/user/login'])?>" data-method="post" class="btn btn btn-amber btn-rounded btn-sm waves-effect waves-light">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <?=Yii::t('app', 'Sign in')?>
+                        </a>
+                    </li>
+                </ul>
+            <? endif;?>
             <?= Html::beginForm('/site/location')?>
                 <div class="md-form my-0">
                     <?= Select2::widget([

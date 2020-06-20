@@ -37,5 +37,6 @@ class AppAsset extends AssetBundle
         'app\assets\MDBootstrapPluginAsset',
         'grozzzny\depends\wow_animations\WowAnimationsAsset',
         'grozzzny\depends\jarallax\JarallaxAsset',
+        'grozzzny\depends\fontawesome5\FontAwesome5Asset',
     ];
 }

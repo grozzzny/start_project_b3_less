@@ -9,7 +9,6 @@
  * the LICENSE file that was distributed with this source code.
  */
 
-use yii\helpers\Html;
 use yii\widgets\Menu;
 
 /** @var \Da\User\Model\User $user */
@@ -19,39 +18,33 @@ $networksVisible = count(Yii::$app->authClientCollection->clients) > 0;
 
 ?>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            <?= Html::img(
-                $user->profile->getAvatarUrl(24),
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title"><?=Yii::t('rus', 'Меню')?></h5>
+    </div>
+    <?= Menu::widget(
+        [
+            'options' => [
+                'class' => 'list-group list-unstyled list-group-flush',
+            ],
+            'linkTemplate' => '<a href="{url}" class="list-group-item list-group-item-action list-group-item-light">{label}</a>',
+            'items' => [
                 [
-                    'class' => 'img-rounded',
-                    'alt' => $user->username,
-                ]
-            ) ?>
-            <?= $user->username ?>
-        </h3>
-    </div>
-    <div class="panel-body">
-        <?= Menu::widget(
-            [
-                'options' => [
-                    'class' => 'nav nav-pills nav-stacked',
+                    'label' => Yii::t('rus', 'Зарегистрировать команду'),
+                    'url' => ['/site/create'],
+                    'visible' => empty(Yii::$app->user->identity->team)
                 ],
-                'items' => [
-                    ['label' => Yii::t('usuario', 'Profile'), 'url' => ['/user/settings/profile']],
-                    ['label' => Yii::t('usuario', 'Account'), 'url' => ['/user/settings/account']],
-                    ['label' => Yii::t('usuario', 'Privacy'),
-                        'url' => ['/user/settings/privacy'],
-                        'visible' => $module->enableGdprCompliance
-                    ],
-                    [
-                        'label' => Yii::t('usuario', 'Networks'),
-                        'url' => ['/user/settings/networks'],
-                        'visible' => $networksVisible,
-                    ],
+                [
+                    'label' => Yii::t('rus', 'Редактировать команду'),
+                    'url' => ['/settings/team'],
+                    'visible' => !empty(Yii::$app->user->identity->team)
                 ],
-            ]
-        ) ?>
-    </div>
+                [
+                    'label' => Yii::t('rus', 'Настройки аккаунта'),
+                    'url' => ['/user/settings/account']
+                ],
+            ],
+        ]
+    ) ?>
 </div>
