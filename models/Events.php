@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\components\BlameableTrait;
 use app\components\RelationIdsBehavior;
+use grozzzny\admin\components\images\AdminImages;
 use grozzzny\admin\helpers\Image;
 use grozzzny\admin\helpers\StringHelper;
 use grozzzny\admin\widgets\file_input\components\FileBehavior;
@@ -42,6 +43,7 @@ use yii\helpers\ArrayHelper;
  * @property-read Teames[] $teames
  * @property-read boolean $isOpenRegistration
  * @property-read boolean $isActive
+ * @property-read AdminImages $images
  */
 class Events extends \yii\db\ActiveRecord
 {
@@ -225,5 +227,10 @@ class Events extends \yii\db\ActiveRecord
         if($this->getOldAttribute('time_from') <= time()) return false;
 
         return true;
+    }
+
+    public function getImages()
+    {
+        return $this->hasMany(AdminImages::className(), ['item_id' => 'id'])->where(['key' => 'events']);
     }
 }

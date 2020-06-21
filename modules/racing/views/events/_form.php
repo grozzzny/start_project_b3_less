@@ -7,6 +7,7 @@ use app\modules\racing\RacingModule;
 use app\widgets\DateTimePicker;
 use grozzzny\admin\widgets\file_input\ImageInputWidget;
 use kartik\select2\Select2;
+use grozzzny\admin\components\images\widget\ImagesWidget;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\widgets\MaskedInput;
@@ -71,3 +72,6 @@ use yii\widgets\MaskedInput;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?= ImagesWidget::widget(['model' => $model, 'key' => 'events'])?>

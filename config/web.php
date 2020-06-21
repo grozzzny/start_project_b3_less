@@ -22,7 +22,7 @@ $config = [
             'on submit' => ['grozzzny\admin\modules\feedback\widgets\form\components\SubmitHandler', 'submit']
         ],
         'admin-images' => [
-            'class' => 'grozzzny\admin\components\images\AdminImagesController',
+            'class' => 'grozzzny\admin\components\images\widget\controllers\AdminImagesController',
             'as access' => [
                 'class' => 'grozzzny\admin\behaviors\AccessControl',
                 'rules' => [
