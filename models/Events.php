@@ -70,7 +70,7 @@ class Events extends \yii\db\ActiveRecord
             'timeToConvert' => [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'time_to'],
-                'value' => function ($event) {return empty($this->time_to) ? null : Yii::$app->formatter->asDatetime($this->time_from);},
+                'value' => function ($event) {return empty($this->time_to) ? null : Yii::$app->formatter->asDatetime($this->time_to);},
             ],
             'image' => [
                 'class' => FileBehavior::className(),
