@@ -65,12 +65,12 @@ class Events extends \yii\db\ActiveRecord
             'timeFromConvert' => [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'time_from'],
-                'value' => function ($event) {return empty($this->time_from) ? null : date('d.m.Y H:i', $this->time_from);},
+                'value' => function ($event) {return empty($this->time_from) ? null : Yii::$app->formatter->asDatetime($this->time_from);},
             ],
             'timeToConvert' => [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_AFTER_FIND => 'time_to'],
-                'value' => function ($event) {return empty($this->time_to) ? null : date('d.m.Y H:i', $this->time_to);},
+                'value' => function ($event) {return empty($this->time_to) ? null : Yii::$app->formatter->asDatetime($this->time_from);},
             ],
             'image' => [
                 'class' => FileBehavior::className(),

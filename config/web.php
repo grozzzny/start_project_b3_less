@@ -107,6 +107,7 @@ $config = [
         'formatter' => [
             'nullDisplay' => '-',
             'timeZone' => 'Europe/Kaliningrad',
+            'datetimeFormat' => 'dd.MM.yyyy HH:mm',
         ],
         'view' => [
             'theme' => [
