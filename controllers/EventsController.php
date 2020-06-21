@@ -8,10 +8,40 @@ use app\models\Events;
 use grozzzny\admin\modules\pages\models\AdminPages;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\debug\models\search\Event;
+use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 
 class EventsController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['add-team', 'delete-team'],
+                        'roles' => ['@'],
+                        'verbs' => ['post'],
+                        'matchCallback' => function ($rule, $action){
+                            return !empty(Yii::$app->user->identity->team);
+                        }
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         $page = AdminPages::get('page-events');
@@ -25,5 +55,36 @@ class EventsController extends Controller
         ]);
 
         return $this->render('index', ['page' => $page, 'provider' => $provider]);
+    }
+
+    public function actionView($id)
+    {
+        $model = Events::find()->andWhere(['active' => true, 'id' => $id])->one();
+
+        if(empty($model)) throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+
+        return $this->render('view', ['model' => $model]);
+    }
+
+    public function actionAddTeam($id)
+    {
+        $model = Events::findOne($id);
+
+        if(!$model->isOpenRegistration)  throw new ForbiddenHttpException(Yii::t('rus', 'Регистрация на участие закончена. Действие запрещено'));
+
+        $model->link('teames', Yii::$app->user->identity->team);
+
+        return $this->redirect(['/events/'.$model->id]);
+    }
+
+    public function actionDeleteTeam($id)
+    {
+        $model = Events::findOne($id);
+
+        if(!$model->isOpenRegistration)  throw new ForbiddenHttpException(Yii::t('rus', 'Регистрация на участие закончена. Действие запрещено'));
+
+        $model->unlink('teames', Yii::$app->user->identity->team, true);
+
+        return $this->redirect(['/events/'.$model->id]);
     }
 }

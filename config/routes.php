@@ -1,3 +1,5 @@
 <?php
 
-return [];
+return [
+    '<controller:[\w-]+>/<id:\d+>' => '<controller>/view',
+];

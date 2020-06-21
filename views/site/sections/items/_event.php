@@ -16,7 +16,7 @@ use yii\web\View;
     <!-- Card image -->
     <div class="view view-cascade overlay">
         <img class="card-img-top" src="<?=$model->getImage(350, 233)?>" alt="">
-        <a href="#!">
+        <a href="<?=$model->publicLink?>">
             <div class="mask rgba-white-slight waves-effect waves-light"></div>
         </a>
     </div>
@@ -33,7 +33,7 @@ use yii\web\View;
         <!-- Text -->
         <p class="card-text"><?=$model->descriptionShort?></p>
 
-<!--        <a class="btn btn-outline-black btn-block waves-effect waves-light">--><?//= Yii::t('rus', 'Подробнее')?><!--</a>-->
+        <a href="<?=$model->publicLink?>" class="btn btn-outline-black btn-block waves-effect waves-light"><?= Yii::t('rus', 'Подробнее / принять участие')?></a>
 
         <!-- Card footer -->
         <div class="card-footer text-muted text-center mt-4">

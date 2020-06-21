@@ -7,6 +7,7 @@ use app\components\RelationIdsBehavior;
 use grozzzny\admin\helpers\Image;
 use grozzzny\admin\helpers\StringHelper;
 use grozzzny\admin\widgets\file_input\components\FileBehavior;
+use \yii\helpers\Url;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -36,6 +37,11 @@ use yii\helpers\ArrayHelper;
  * @property string $countTimeLabel
  * @property int $league_id [int(11)]
  * @property int $code [int(11)]
+ * @property-read string $publicLink
+ * @property-read string $nameFormat
+ * @property-read Teames[] $teames
+ * @property-read boolean $isOpenRegistration
+ * @property-read boolean $isActive
  */
 class Events extends \yii\db\ActiveRecord
 {
@@ -188,5 +194,36 @@ class Events extends \yii\db\ActiveRecord
     public function getDescriptionShort()
     {
         return StringHelper::cut($this->description, 150);
+    }
+
+    public function getPublicLink()
+    {
+        return Url::to(['/events/' . $this->id]);
+    }
+
+    public function getNameFormat()
+    {
+        return $this->name . ' «'.$this->loaction->name.'»';
+    }
+
+    public function hasTeam(Teames $team)
+    {
+        if(empty($this->teames)) return false;
+
+        return in_array($team->id, ArrayHelper::getColumn($this->teames, 'id'));
+    }
+
+    public function getIsActive()
+    {
+        return $this->active == '1';
+    }
+
+    public function getIsOpenRegistration()
+    {
+        if(!$this->isActive) return false;
+
+        if($this->time_from >= time()) return false;
+
+        return true;
     }
 }
