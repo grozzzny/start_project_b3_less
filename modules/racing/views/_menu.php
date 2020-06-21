@@ -41,6 +41,11 @@ $this->registerCss($css);
                 'url' => ['/admin/racing/locations'],
                 'active' => $controller_id == 'locations',
             ],
+            [
+                'label' => Yii::t('rus', 'Лиги'),
+                'url' => ['/admin/racing/league'],
+                'active' => $controller_id == 'league',
+            ],
         ]
     ])?>
 </div>

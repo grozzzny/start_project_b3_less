@@ -4,10 +4,10 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\search\LocationsSearch */
+/* @var $searchModel app\models\search\LeagueSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Locations');
+$this->title = Yii::t('app', 'Leagues');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="page-header-toolbar">
             <div class="sort-wrapper">
                 <div class="btn-group toolbar-item" role="group" aria-label="">
-                    <?= Html::a(Yii::t('app', 'Create Locations'), ['create'], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a(Yii::t('app', 'Create League'), ['create'], ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
         </div>
@@ -33,19 +33,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <div class="locations-index">
+                <div class="league-index">
                 <div class="table-responsive">
                     <?php Pjax::begin(); ?>
                                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+                
                                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
-                        'columns' => [
+        'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
+
                             'id',
                             'name',
-                            'active',
+                //            'active',
+                //            'created_at',
+                //            'updated_at',
+                            //'created_by',
+                            //'updated_by',
+
                             [
                                 'class' => 'yii\grid\ActionColumn',
                                 'buttonOptions' => ['class' => 'btn btn-default'],
@@ -65,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
                     ]); ?>
-
+                
                     <?php Pjax::end(); ?>
                 </div>
                 </div>

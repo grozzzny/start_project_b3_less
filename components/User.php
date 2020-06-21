@@ -70,7 +70,7 @@ class User extends \yii\web\User
         $location_id = Yii::$app->request->cookies->get('location_id')->value;
 
         if(empty($location_id)){
-            $this->_selectedLocation = Locations::find()->one();
+            $this->_selectedLocation = Locations::find()->andWhere(['active' => true])->one();
             $location_id = $this->_selectedLocation->id;
             $this->setCookieLocation($location_id);
         }

@@ -168,4 +168,9 @@ class Teames extends \yii\db\ActiveRecord
 
         return empty($image) ? Image::thumb(Yii::$app->params['noimage'], $width, $height) : $image;
     }
+
+    public static function map()
+    {
+        return ArrayHelper::map(self::find()->andWhere(['active' => true])->all(), 'id', 'name');
+    }
 }

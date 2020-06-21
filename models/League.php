@@ -9,19 +9,19 @@ use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "locations".
+ * This is the model class for table "league".
  *
  * @property int $id
  * @property string|null $name
+ * @property int|null $active
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
  *
- * @property Events[] $events
- * @property bool $active [tinyint(1)]
+ * @property Locations[] $locations
  */
-class Locations extends \yii\db\ActiveRecord
+class League extends \yii\db\ActiveRecord
 {
     use BlameableTrait;
 
@@ -30,7 +30,7 @@ class Locations extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'locations';
+        return 'league';
     }
 
     public function behaviors()
@@ -47,10 +47,9 @@ class Locations extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['active', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['name'], 'required'],
-            [['active'], 'integer'],
         ];
     }
 
@@ -62,22 +61,22 @@ class Locations extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('rus', 'ID'),
             'name' => Yii::t('rus', 'Наименование'),
+            'active' => Yii::t('rus', 'Активно'),
             'created_at' => Yii::t('rus', 'Дата создания'),
             'updated_at' => Yii::t('rus', 'Дата обновления'),
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
-            'active' => Yii::t('rus', 'Активно'),
         ];
     }
 
     /**
-     * Gets query for [[Events]].
+     * Gets query for [[Locations]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEvents()
+    public function getLocations()
     {
-        return $this->hasMany(Events::className(), ['loaction_id' => 'id']);
+        return $this->hasMany(Locations::className(), ['league_id' => 'id']);
     }
 
     public static function map()

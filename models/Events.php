@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\BlameableTrait;
+use app\components\RelationIdsBehavior;
 use grozzzny\admin\helpers\Image;
 use grozzzny\admin\helpers\StringHelper;
 use grozzzny\admin\widgets\file_input\components\FileBehavior;
@@ -33,10 +34,14 @@ use yii\helpers\ArrayHelper;
  * @property string $image [varchar(255)]
  * @property string $descriptionShort
  * @property string $countTimeLabel
+ * @property int $league_id [int(11)]
+ * @property int $code [int(11)]
  */
 class Events extends \yii\db\ActiveRecord
 {
     use BlameableTrait;
+
+    public $teames_ids = [];
 
     /**
      * {@inheritdoc}
@@ -66,6 +71,16 @@ class Events extends \yii\db\ActiveRecord
                 'fileAttribute' => 'image',
                 'uploadPath' => '/uploads/events',
             ],
+            'code' => [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => 'code'],
+                'value' => function ($event) {return $this->code = rand(10000, 99999);},
+            ],
+            'teames_ids' => [
+                'class' => RelationIdsBehavior::class,
+                'relationName' => 'teames',
+                'attribute' => 'teames_ids',
+            ],
         ]);
     }
 
@@ -76,7 +91,7 @@ class Events extends \yii\db\ActiveRecord
     {
         return [
             [['description'], 'string'],
-            [['loaction_id', 'active', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['loaction_id', 'active', 'created_at', 'updated_at', 'created_by', 'updated_by', 'league_id', 'code'], 'integer'],
             [['time_from'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'time_from'],
             [['time_from'], 'default', 'value' => null],
             [['time_to'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'time_to'],
@@ -89,7 +104,9 @@ class Events extends \yii\db\ActiveRecord
                 'loaction_id',
                 'time_from',
                 'time_to',
+                'league_id',
             ], 'required'],
+            [['teames_ids'], 'safe'],
         ];
     }
 
@@ -111,6 +128,9 @@ class Events extends \yii\db\ActiveRecord
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
             'image' => Yii::t('rus', 'Изображение'),
+            'league_id' => Yii::t('rus', 'Лига'),
+            'code' => Yii::t('rus', 'Код'),
+            'teames_ids' => Yii::t('rus', 'Команды'),
         ];
     }
 
@@ -155,9 +175,14 @@ class Events extends \yii\db\ActiveRecord
 
         return Yii::t(
             'rus',
-            '{n, plural, =0{сегодня} =1{1 день} one{# день} few{# дня} many{# дней} other{# дней}}',
+            '{n, plural, =0{Сегодня} =1{1 день} one{# день} few{# дня} many{# дней} other{# дней}}',
             ['n' => $days]
         );
+    }
+
+    public function getTeames()
+    {
+        return $this->hasMany(Teames::className(), ['id' => 'team_id'])->viaTable('teames_events_rel', ['event_id' => 'id']);
     }
 
     public function getDescriptionShort()
