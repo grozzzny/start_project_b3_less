@@ -48,13 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'description:ntext',
             'loaction_id',
-            [
-                'attribute' => 'time_from',
-                'value' => function($model){
-                    /** @var \app\models\Events $model */
-                    return $model->time_from;
-                }
-            ],
+            'time_from',
             //'time_from:datetime',
             //'time_to:datetime',
             //'active',
