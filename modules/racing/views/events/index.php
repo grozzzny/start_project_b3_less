@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'time_from',
                 'value' => function($model){
                     /** @var \app\models\Events $model */
-                    return Yii::$app->formatter->asDatetime($model->time_from);
+                    return $model->time_from;
                 }
             ],
             //'time_from:datetime',
