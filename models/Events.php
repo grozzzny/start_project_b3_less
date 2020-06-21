@@ -98,9 +98,9 @@ class Events extends \yii\db\ActiveRecord
         return [
             [['description'], 'string'],
             [['loaction_id', 'active', 'created_at', 'updated_at', 'created_by', 'updated_by', 'league_id', 'code'], 'integer'],
-            [['time_from'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'time_from', 'timeZone' => 'UTC'],
+            [['time_from'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'time_from'],
             [['time_from'], 'default', 'value' => null],
-            [['time_to'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'time_to', 'timeZone' => 'UTC'],
+            [['time_to'], 'datetime', 'format' => 'dd.MM.yyyy HH:mm', 'timestampAttribute' => 'time_to'],
             [['time_to'], 'default', 'value' => null],
             [['name'], 'string', 'max' => 255],
             [['image'], 'image'],
