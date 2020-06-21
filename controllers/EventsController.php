@@ -63,7 +63,15 @@ class EventsController extends Controller
 
         if(empty($model)) throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
 
-        return $this->render('view', ['model' => $model]);
+        $code = Yii::$app->request->post('code');
+
+        if($code == $model->code){
+            $images = $model->images;
+        } else {
+            $images = [];
+        }
+
+        return $this->render('view', ['model' => $model, 'images' => $images]);
     }
 
     public function actionAddTeam($id)

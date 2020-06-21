@@ -7,6 +7,7 @@ use yii\helpers\Url;
 /**
  * @var yii\web\View $this
  * @var Events $model
+ * @var \grozzzny\admin\components\images\AdminImages[] $images
  */
 
 $this->title = $model->name;
@@ -79,5 +80,16 @@ $this->title = $model->name;
     <!--Section: Content-->
 
 </div>
+
+<?if(!Yii::$app->user->isGuest && $model->hasTeam(Yii::$app->user->identity->team)): ?>
+    <? if(empty($images)):?>
+        <?= $this->render('_form_create_btn')?>
+    <? else:?>
+        <?= $this->render('_images', ['images' => $images])?>
+    <? endif;?>
+
+<? endif;?>
+
+
 
 <?= $this->render('../site/sections/_teames', ['models' => $model->teames, 'heading' => Yii::t('rus', 'Заявленные команды')])?>
