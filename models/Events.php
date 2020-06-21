@@ -155,7 +155,7 @@ class Events extends \yii\db\ActiveRecord
 
         return Yii::t(
             'rus',
-            '{n, plural, =0{уже прошло} =1{ день} one{# день} few{# дня} many{# дней} other{# дней}}',
+            '{n, plural, =0{сегодня} =1{1 день} one{# день} few{# дня} many{# дней} other{# дней}}',
             ['n' => $days]
         );
     }
