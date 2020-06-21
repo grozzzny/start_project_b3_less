@@ -20,7 +20,19 @@ $config = [
         'feedback' => [
             'class' => 'grozzzny\admin\modules\feedback\widgets\form\controllers\DefaultController',
             'on submit' => ['grozzzny\admin\modules\feedback\widgets\form\components\SubmitHandler', 'submit']
-        ]
+        ],
+        'admin-images' => [
+            'class' => 'grozzzny\admin\components\images\AdminImagesController',
+            'as access' => [
+                'class' => 'grozzzny\admin\behaviors\AccessControl',
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['user-management'],
+                    ]
+                ]
+            ],
+        ],
     ],
     'components' => [
         'assetManager' => [
