@@ -48,7 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'description:ntext',
             'loaction_id',
-            'time_from:datetime',
+            [
+                'attribute' => 'time_from',
+                'value' => function($model){
+                    /** @var \app\models\Events $model */
+                    return Yii::$app->formatter->asDatetime($model->time_from);
+                }
+            ],
+            //'time_from:datetime',
             //'time_to:datetime',
             //'active',
             //'created_at',
