@@ -222,7 +222,7 @@ class Events extends \yii\db\ActiveRecord
     {
         if(!$this->isActive) return false;
 
-        if($this->time_from >= time()) return false;
+        if($this->getOldAttribute('time_from') <= time()) return false;
 
         return true;
     }
