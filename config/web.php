@@ -11,6 +11,7 @@ $config = [
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
     'timeZone' => 'Europe/Kaliningrad',
+    'on beforeRequest' => ['\grozzzny\admin\components\RedirectHandler', 'run'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
