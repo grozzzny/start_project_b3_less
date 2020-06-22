@@ -47,6 +47,7 @@ use yii\helpers\ArrayHelper;
  * @property-read AdminImages $images
  * @property-read Rating[] $ratingsTeames
  * @property-read TeamesEventsRel[] $teamesEventsRel
+ * @property-read boolean $isEndedEvent
  */
 class Events extends \yii\db\ActiveRecord
 {
@@ -235,9 +236,12 @@ class Events extends \yii\db\ActiveRecord
     {
         if(!$this->isActive) return false;
 
-        if($this->getOldAttribute('time_from') <= time()) return false;
+        return $this->getOldAttribute('time_from') >= time();
+    }
 
-        return true;
+    public function getIsEndedEvent()
+    {
+        return $this->getOldAttribute('time_to') <= time();
     }
 
     public function getImages()

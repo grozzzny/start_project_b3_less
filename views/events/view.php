@@ -81,13 +81,17 @@ $this->title = $model->name;
 
 </div>
 
+<? if($model->isEndedEvent):?>
+    <?= $this->render('_rating', ['model' => $model]) ?>
+<? endif;?>
+
+
 <?if(!Yii::$app->user->isGuest && $model->hasTeam(Yii::$app->user->identity->team)): ?>
     <? if(empty($images)):?>
         <?= $this->render('_form_create_btn')?>
     <? else:?>
         <?= $this->render('_images', ['images' => $images])?>
     <? endif;?>
-
 <? endif;?>
 
 
