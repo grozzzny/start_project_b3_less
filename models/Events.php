@@ -238,11 +238,19 @@ class Events extends \yii\db\ActiveRecord
     {
         if(!$this->isActive) return false;
 
+        var_dump('getIsOpenRegistration');
+        var_dump(date('d.m.Y H:i', $this->getOldAttribute('time_from')));
+        var_dump(date('d.m.Y H:i', time()));
+
         return $this->getOldAttribute('time_from') >= time();
     }
 
     public function getIsEndedEvent()
     {
+        var_dump('getIsEndedEvent');
+        var_dump(date('d.m.Y H:i', $this->getOldAttribute('time_to')));
+        var_dump(date('d.m.Y H:i', time()));
+
         return $this->getOldAttribute('time_to') <= time();
     }
 
