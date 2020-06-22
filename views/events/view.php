@@ -82,7 +82,7 @@ $this->title = $model->name;
 </div>
 
 <? if($model->isEndedEvent):?>
-    <?= $this->render('_rating', ['model' => $model]) ?>
+    <?= $this->render('_rating', ['ratings' => $model->getRatings()->orderBy(['value' => SORT_DESC])->all(), 'heading' => Yii::t('rus', 'Результат игры')]) ?>
 <? endif;?>
 
 

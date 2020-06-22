@@ -184,7 +184,9 @@ class Events extends \yii\db\ActiveRecord
 
     public function getCountTimeLabel()
     {
-        $seconds = abs($this->getOldAttribute('time_to') - time());
+        $seconds = $this->getOldAttribute('time_to') - time();
+
+        if($seconds < 0) return Yii::t('rus', 'Событие прошло');
 
         $days = floor($seconds / 86400);
 

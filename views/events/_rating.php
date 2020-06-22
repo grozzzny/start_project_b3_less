@@ -2,16 +2,19 @@
 
 /**
  * @var yii\web\View $this
- * @var \app\models\Events $model
+ * @var \app\models\Rating[] $ratings
+ * @var string $heading
  */
 ?>
 
 <div class="container">
     <section class="section pb-3 wow fadeIn" data-wow-delay="0.3s">
 
-        <!--Section heading-->
-        <h1 class="font-weight-bold text-center h1 my-5"><?=Yii::t('rus', 'Рейтинг')?></h1>
-        <!--Section description-->
+        <? if(!empty($heading)):?>
+            <!--Section heading-->
+            <h1 class="font-weight-bold text-center h1 my-5"><?=$heading?></h1>
+            <!--Section description-->
+        <? endif;?>
 
         <table class="table">
             <thead class="warning-color white-text">
@@ -22,7 +25,7 @@
             </tr>
             </thead>
             <tbody>
-            <? foreach ($model->getRatings()->orderBy(['value' => SORT_DESC])->all() as $i => $rating): ?>
+            <? foreach ($ratings as $i => $rating): ?>
                 <tr>
                     <th scope="row"><?=$i+1?></th>
                     <td>
