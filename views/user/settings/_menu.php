@@ -44,6 +44,18 @@ $networksVisible = count(Yii::$app->authClientCollection->clients) > 0;
                     'label' => Yii::t('rus', 'Настройки аккаунта'),
                     'url' => ['/user/settings/account']
                 ],
+                [
+                    'label' => Yii::t('rus', 'Создать локацию'),
+                    'url' => ['/settings/location'],
+                ],
+                [
+                    'label' => Yii::t('rus', 'Создать лигу'),
+                    'url' => ['/settings/league'],
+                ],
+//                [
+//                    'label' => Yii::t('rus', 'События'),
+//                    'url' => ['/settings/events'],
+//                ],
             ],
         ]
     ) ?>

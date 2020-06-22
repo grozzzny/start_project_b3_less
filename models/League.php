@@ -25,6 +25,8 @@ class League extends \yii\db\ActiveRecord
 {
     use BlameableTrait;
 
+    const SCENARIO_USER = 'user';
+
     /**
      * {@inheritdoc}
      */
@@ -41,6 +43,16 @@ class League extends \yii\db\ActiveRecord
         ]);
     }
 
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_DEFAULT => parent::scenarios()['default'],
+            self::SCENARIO_USER => [
+                'name',
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -50,6 +62,7 @@ class League extends \yii\db\ActiveRecord
             [['active', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['name'], 'required'],
+            [['name'], 'required', 'on' => self::SCENARIO_USER],
         ];
     }
 

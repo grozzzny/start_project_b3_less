@@ -25,6 +25,8 @@ class Locations extends \yii\db\ActiveRecord
 {
     use BlameableTrait;
 
+    const SCENARIO_USER = 'user';
+
     /**
      * {@inheritdoc}
      */
@@ -51,6 +53,17 @@ class Locations extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 255],
             [['name'], 'required'],
             [['active'], 'integer'],
+            [['name'], 'required', 'on' => self::SCENARIO_USER],
+        ];
+    }
+
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_DEFAULT => parent::scenarios()['default'],
+            self::SCENARIO_USER => [
+                'name',
+            ],
         ];
     }
 
