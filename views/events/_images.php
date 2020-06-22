@@ -1,12 +1,14 @@
 <?php
 
-use yii\bootstrap4\Html;
 use yii\web\View;
 
 /**
  * @var View $this
  * @var \grozzzny\admin\components\images\AdminImages[] $images
  */
+
+if(empty($images)) return;
+shuffle($images);
 
 $this->registerAssetBundle(grozzzny\depends\fancybox\FancyboxAsset::class);
 ?>
@@ -26,28 +28,21 @@ $this->registerAssetBundle(grozzzny\depends\fancybox\FancyboxAsset::class);
                         <? foreach ($images as $image):?>
                             <figure class="col-md-4">
                                 <a href="<?=$image->file?>" data-fancybox="group">
-                                    <img alt="picture" src="<?=$image->file?>" class="img-fluid" />
+                                    <img alt="picture" src="<?=$image->getImage(500)?>" class="img-fluid" />
                                 </a>
                             </figure>
                         <? endforeach;?>
 
-
                     </div>
-
                 </div>
             </div>
-
-
-
         </div>
     </div>
 
 </div>
 
 <script>
-    $('.fancybox').fancybox();
-    //OR
-    $("a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox({
+    $("a[data-fancybox]").attr('rel', 'gallery').fancybox({
         loop : true,
         closeClick : false,
         nextEffect : 'none',
