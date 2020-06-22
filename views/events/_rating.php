@@ -26,10 +26,12 @@
                 <tr>
                     <th scope="row"><?=$i+1?></th>
                     <td>
-                        <img src="<?= $rating->team->getImage(50, 50)?>" class="img-fluid z-depth-1 rounded-circle mr-3">
-                        <span>
-                             <?= $rating->team->name?>
-                        </span>
+                        <div class="d-flex align-items-center">
+                            <img src="<?= $rating->team->getImage(50, 50)?>" class="img-fluid z-depth-1 rounded-circle mr-3">
+                            <span>
+                                 <?= $rating->team->name?>
+                            </span>
+                        </div>
                     </td>
                     <td><?= $rating->value?></td>
                 </tr>
