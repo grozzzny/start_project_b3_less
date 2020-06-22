@@ -5,6 +5,7 @@ namespace app\controllers;
 
 
 use app\models\Events;
+use app\models\Rating;
 use grozzzny\admin\modules\pages\models\AdminPages;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -92,6 +93,7 @@ class EventsController extends Controller
         if(!$model->isOpenRegistration)  throw new ForbiddenHttpException(Yii::t('rus', 'Регистрация на участие закончена. Действие запрещено'));
 
         $model->unlink('teames', Yii::$app->user->identity->team, true);
+        Rating::deleteRating($model->id, Yii::$app->user->identity->team->id);
 
         return $this->redirect(['/events/'.$model->id]);
     }

@@ -2,6 +2,7 @@
 
 namespace app\modules\racing\controllers;
 
+use app\models\Rating;
 use Yii;
 use app\models\Events;
 use app\models\search\EventsSearch;
@@ -86,12 +87,16 @@ class EventsController extends Controller
     {
         $model = $this->findModel($id);
 
+        $items = $model->ratingsTeames;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->saveItems($items);
             return $this->redirect(['index']);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'items' => $items,
         ]);
     }
 
@@ -123,5 +128,15 @@ class EventsController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public function saveItems($items)
+    {
+        $dataItems = Yii::$app->request->post('Rating', []);
+
+        foreach ($items as $i => $model) {
+            $model->setAttributes($dataItems[$i]);
+            $model->save();
+        }
     }
 }

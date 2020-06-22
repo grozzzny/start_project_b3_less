@@ -3,7 +3,8 @@
 namespace app\models;
 
 use app\components\BlameableTrait;
-use app\components\RelationIdsBehavior;
+use app\components\DeleteRatingBehavior;
+use grozzzny\admin\components\RelationIdsBehavior;
 use grozzzny\admin\components\images\AdminImages;
 use grozzzny\admin\helpers\Image;
 use grozzzny\admin\helpers\StringHelper;
@@ -44,6 +45,8 @@ use yii\helpers\ArrayHelper;
  * @property-read boolean $isOpenRegistration
  * @property-read boolean $isActive
  * @property-read AdminImages $images
+ * @property-read Rating[] $ratingsTeames
+ * @property-read TeamesEventsRel[] $teamesEventsRel
  */
 class Events extends \yii\db\ActiveRecord
 {
@@ -89,6 +92,9 @@ class Events extends \yii\db\ActiveRecord
                 'relationName' => 'teames',
                 'attribute' => 'teames_ids',
             ],
+            'deleteRating' => [
+                'class' => DeleteRatingBehavior::class,
+            ]
         ]);
     }
 
@@ -190,7 +196,12 @@ class Events extends \yii\db\ActiveRecord
 
     public function getTeames()
     {
-        return $this->hasMany(Teames::className(), ['id' => 'team_id'])->viaTable('teames_events_rel', ['event_id' => 'id']);
+        return $this->hasMany(Teames::className(), ['id' => 'team_id'])->via('teamesEventsRel');
+    }
+
+    public function getTeamesEventsRel()
+    {
+        return $this->hasMany(TeamesEventsRel::className(), ['event_id' => 'id']);
     }
 
     public function getDescriptionShort()
@@ -232,5 +243,27 @@ class Events extends \yii\db\ActiveRecord
     public function getImages()
     {
         return $this->hasMany(AdminImages::className(), ['item_id' => 'id'])->where(['key' => 'events']);
+    }
+
+    public function getRatingsTeames()
+    {
+        $arr = [];
+
+        foreach ($this->teames as $team){
+            $rating = Rating::find()->andWhere(['event_id' => $this->id, 'team_id' => $team->id])->one();
+            if(!empty($rating)){
+                $arr[] = $rating;
+            } else {
+                $rating = Yii::createObject([
+                    'class' => Rating::class,
+                    'event_id' => $this->id,
+                    'team_id' => $team->id,
+                ]);
+                $rating->save();
+                $arr[] = $rating;
+            }
+        }
+
+        return $arr;
     }
 }

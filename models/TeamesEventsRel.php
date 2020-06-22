@@ -3,26 +3,25 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "rating".
+ * This is the model class for table "teames_events_rel".
  *
- * @property int $id
- * @property int|null $event_id
  * @property int|null $team_id
- * @property int|null $value
+ * @property int|null $event_id
  *
  * @property Events $event
  * @property Teames $team
  */
-class Rating extends \yii\db\ActiveRecord
+class TeamesEventsRel extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'rating';
+        return 'teames_events_rel';
     }
 
     /**
@@ -31,7 +30,8 @@ class Rating extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_id', 'team_id', 'value'], 'integer'],
+            [['team_id', 'event_id'], 'integer'],
+            [['team_id', 'event_id'], 'unique', 'targetAttribute' => ['team_id', 'event_id']],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Events::className(), 'targetAttribute' => ['event_id' => 'id']],
             [['team_id'], 'exist', 'skipOnError' => true, 'targetClass' => Teames::className(), 'targetAttribute' => ['team_id' => 'id']],
         ];
@@ -43,10 +43,8 @@ class Rating extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('rus', 'ID'),
-            'event_id' => Yii::t('rus', 'Событие'),
-            'team_id' => Yii::t('rus', 'Команда'),
-            'value' => Yii::t('rus', 'Значение'),
+            'team_id' => Yii::t('rus', 'Team ID'),
+            'event_id' => Yii::t('rus', 'Event ID'),
         ];
     }
 
@@ -68,10 +66,5 @@ class Rating extends \yii\db\ActiveRecord
     public function getTeam()
     {
         return $this->hasOne(Teames::className(), ['id' => 'team_id']);
-    }
-    
-    public static function deleteRating($event_id, $team_id)
-    {
-        return Rating::deleteAll(['event_id' => $event_id, 'team_id' => $team_id]);
     }
 }

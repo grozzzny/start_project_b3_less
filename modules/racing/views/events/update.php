@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Events */
+/* @var $items \app\models\Rating[] */
 
 $this->title = Yii::t('app', 'Update Events: {name}', [
     'name' => $model->name,
@@ -31,6 +32,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
                     <?= $this->render('_form', [
                         'model' => $model,
+                        'items' => $items,
                     ]) ?>
 
                 </div>
