@@ -57,7 +57,7 @@ class SiteController extends Controller
         $events = Events::find()
             ->andWhere(['active' => true])
             ->andWhere(['loaction_id' => Yii::$app->user->selectedLocation->id])
-            ->andWhere(['>=', 'time_to', time()])
+            ->andWhere(['>=', 'time_to', time()+3600])
             ->orderBy(['time_from' => SORT_DESC])
             ->limit(3)
             ->all();
