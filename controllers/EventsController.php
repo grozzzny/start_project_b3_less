@@ -51,7 +51,7 @@ class EventsController extends Controller
 
         $provider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['time_from'=>SORT_ASC]],
+            'sort'=> ['defaultOrder' => ['time_from'=>SORT_DESC]],
             'pagination' => ['pageSize' => 50],
         ]);
 

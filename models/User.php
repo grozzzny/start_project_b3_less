@@ -19,6 +19,12 @@ class User extends \Da\User\Model\User
         return $this->hasOne(Teames::class, ['owner_id' => 'id']);
     }
 
+
+    public function getEvents()
+    {
+        return $this->hasMany(Events::class, ['created_by' => 'id']);
+    }
+
     public static function map()
     {
         return ArrayHelper::map(User::find()->all(), 'id', 'email');

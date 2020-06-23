@@ -49,10 +49,13 @@ use yii\helpers\ArrayHelper;
  * @property-read Rating[] $ratingsTeames
  * @property-read TeamesEventsRel[] $teamesEventsRel
  * @property-read boolean $isEndedEvent
+ * @property-read boolean $isOpenEdit
  */
 class Events extends \yii\db\ActiveRecord
 {
     use BlameableTrait;
+
+    const SCENARIO_USER = 'user';
 
     public $teames_ids = [];
 
@@ -87,7 +90,7 @@ class Events extends \yii\db\ActiveRecord
             'code' => [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => 'code'],
-                'value' => function ($event) {return $this->code = rand(10000, 99999);},
+                'value' => function ($event) {return $this->code = $this->generateCode();},
             ],
             'teames_ids' => [
                 'class' => RelationIdsBehavior::class,
@@ -126,6 +129,31 @@ class Events extends \yii\db\ActiveRecord
                 'league_id',
             ], 'required'],
             [['teames_ids'], 'safe'],
+            [[
+                'name',
+                'description',
+                'loaction_id',
+                'league_id',
+                'time_from',
+                'time_to',
+            ], 'required', 'on' => self::SCENARIO_USER],
+        ];
+    }
+
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_DEFAULT => parent::scenarios()['default'],
+            self::SCENARIO_USER => [
+                'name',
+                'image',
+                'description',
+                'loaction_id',
+                'league_id',
+                'time_from',
+                'time_to',
+                'code',
+            ],
         ];
     }
 
@@ -245,6 +273,11 @@ class Events extends \yii\db\ActiveRecord
         return strtotime($this->time_from) >= time();
     }
 
+    public function getIsOpenEdit()
+    {
+        return strtotime($this->time_from) + (24*60*60) >= time();
+    }
+
     public function getIsEndedEvent()
     {
         return strtotime($this->time_to) <= time();
@@ -270,5 +303,10 @@ class Events extends \yii\db\ActiveRecord
         }
 
         return $arr;
+    }
+
+    public function generateCode()
+    {
+        return rand(10000, 99999);
     }
 }
