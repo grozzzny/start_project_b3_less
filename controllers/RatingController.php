@@ -25,6 +25,7 @@ class RatingController extends Controller
                     ->select(['rating.id', 'event_id', 'team_id', 'value' => 'sum(value)'])
                     ->groupBy('team_id')
                     ->joinWith('event')
+                    ->orderBy(['value' => SORT_DESC])
                     ->andWhere(['loaction_id' => Yii::$app->user->selectedLocation->id])
                     ->all()
             ];
