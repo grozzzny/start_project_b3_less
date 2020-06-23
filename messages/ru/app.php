@@ -2,6 +2,11 @@
 return [
     'Main Menu' => 'Главное меню',
     'Exit' => 'Выйти',
+    'Save' => 'Сохранить',
+    'Upload' => 'Загрузить',
+    'Author' => 'Автор',
+    'Description' => 'Описание',
+    'No photos uploaded yet.' => 'Фотографии еще не загружены.',
     'Sign Out' => 'Выйти',
     'Admin dashboard' => 'Админ панель',
     'Disabled live edit' => 'Отключить режим редактирования',

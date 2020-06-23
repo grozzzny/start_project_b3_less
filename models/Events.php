@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\components\BlameableTrait;
 use app\components\DeleteRatingBehavior;
+use grozzzny\admin\components\images\AdminImagesBehavior;
 use grozzzny\admin\components\RelationIdsBehavior;
 use grozzzny\admin\components\images\AdminImages;
 use grozzzny\admin\helpers\Image;
@@ -44,7 +45,7 @@ use yii\helpers\ArrayHelper;
  * @property-read Teames[] $teames
  * @property-read boolean $isOpenRegistration
  * @property-read boolean $isActive
- * @property-read AdminImages $images
+ * @property-read AdminImages[] $images
  * @property-read Rating[] $ratingsTeames
  * @property-read TeamesEventsRel[] $teamesEventsRel
  * @property-read boolean $isEndedEvent
@@ -95,6 +96,9 @@ class Events extends \yii\db\ActiveRecord
             ],
             'deleteRating' => [
                 'class' => DeleteRatingBehavior::class,
+            ],
+            'images' => [
+                'class' => AdminImagesBehavior::class,
             ]
         ]);
     }
@@ -244,11 +248,6 @@ class Events extends \yii\db\ActiveRecord
     public function getIsEndedEvent()
     {
         return strtotime($this->time_to) <= time();
-    }
-
-    public function getImages()
-    {
-        return $this->hasMany(AdminImages::className(), ['item_id' => 'id'])->where(['key' => 'events']);
     }
 
     public function getRatingsTeames()
