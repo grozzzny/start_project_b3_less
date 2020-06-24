@@ -6,6 +6,7 @@ use grozzzny\admin\widgets\file_input\ImageInputWidget;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Modal;
 use yii\web\View;
+use yii\widgets\MaskedInput;
 
 /**
  * @var View $this
@@ -43,6 +44,10 @@ Modal::end();
     <?= $form->field($model, 'email')->textInput(['disabled' => !Yii::$app->user->isGuest])?>
 
     <?= $form->field($model, 'name')?>
+
+    <?= $form->field($model,'phone')
+        ->widget(MaskedInput::className(),['mask'=>'+7 999 999-99-99'])
+        ->textInput(['placeholder'=>'+7 ___ ___-__-__']);?>
 
     <?= $form->field($model, 'image')->widget(ImageInputWidget::className()) ?>
 

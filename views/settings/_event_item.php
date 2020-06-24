@@ -42,6 +42,9 @@ use yii\web\View;
         <? endif;?>
 
         <? if($model->isOpenRegistration):?>
+        <a href="<?=Url::to(['/settings/event-teames', 'id' => $model->id])?>" class="btn btn-outline-black btn-block waves-effect waves-light mb-2">
+            <?= Yii::t('rus', 'Заявки')?>
+        </a>
         <a href="<?=Url::to(['/settings/event-delete', 'id' => $model->id])?>" class="btn btn-outline-black btn-block waves-effect waves-light mb-2">
             <?= Yii::t('rus', 'Удалить')?>
         </a>

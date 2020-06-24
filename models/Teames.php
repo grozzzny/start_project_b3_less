@@ -27,6 +27,7 @@ use yii\helpers\ArrayHelper;
  * @property Rating[] $ratings
  * @property User $owner
  * @property boolean $isActive
+ * @property string $phone [varchar(255)]
  */
 class Teames extends \yii\db\ActiveRecord
 {
@@ -72,9 +73,10 @@ class Teames extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 255],
             [['image'], 'image'],
             [['owner_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['owner_id' => 'id']],
-            [['email', 'name'], 'required', 'on' => self::SCENARIO_CREATE],
-            [['name'], 'required', 'on' => self::SCENARIO_EDIT_USER],
+            [['email', 'name', 'phone'], 'required', 'on' => self::SCENARIO_CREATE],
+            [['name', 'phone'], 'required', 'on' => self::SCENARIO_EDIT_USER],
             [['email'], 'email'],
+            ['phone', 'match', 'pattern' => '/\+[0-9] [0-9]{3} [0-9]{3}-[0-9]{2}-[0-9]{2}$/i', 'message' => 'Не верный формат номера телефона'],
             [['email'], 'validatorUniqueUser'],
             [['email'], 'validatorUniqueTeam'],
         ];
@@ -114,6 +116,7 @@ class Teames extends \yii\db\ActiveRecord
             'created_by' => Yii::t('rus', 'Создан'),
             'updated_by' => Yii::t('rus', 'Обновлен'),
             'email' => Yii::t('rus', 'Электронный адрес'),
+            'phone' => Yii::t('rus', 'Телефон (Для организаторов)'),
         ];
     }
 
@@ -125,10 +128,12 @@ class Teames extends \yii\db\ActiveRecord
                 'email',
                 'name',
                 'image',
+                'phone',
             ],
             self::SCENARIO_EDIT_USER => [
                 'name',
                 'image',
+                'phone',
             ],
         ];
     }

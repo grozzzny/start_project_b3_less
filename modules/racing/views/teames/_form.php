@@ -6,6 +6,7 @@ use grozzzny\admin\widgets\file_input\ImageInputWidget;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
+use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Teames */
@@ -26,6 +27,10 @@ use yii\bootstrap4\ActiveForm;
     ]) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model,'phone')
+        ->widget(MaskedInput::className(),['mask'=>'+7 999 999-99-99'])
+        ->textInput(['placeholder'=>'+7 ___ ___-__-__']);?>
 
     <?= $form->field($model, 'image')->widget(ImageInputWidget::className()) ?>
 

@@ -6,6 +6,7 @@ use grozzzny\admin\widgets\file_input\ImageInputWidget;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
+use yii\widgets\MaskedInput;
 
 /**
  * @var View $this
@@ -32,6 +33,10 @@ $this->title = $page->seo->get('title', $page->name);
             <?= $form->field($model, 'image')->widget(ImageInputWidget::className()) ?>
 
             <?= $form->field($model, 'name') ?>
+
+            <?= $form->field($model,'phone')
+                ->widget(MaskedInput::className(),['mask'=>'+7 999 999-99-99'])
+                ->textInput(['placeholder'=>'+7 ___ ___-__-__']);?>
 
             <div class="my-3">
                 <?= $this->render('../layouts/_alerts')?>

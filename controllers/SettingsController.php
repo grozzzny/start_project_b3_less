@@ -189,6 +189,32 @@ class SettingsController extends Controller
         return $this->render('event-rating', ['page' => $page, 'model' => $model, 'items' => $items]);
     }
 
+    public function actionEventTeames($id)
+    {
+        $page = AdminPages::get('page-settings-event-teames');
+
+        $model = Events::find()
+            ->andWhere(['id' => $id])
+            ->andWhere(['created_by' => Yii::$app->user->id])
+            ->one();
+
+        if(empty($model)) throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+
+        if(!$model->isOpenRegistration) throw new ForbiddenHttpException(Yii::t('rus', 'Доступ ограничен'));
+
+        if($model->load(Yii::$app->request->post())){
+            if($model->save()){
+                return $this->redirect(['/settings/events']);
+            } else {
+                foreach ($model->errors as $messages){
+                    foreach ($messages as $message) Yii::$app->session->addFlash('danger', $message);
+                }
+            }
+        }
+
+        return $this->render('event-teames', ['page' => $page, 'model' => $model]);
+    }
+
     public function actionEventPhoto($id)
     {
         $page = AdminPages::get('page-settings-event-photo');
