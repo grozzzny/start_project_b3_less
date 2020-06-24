@@ -58,7 +58,7 @@ class SiteController extends Controller
             ->andWhere(['active' => true])
             ->andWhere(['loaction_id' => Yii::$app->user->selectedLocation->id])
             ->andWhere(['>=', 'time_to', time()-3600])
-            ->orderBy(['time_from' => SORT_DESC])
+            ->orderBy(['time_from' => SORT_ASC])
             ->limit(3)
             ->all();
 
