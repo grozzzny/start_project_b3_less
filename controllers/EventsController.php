@@ -15,6 +15,7 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class EventsController extends Controller
 {
@@ -31,7 +32,7 @@ class EventsController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['add-team', 'delete-team'],
+                        'actions' => ['add-team', 'delete-team', 'code'],
                         'roles' => ['@'],
                         'verbs' => ['post'],
                         'matchCallback' => function ($rule, $action){
@@ -84,6 +85,17 @@ class EventsController extends Controller
         $model->link('teames', Yii::$app->user->identity->team);
 
         return $this->redirect(['/events/'.$model->id]);
+    }
+
+    public function actionCode($id)
+    {
+        $model = Events::findOne($id);
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $code = Yii::$app->request->post('code');
+
+        return $model->code == $code;
     }
 
     public function actionDeleteTeam($id)

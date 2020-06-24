@@ -91,6 +91,25 @@ $this->title = $model->name;
         <?= $this->render('_form_create_btn')?>
     <? else:?>
         <?= $this->render('_images', ['images' => $images])?>
+
+        <?
+        $url_code = Url::to(['/events/code', 'id' => $model->id]);
+        $code = $model->code;
+        $js = <<<JS
+            setInterval(function() {
+              $.ajax({
+                  type: "POST",
+                  url: '$url_code',
+                  data: {code:'$code'},
+                  success: function(result){
+                      if(result === false) window.location.reload();
+                  }
+              });
+            }, 5000);
+JS;
+        $this->registerJs($js);
+        ?>
+
     <? endif;?>
 <? endif;?>
 

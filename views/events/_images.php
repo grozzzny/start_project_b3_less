@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\web\View;
 
 /**
@@ -26,10 +27,13 @@ $this->registerAssetBundle(grozzzny\depends\fancybox\FancyboxAsset::class);
                     <div class="mdb-lightbox no-margin row">
 
                         <? foreach ($images as $image):?>
-                            <figure class="col-md-4">
+                            <figure class="col-md-4 js-block-image">
                                 <a href="<?=$image->file?>" data-fancybox="group">
                                     <img alt="picture" src="<?=$image->getImage(500)?>" class="img-fluid" />
                                 </a>
+                                <button class="btn btn-outline-black btn-block waves-effect waves-light mb-2 js-hidden-image">
+                                    <?= Yii::t('rus', 'Скрыть')?>
+                                </button>
                             </figure>
                         <? endforeach;?>
 
@@ -41,16 +45,14 @@ $this->registerAssetBundle(grozzzny\depends\fancybox\FancyboxAsset::class);
 
 </div>
 
-<script>
-    $("a[data-fancybox]").attr('rel', 'gallery').fancybox({
-        loop : true,
-        closeClick : false,
-        nextEffect : 'none',
-        prevEffect : 'none',
-        openEffect : 'elastic',
-        closeEffect : 'elastic',
-        openEasing : 'swing',
-        closeEasing : 'swing'
-    });
-</script>
+<?
+$js = <<<JS
+    (function() {
+      $('.js-hidden-image').on('click', function() {
+         $(this).parents('.js-block-image').remove();
+      });
+    })();
+JS;
+$this->registerJs($js);
+?>
 
