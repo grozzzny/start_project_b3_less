@@ -50,6 +50,7 @@ use yii\helpers\ArrayHelper;
  * @property-read TeamesEventsRel[] $teamesEventsRel
  * @property-read boolean $isEndedEvent
  * @property-read boolean $isOpenEdit
+ * @property-read string $title
  */
 class Events extends \yii\db\ActiveRecord
 {
@@ -308,5 +309,10 @@ class Events extends \yii\db\ActiveRecord
     public function generateCode()
     {
         return rand(10000, 99999);
+    }
+
+    public function getTitle()
+    {
+        return $this->name . ' ' . $this->time_from;
     }
 }

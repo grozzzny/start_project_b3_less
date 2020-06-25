@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Events;
+use grozzzny\widgets\seo\Seo;
 use yii\bootstrap4\Alert;
 use yii\helpers\Url;
 
@@ -10,7 +11,17 @@ use yii\helpers\Url;
  * @var \grozzzny\admin\components\images\AdminImages[] $images
  */
 
-$this->title = $model->name;
+$this->title = $model->title;
+
+Seo::widget([
+    'title' => $this->title,
+    'description' => $model->description,
+    'image' => $model->getImage(600, 350),
+    'image_width' => 600,
+    'image_height' => 315,
+    //'canonical' => Yii::$app->params['domain'] . '/events/'.$model->id,
+]);
+
 ?>
 
 <div class="container my-5 py-5">

@@ -8,4 +8,5 @@ return [
     'nophoto' => '/images/nophoto.png',
     'bsVersion' => '4.x',
     'logo' => '/images/logo.jpg',
+    'domain' => 'https://stick-racing.ru',
 ];
