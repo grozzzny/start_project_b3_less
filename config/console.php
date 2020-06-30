@@ -14,7 +14,6 @@ $config = [
             'migrationPath' => [
                 '@app/migrations',
                 '@grozzzny/admin/migrations',
-                '@app/modules/office/migrations',
                 '@yii/rbac/migrations',
             ],
             'migrationNamespaces' => [

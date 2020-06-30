@@ -6,7 +6,7 @@ $routes = require __DIR__ . '/routes.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'stick-racing.ru',
+    'name' => 'conditioner39.ru',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
@@ -41,46 +41,16 @@ $config = [
             'appendTimestamp' => true,
             'forceCopy' => false,
             'bundles' => [
-                'yii\bootstrap4\BootstrapAsset' => [
+                'yii\bootstrap\BootstrapAsset' => [
                     'basePath' => '@webroot',
                     'baseUrl' => '@web',
-                    'css' => ['scss/bootstrap/bootstrap.css'],
-                ],
-                'app\assets\MDBootstrapAsset' => [
-                    'basePath' => '@webroot',
-                    'baseUrl' => '@web',
-                    'css' => ['scss/mdb/mdb.css'],
+                    'css' => ['css/bootstrap/bootstrap.css'],
                 ],
             ],
         ],
-        'authClientCollection' => [
-            'class' => 'yii\authclient\Collection',
-            'clients' => [
-                'facebook' => [
-                    'class' => 'Da\User\AuthClient\Facebook',
-                    'clientId' => '2726285704320901',
-                    'clientSecret' => '6e9c64b3df512591489cbe0a8687b68d'
-                ],
-                'google' => [
-                    'class' => 'Da\User\AuthClient\Google',
-                    'clientId' => '788530037218-ok1irhaosnrq88rq3cikjn4aq547e722.apps.googleusercontent.com',
-                    'clientSecret' => 's3h1QWFfeQ7LLpsSBgd0f5O1',
-                ],
-                'vkontakte' => [
-                    'class' => 'Da\User\AuthClient\VKontakte',
-                    'clientId' => '7515489',
-                    'clientSecret' => 'WSRblQUEkX58lGLmSj17'
-                ],
-                'yandex' => [
-                    'class' => 'Da\User\AuthClient\Yandex',
-                    'clientId' => '5c7c9b8aa5c447658e174a3d09a6cec9',
-                    'clientSecret' => 'cc994955eeb34395ae92166c9111bab5'
-                ],
-            ]
-        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'L3KpFfD5f11ssRtv9qk7b-8nxol',
+            'cookieValidationKey' => 'L3KpF15sdf15sdf17b-8nxol',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -120,13 +90,6 @@ $config = [
             'nullDisplay' => '-',
             'timeZone' => 'Europe/Kaliningrad',
             'datetimeFormat' => 'dd.MM.yyyy HH:mm',
-        ],
-        'view' => [
-            'theme' => [
-                'pathMap' => [
-                    '@Da/User/resources/views' => '@app/views/user'
-                ]
-            ]
         ],
         'user' => [
             'class' => 'app\components\User',
@@ -189,7 +152,7 @@ $config = [
                 }
             ],
             'generatePasswords' => true,
-            'switchIdentitySessionKey' => '651ds5d1Sdasd3frgdfg334',
+            'switchIdentitySessionKey' => '651ds123dasd3frgdfg334',
         ],
         'redactor' => [
             'class' => 'yii\redactor\RedactorModule',
@@ -223,10 +186,6 @@ $config = [
             'nav_items' => function() {
                 return [
                     [
-                        'label' => 'Стик-рейсинг',
-                        'url' => ['/admin/racing']
-                    ],
-                    [
                         'label' => 'Пользователи',
                         'url' => ['/user/admin'],
                         'visible' => Yii::$app->user->can('administrator')
@@ -242,9 +201,6 @@ $config = [
                 ];
             },
             'modules' => [
-                'racing' => [
-                    'class' => 'app\modules\racing\RacingModule',
-                ],
                 'pages' => [
                     'class' => 'grozzzny\admin\modules\pages\PagesModule',
                 ],

@@ -29,14 +29,5 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\web\JqueryAsset',
-        'yii\bootstrap4\BootstrapAsset',
-        'yii\bootstrap4\BootstrapPluginAsset',
-        'grozzzny\depends\bootstrap_datepicker\BootstrapDatepickerAsset',
-        'grozzzny\depends\fancybox\FancyboxAsset',
-        'app\assets\MDBootstrapAsset',
-        'app\assets\MDBootstrapPluginAsset',
-        'grozzzny\depends\wow_animations\WowAnimationsAsset',
-        'grozzzny\depends\jarallax\JarallaxAsset',
-        'grozzzny\depends\fontawesome5\FontAwesome5Asset',
     ];
 }
