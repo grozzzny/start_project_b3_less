@@ -6,7 +6,7 @@ $routes = require __DIR__ . '/routes.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'conditioner39.ru',
+    'name' => 'my-site.com',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
@@ -50,7 +50,7 @@ $config = [
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'L3KpF15sdf15sdf17b-8nxol',
+            'cookieValidationKey' => '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -88,7 +88,6 @@ $config = [
         ],
         'formatter' => [
             'nullDisplay' => '-',
-            'timeZone' => 'Europe/Kaliningrad',
             'datetimeFormat' => 'dd.MM.yyyy HH:mm',
         ],
         'user' => [
@@ -152,7 +151,7 @@ $config = [
                 }
             ],
             'generatePasswords' => true,
-            'switchIdentitySessionKey' => '651ds123dasd3frgdfg334',
+            'switchIdentitySessionKey' => '',
         ],
         'redactor' => [
             'class' => 'yii\redactor\RedactorModule',
@@ -173,7 +172,6 @@ $config = [
             'class' => 'grozzzny\admin\AdminModule',
             'render_toolbar_role' => 'user-management',
             'live_edit_role' => 'user-management',
-            'defaultRoute' => 'racing',
             'as access' => [
                 'class' => 'grozzzny\admin\behaviors\AccessControl',
                 'rules' => [
@@ -197,6 +195,26 @@ $config = [
                     [
                         'label' => 'Текстовые блоки',
                         'url' => ['/admin/text/default']
+                    ],
+                    [
+                        'label' => 'Преимущества',
+                        'url' => ['/admin/features/default']
+                    ],
+                    [
+                        'label' => 'Отзывы',
+                        'url' => ['/admin/testimonials/default']
+                    ],
+                    [
+                        'label' => 'Обратный звонок',
+                        'url' => ['/admin/feedback/default']
+                    ],
+                    [
+                        'label' => 'Ссылки соц. сетей',
+                        'url' => ['/admin/social_links/default']
+                    ],
+                    [
+                        'label' => 'Dashboard demo',
+                        'url' => 'https://www.bootstrapdash.com/demo/star-admin-free/jquery/src/demo_1/index.html',
                     ]
                 ];
             },
@@ -206,6 +224,18 @@ $config = [
                 ],
                 'text' => [
                     'class' => 'grozzzny\admin\modules\text\TextModule',
+                ],
+                'features' => [
+                    'class' => 'grozzzny\admin\modules\features\FeaturesModule',
+                ],
+                'testimonials' => [
+                    'class' => 'grozzzny\admin\modules\testimonials\TestimonialsModule',
+                ],
+                'feedback' => [
+                    'class' => 'grozzzny\admin\modules\feedback\FeedbackModule',
+                ],
+                'social_links' => [
+                    'class' => 'grozzzny\admin\modules\social_links\SocialLinksModule',
                 ],
             ],
         ],
