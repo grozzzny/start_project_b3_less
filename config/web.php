@@ -138,7 +138,7 @@ $config = [
                 'security' => [
                     'class' => 'Da\User\Controller\SecurityController',
                     'layout' => '@app/views/layouts/main_with_container',
-                    'on beforeAuthenticate' => ['app\components\SocialNetworkHandler', 'beforeAuthenticate']
+                    //'on beforeAuthenticate' => ['app\components\SocialNetworkHandler', 'beforeAuthenticate']
                 ],
                 'settings' => [
                     'class' => 'Da\User\Controller\SettingsController',

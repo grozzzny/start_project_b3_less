@@ -35,10 +35,10 @@ $isMainPage = Yii::$app->controller->route == 'site/index';
 <header>
 
     <!--Navbar-->
-    <?= $this->render('_navbar')?>
+    <?//= $this->render('_navbar')?>
 
     <? if($isMainPage):?>
-    <?= $this->render('../site/sections/_main_section')?>
+    <?//= $this->render('../site/sections/_main_section')?>
     <? endif; ?>
 
 </header>
@@ -53,7 +53,7 @@ $isMainPage = Yii::$app->controller->route == 'site/index';
 </main>
 <!--Main Layout-->
 
-<?= $this->render('_footer')?>
+<?//= $this->render('_footer')?>
 
 
 <?php $this->endBody() ?>
