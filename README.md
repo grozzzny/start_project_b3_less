@@ -29,17 +29,17 @@ https://my-site.com/admin
 
 #### Style / less structure
 - base
-_base.less
-_fonts.less
-_variables.less
+-- _base.less
+-- _fonts.less
+-- _variables.less
 - bootstrap
-_mixins.less
-_variables.less
-bootstrap.less
+-- _mixins.less
+-- _variables.less
+-- bootstrap.less
 - fonts
 - layout
-_footer.less
-_header.less
+-- _footer.less
+-- _header.less
 - pages
 - partials
 - sections
