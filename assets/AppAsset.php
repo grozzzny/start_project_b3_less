@@ -20,8 +20,8 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'https://fonts.googleapis.com/css?family=Nunito:300,400,700',
-        'scss/style.css',
+        'https://fonts.googleapis.com/css?family=Questrial|Raleway:700,900',
+        'css/styles.css',
     ];
     public $js = [
         'js/scripts.js'
@@ -29,5 +29,7 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
     ];
 }

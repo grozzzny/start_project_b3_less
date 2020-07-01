@@ -1,0 +1,15 @@
+@charset "UTF-8";
+/**
+ * text-content
+ */
+.text-content,
+.text-content * {
+  font-family: inherit !important;
+}
+.text-content img {
+  max-width: 100%;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+/*# sourceMappingURL=styles.css.map */
