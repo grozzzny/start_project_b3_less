@@ -1,2 +1,6 @@
 User-agent: *
 Disallow:
+#Disallow: /
+
+#Host: https://my-site.ru
+#Sitemap: https://my-site.ru/sitemap.xml
