@@ -90,6 +90,13 @@ $config = [
             'nullDisplay' => '-',
             'datetimeFormat' => 'dd.MM.yyyy HH:mm',
         ],
+        'view' => [
+            'class' => '\rmrevin\yii\minify\View',
+            'enableMinify' => !in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1','::1']),
+            'minifyOutput' => true,
+            'forceCharset' => 'UTF-8',
+            'compressOptions' => ['extra' => true],
+        ],
         'user' => [
             'class' => 'app\components\User',
             'enableAutoLogin' => true,

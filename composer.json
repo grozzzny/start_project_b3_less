@@ -23,7 +23,9 @@
         "kartik-v/yii2-widget-datepicker": "@dev",
         "kartik-v/yii2-widget-datetimepicker": "*",
         "unclead/yii2-multiple-input": "~2.0",
-        "grozzzny/widgets": "dev-master"
+        "grozzzny/widgets": "dev-master",
+        "grozzzny/catalog": "v3.x-dev",
+        "rmrevin/yii2-minify-view": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
