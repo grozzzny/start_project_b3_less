@@ -54,6 +54,15 @@ $config = [
     'modules' => [
         // yii user/create <email> <username> [password] [role]
         'user' =>  Da\User\Module::class,
+        'sitemap' => [
+            'class' => 'grozzzny\sitemap\Module',
+            'domain' => 'https://my-site.ru',
+            'generatedByLink' => 'https://pr-kenig.ru',
+            'generatedByName' => 'PRkenig',
+            'controllerMap' => [
+                'console' => 'app\commands\SitemapController'
+            ]
+        ]
     ],
     'params' => $params,
     /*
