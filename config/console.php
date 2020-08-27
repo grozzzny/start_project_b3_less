@@ -15,6 +15,7 @@ $config = [
                 '@app/migrations',
                 '@grozzzny/admin/migrations',
                 '@yii/rbac/migrations',
+                '@grozzzny/catalog/migrations',
             ],
             'migrationNamespaces' => [
                 'Da\User\Migration',
