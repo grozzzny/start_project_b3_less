@@ -96,6 +96,7 @@ $config = [
             'minifyOutput' => true,
             'forceCharset' => 'UTF-8',
             'compressOptions' => ['extra' => true],
+            'excludeBundles' => ['dosamigos\tinymce\TinyMceAsset']
         ],
         'user' => [
             'class' => 'app\components\User',
